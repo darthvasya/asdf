@@ -1,0 +1,10 @@
+<button type="button" rel="tooltip" title="Description" class="btn btn-success" data-toggle="collapse" [attr.data-target]="'#itemVariantsDescription' + shopItem.id">
+    <i class="material-icons">description</i>
+</button>
+
+<button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary" data-toggle="collapse" [attr.data-target]="'#changeItem' + shopItem.id">
+    <i class="material-icons">edit</i>
+</button>
+<button type="button" rel="tooltip" title="Remove" class="btn btn-danger" (click)="removeItem()">
+    <i class="material-icons">close</i>
+</button>

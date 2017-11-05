@@ -1,0 +1,31 @@
+<div class="row item">
+    <div class="col-md-2">
+        <img src="https://eatpizzafresca.com/images/pepperoni_pizza.jpg" alt="" class="item-image align-middle img-responsive">
+    </div>
+    <div class="col-md-6">
+
+        <h3 (click)="toggle(shopItem.id)">{{shopItem.name}}</h3>
+        <p class="itemDescription" (click)="toggle(shopItem.id)">{{shopItem.description}}</p>
+
+        <div [attr.id]="'changeItem' + shopItem.id" class="collapse table-responsive well">
+            <div>
+                <div class="form-group">
+                    <label class="control-label">Название</label>
+                    <input type="text" class="form-control " placeholder="Username" [(ngModel)]="shopItem.name">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Описание</label>
+                    <input type="text" class="form-control " placeholder="Username" [(ngModel)]="shopItem.description">
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-4">
+        <app-item-controls [shopItem]="shopItem"></app-item-controls>
+    </div>
+</div>
+
+<div class="row">
+    <app-item-size [attributeId]="'itemVariantsDescription' + shopItem.id" [itemSizes]="shopItem.sizes"></app-item-size>
+</div>

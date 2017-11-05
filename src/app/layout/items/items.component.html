@@ -1,0 +1,47 @@
+<div class="main-content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <!-- Start: Список категорий -->
+            <div *ngFor="let item of items">
+
+                <div class="list-group">
+                    <button class="list-group-item active" data-toggle="collapse" data-target="#" [attr.data-target]="'#category' + item.id">
+                        <h4 class="list-group-item-heading">{{item.categoryName}}</h4>
+                    </button>
+                </div>
+
+                <div [attr.id]="'category' + item.id" class="collapse in">
+                    <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#" [attr.data-target]="'#addcategory' + item.id">Добавить новую категорию</button>
+                    <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#" [attr.data-target]="'#editcategory' + item.id">Изменить категорию</button>
+
+                    <div [attr.id]="'addcategory' + item.id" class="collapse well">
+                        <app-category-add [category]="item"></app-category-add>
+                    </div>
+
+                    <div [attr.id]="'editcategory' + item.id" class="collapse well">
+                        <app-category-edit [category]="item"></app-category-edit>
+                    </div>
+
+                    <!-- Start: Список подкатегорий -->
+                    <div *ngFor="let itemCategory of item.categories">
+                        <div class="list-group">
+                            <button class="list-group-item" data-toggle="collapse" [attr.data-target]="'#category' + itemCategory.id">
+                                <h4 class="list-group-item-heading">{{itemCategory.categoryName}}</h4>
+                            </button>
+                        </div>
+                        <div [attr.id]="'category' + itemCategory.id" class="collapse">
+                            <app-add-item [category]="itemCategory" (onAddItemEvent)="onAddItemEvent($event)"></app-add-item>
+                            <div *ngFor="let shopItem of itemCategory.shopItems">
+                                <app-item-description [attributeId]="" [shopItem]="shopItem"></app-item-description>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- End: Список подкатегорий -->
+                </div>
+            </div>
+            <!-- End: Список категорий -->
+        </div>
+    </div>
+</div>
