@@ -33,7 +33,7 @@
                         <div [attr.id]="'category' + itemCategory.id" class="collapse">
                             <app-add-item [category]="itemCategory" (onAddItemEvent)="onAddItemEvent($event)"></app-add-item>
                             <div *ngFor="let shopItem of itemCategory.shopItems">
-                                <app-item-description [attributeId]="" [shopItem]="shopItem"></app-item-description>
+                                <app-item-description [attributeId]="" [shopItem]="shopItem" (onDeleted)="onDeleted($event)"></app-item-description>
                             </div>
                         </div>
 

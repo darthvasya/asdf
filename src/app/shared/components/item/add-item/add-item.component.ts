@@ -7,8 +7,7 @@ import { Picture } from './../../../models/Picture';
 
 import { ItemService } from './../../../core/item.service';
 import { LoaderService } from './../../../core/loader.service';
-
-declare var $: any;
+import { NotificationService } from './../../../core/notification.service';
 
 @Component({
     selector: 'app-add-item',
@@ -27,7 +26,7 @@ export class AddItemComponent implements OnInit {
     private imageShown: boolean = false;
     private currentImage: string = '';
 
-    constructor(private itemService: ItemService, private loaderService: LoaderService) {
+    constructor(private itemService: ItemService, private loaderService: LoaderService, private notificationService: NotificationService) {
 
     }
 
@@ -43,11 +42,11 @@ export class AddItemComponent implements OnInit {
                 this.currentImage = '';
                 this.imageShown = false;
                 this.loaderService.display(false);
-                this.showNotification("bottom", "center", "Товар успешно добавлен!", "success");
+                this.notificationService.showNotification("bottom", "center", "Товар успешно добавлен!", "success");
                 this.onAddItemEvent.emit(data);
             })
             .catch((err) => {
-                this.showNotification("bottom", "center", "Произошла ошибка добавления!", "danger");
+                this.notificationService.showNotification("bottom", "center", "Произошла ошибка добавления!", "danger");
             });
     }
 
@@ -72,22 +71,5 @@ export class AddItemComponent implements OnInit {
         };
 
         fileReader.readAsDataURL(this.model.picture);
-    }
-
-    showNotification(from, align, message, type) {
-        // const type = ['', 'info', 'success', 'warning', 'danger'];
-
-        $.notify({
-            icon: "notifications",
-            message: message
-
-        }, {
-                type: type,
-                timer: 4000,
-                placement: {
-                    from: from,
-                    align: align
-                }
-            });
     }
 }

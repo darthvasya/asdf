@@ -16,7 +16,7 @@ export class ItemService {
 
     constructor( @Inject(APP_CONFIG) private config: any, private http: Http) {
     }
-    
+
     addItem(item: AddItemData) {
         let formData: FormData = new FormData();
         formData.append('Picture', item.picture);
@@ -25,7 +25,7 @@ export class ItemService {
         formData.append('Description', item.description);
 
         return new Promise((resolve, reject) => {
-            return this.http.post(`${this.API_ROUTE}`, formData, HttpUtil.REQUEST_OPTIONS_WITH_CONTENT_TYPE_JSON)
+            return this.http.post(`${this.API_ROUTE}`, formData, HttpUtil.REQUEST_OPTIONS_WITH_CONTENT_TYPE_JSON_WITHOUT_CONTENT_TYPE)
                 .map(res => {
                     return res.json();
                 })
@@ -35,6 +35,21 @@ export class ItemService {
                 })
                 .subscribe((data) => {
                     resolve(data);
+                });
+        });
+    }
+
+    deleteItem(itemId: number) {
+
+        return new Promise((resolve, reject) => {
+            this.http.delete(`${this.API_ROUTE}/` + itemId, HttpUtil.REQUEST_OPTIONS_WITH_CONTENT_TYPE_JSON)
+                .catch((err) => {
+                    reject(err);
+                    return Observable.throw(err);
+                })
+                .subscribe((result) => {
+                    console.log(result);
+                    resolve(result.ok);
                 });
         });
     }

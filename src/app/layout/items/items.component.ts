@@ -23,6 +23,18 @@ export class ItemsComponent implements OnInit {
         console.log(1, data);
     }
 
+    onDeleted(itemId) {
+        this.loadCategories();
+    }
+
+    deleteItemFromItems() {
+
+    }
+
+    checkCategory(items) {
+        // if(items.shopItems.include)
+    }
+
     settings = {
         add: {
             addButtonContent: '<i class="material-icons">add_box</i>',

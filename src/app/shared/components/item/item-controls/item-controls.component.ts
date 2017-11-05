@@ -1,4 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+
+import { ItemService } from './../../../core/item.service';
+import { NotificationService } from './../../../core/notification.service';
+
 import _ from "lodash";
 
 @Component({
@@ -9,15 +13,23 @@ import _ from "lodash";
 export class ItemControlsComponent implements OnInit {
     @Input() shopItem: any;
 
-    constructor() { }
+    constructor(private itemService: ItemService, private notificationService: NotificationService) { }
 
     ngOnInit() {
     }
 
+    @Output() onDelete = new EventEmitter<number>();
+
     removeItem(itemId) {
-        //delete query to serve
         //update category
-        //al this logic in service
+        this.itemService.deleteItem(itemId)
+        .then((data) => {
+            this.onDelete.emit(itemId);
+            this.notificationService.showNotification("bottom", "center", "Товар успешно удален!", "success");
+        })
+        .catch((err) => {
+            this.notificationService.showNotification("bottom", "center", "Произошла ошибка удаления!", "danger");
+        });
         this.shopItem = {};
 
     }

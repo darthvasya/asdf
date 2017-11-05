@@ -1,5 +1,4 @@
-import { Injectable, Inject } from "@angular/core";
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, Injectable, Inject } from '@angular/core';
 import { APP_CONFIG } from "../../../configs/app.config";
 
 @Component({
@@ -12,19 +11,17 @@ export class ItemDescriptionComponent implements OnInit {
     @Input() shopItem: any;
     @Input() editRowId: any;
 
+    @Output() onDeleted = new EventEmitter<number>();
+
     private API_ROUTE: string = `${this.config.apiEndpoint}`;
 
     constructor( @Inject(APP_CONFIG) private config: any) {
-     }
+    }
 
     ngOnInit() {
     }
 
-    toggle(val) {
-        this.editRowId = val;
-    }
-
-    save() {
-        this.editRowId = 0;
+    onDelete(data) {
+        this.onDeleted.emit(data);
     }
 }

@@ -11,18 +11,19 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { LoaderService } from './shared/core/loader.service';
+import { NotificationService } from './shared/core/notification.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    AppRoutingModule
-  ],
-  providers: [AuthGuard, LoaderService],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpModule,
+        AppRoutingModule
+    ],
+    providers: [AuthGuard, LoaderService, NotificationService],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
