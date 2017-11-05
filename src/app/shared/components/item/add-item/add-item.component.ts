@@ -39,13 +39,15 @@ export class AddItemComponent implements OnInit {
         this.loaderService.display(true);
         this.itemService.addItem(this.model)
             .then((data) => {
+                this.model = new AddItemData("", "", -1, null);
+                this.currentImage = '';
+                this.imageShown = false;
                 this.loaderService.display(false);
-                console.log(data);
-                this.showNotification("bottom", "center");
+                this.showNotification("bottom", "center", "Товар успешно добавлен!", "success");
                 this.onAddItemEvent.emit(data);
             })
             .catch((err) => {
-
+                this.showNotification("bottom", "center", "Произошла ошибка добавления!", "danger");
             });
     }
 
@@ -72,17 +74,15 @@ export class AddItemComponent implements OnInit {
         fileReader.readAsDataURL(this.model.picture);
     }
 
-    showNotification(from, align) {
-        const type = ['', 'info', 'success', 'warning', 'danger'];
-
-        const color = Math.floor((Math.random() * 4) + 1);
+    showNotification(from, align, message, type) {
+        // const type = ['', 'info', 'success', 'warning', 'danger'];
 
         $.notify({
             icon: "notifications",
-            message: "Welcome to <b>Material Dashboard</b> - a beautiful freebie for every web developer."
+            message: message
 
         }, {
-                type: type[color],
+                type: type,
                 timer: 4000,
                 placement: {
                     from: from,

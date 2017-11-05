@@ -11,4 +11,13 @@ export class HttpUtil {
             'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('shop-app-user-data')).access_token
         })
     });
+
+    static REQUEST_OPTIONS_WITH_CONTENT_TYPE_JSON_AUTHORIZED = new RequestOptions({
+        headers: new Headers({
+            'Accept': 'application/json',
+            'Access-Control-Allow-Origin': '**',
+            'Access-Control-Allow-Methods': '**',
+            'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('shop-app-user-data')).access_token
+        })
+    });
 }

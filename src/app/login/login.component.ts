@@ -34,7 +34,7 @@ export class LoginComponent implements AfterViewInit {
   onLogging() {
     console.log(this.loginData);
     // this.validate();
-    if (this.isDataValid()) {
+    if (true) {//(this.isDataValid()) {
       this.authService.login(this.loginData)
         .then(() => {
           this.router.navigate(['/dashboard']);
