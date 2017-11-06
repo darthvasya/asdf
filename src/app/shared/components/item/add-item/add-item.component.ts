@@ -46,6 +46,7 @@ export class AddItemComponent implements OnInit {
                 this.onAddItemEvent.emit(data);
             })
             .catch((err) => {
+                this.loaderService.display(false);
                 this.notificationService.showNotification("bottom", "center", "Произошла ошибка добавления!", "danger");
             });
     }

@@ -5,6 +5,7 @@ import { items } from './items';
 import * as _ from "lodash";
 
 import { CategoriesService } from "./../../shared/core/categories.service";
+import { LoaderService } from './../../shared/core/loader.service';
 
 @Component({
     selector: 'app-items',
@@ -15,7 +16,7 @@ export class ItemsComponent implements OnInit {
 
     items: any;
 
-    constructor(private categoriesService: CategoriesService) {
+    constructor(private categoriesService: CategoriesService, private loaderService: LoaderService) {
         this.loadCategories();
     }
 
