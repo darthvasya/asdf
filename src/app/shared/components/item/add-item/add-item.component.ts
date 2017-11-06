@@ -17,9 +17,8 @@ import { NotificationService } from './../../../core/notification.service';
 export class AddItemComponent implements OnInit {
     @Input() category: any;
 
-    @Output('addItem') onAddItemEvent = new EventEmitter();
+    @Output() onAddItemEvent = new EventEmitter<any>();
 
-    @Output('publish') publishEvent = new EventEmitter<Picture>();
     model: AddItemData = new AddItemData("", "", -1, null);
     tags: string[] = [];
     private supportedFileTypes: string[] = ['image/png', 'image/jpeg'];

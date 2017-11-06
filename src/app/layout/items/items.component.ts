@@ -7,10 +7,13 @@ import * as _ from "lodash";
 import { CategoriesService } from "./../../shared/core/categories.service";
 import { LoaderService } from './../../shared/core/loader.service';
 
+import { SortPipe } from './../../shared/pipes/sort.pipe';
+
 @Component({
     selector: 'app-items',
     templateUrl: './items.component.html',
-    styleUrls: ['./items.component.css']
+    styleUrls: ['./items.component.css'],
+    pipes: [SortPipe]
 })
 export class ItemsComponent implements OnInit {
 
@@ -21,27 +24,38 @@ export class ItemsComponent implements OnInit {
     }
 
     onAddItemEvent(data) {
-        console.log("DSASDADSASADDSADSA");
-        this.loadCategories();
-        console.log(1, data);
+        this.getCategoryById(data.categoryId, this.items, data);
+    }
+
+    getCategoryById(categoryId, categories, element) {
+        categories.forEach(item => {
+            this.checkCategoryToAdd(item, categoryId, element);
+        });
+    }
+
+    checkCategoryToAdd(category, categoryId, element) {
+        if (category.id !== categoryId) {
+            this.getCategoryById(categoryId, category.categories, element);
+        }else {
+            category.shopItems.push(element);
+        }
     }
 
     onDeleted(itemId) {
         this.deleteItemFromItems(itemId, this.items);
-
     }
 
     deleteItemFromItems(itemId, category) {
         category.forEach(item => {
-            this.checkCategory(item, itemId);
+            this.checkCategoryToRemove(item, itemId);
         });
     }
 
-    checkCategory(category, itemId) {
-        let itemToDelete = _.filter(category.shopItems, {id: itemId});
+    checkCategoryToRemove(category, itemId) {
+        const itemToDelete = _.filter(category.shopItems, {id: itemId});
         if (itemToDelete.length < 1) {
             this.deleteItemFromItems(itemId, category.categories);
-        }else{
+        }else {
             _.remove(category.shopItems, {id: itemId});
         }
     }
