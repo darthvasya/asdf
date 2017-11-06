@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { items } from './items';
 
+import * as _ from "lodash";
+
 import { CategoriesService } from "./../../shared/core/categories.service";
 
 @Component({
@@ -24,15 +26,23 @@ export class ItemsComponent implements OnInit {
     }
 
     onDeleted(itemId) {
-        this.loadCategories();
-    }
-
-    deleteItemFromItems() {
+        this.deleteItemFromItems(itemId, this.items);
 
     }
 
-    checkCategory(items) {
-        // if(items.shopItems.include)
+    deleteItemFromItems(itemId, category) {
+        category.forEach(item => {
+            this.checkCategory(item, itemId);
+        });
+    }
+
+    checkCategory(category, itemId) {
+        let itemToDelete = _.filter(category.shopItems, {id: itemId});
+        if (itemToDelete.length < 1) {
+            this.deleteItemFromItems(itemId, category.categories);
+        }else{
+            _.remove(category.shopItems, {id: itemId});
+        }
     }
 
     settings = {
