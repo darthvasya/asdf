@@ -19,6 +19,7 @@ export class ItemsComponent implements OnInit {
     items: any;
 
     constructor(private categoriesService: CategoriesService, private loaderService: LoaderService) {
+
         this.loadCategories();
     }
 
@@ -91,12 +92,15 @@ export class ItemsComponent implements OnInit {
     }
 
     loadCategories() {
+        this.loaderService.display(true);
         this.categoriesService.getCategories(1)
             .then((items) => {
                 this.items = items;
+                this.loaderService.display(false);
                 console.log(items);
             })
             .catch((err) => {
+                this.loaderService.display(false);
                 console.log(err);
             });
     }
