@@ -13,6 +13,8 @@ import { ItemService } from './../../shared/core/item.service';
 import { APP_CONFIG, AppConfig } from "./../../shared/configs/app.config";
 import { environment } from '../../../environments/environment';
 
+import { SortPipe } from './../../shared/pipes/sort.pipe';
+
 import {
     ItemControlsComponent,
     ItemSizeComponent,
@@ -39,7 +41,8 @@ import {
         ItemControlsComponent,
         AddItemComponent,
         CategoryAddComponent,
-        CategoryEditComponent
+        CategoryEditComponent,
+        SortPipe
     ],
     providers: [
         CategoriesService,

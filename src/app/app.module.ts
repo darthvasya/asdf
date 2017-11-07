@@ -13,9 +13,11 @@ import { AppComponent } from './app.component';
 import { LoaderService } from './shared/core/loader.service';
 import { NotificationService } from './shared/core/notification.service';
 
+import { SortPipe } from './shared/pipes/sort.pipe';
+
 @NgModule({
     declarations: [
-        AppComponent,
+        AppComponent
     ],
     imports: [
         BrowserModule,
