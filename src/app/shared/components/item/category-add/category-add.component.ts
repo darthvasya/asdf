@@ -1,7 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { AddCategoryData } from './../../../models/AddCategoryData';
+import { AddCategoryModel } from './../../../models/AddCategoryModel';
+
+import { ItemService } from './../../../core/item.service';
+import { NotificationService } from './../../../core/notification.service';
+import { LoaderService } from './../../../core/loader.service';
 
 @Component({
     selector: 'app-category-add',
@@ -11,15 +15,15 @@ import { AddCategoryData } from './../../../models/AddCategoryData';
 export class CategoryAddComponent implements OnInit {
     @Input() category: any;
 
-    addCategoryData = new AddCategoryData("", "", "");
+    addCategoryModel = new AddCategoryModel("", null, null);
 
-    constructor() { }
+    constructor(private itemService: ItemService, private notificationService: NotificationService, private loaderService: LoaderService) { }
 
     ngOnInit() {
     }
 
-    addItem() {
-        //this.category.shopItems.push(this.addItemData);
-        console.log(this.addCategoryData);
+    addCategory() {
+        this.addCategoryModel.ParentCategoryId
+        console.log(this.addCategoryModel);
     }
 }

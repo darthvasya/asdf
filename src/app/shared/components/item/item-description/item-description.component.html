@@ -1,13 +1,14 @@
 <div class="row item">
     <div class="col-md-2">
-        <img src="https://eatpizzafresca.com/images/pepperoni_pizza.jpg" alt="" class="item-image align-middle img-responsive">
+        <img [src] = "API_ROUTE + shopItem.picture.path" alt="" class="item-image align-middle img-responsive">
     </div>
     <div class="col-md-6">
 
-        <h3 (click)="toggle(shopItem.id)">{{shopItem.name}}</h3>
-        <p class="itemDescription" (click)="toggle(shopItem.id)">{{shopItem.description}}</p>
+        <h3>{{shopItem.name}}</h3>
+        <p class="itemDescription">{{shopItem.description}}</p>
 
         <div [attr.id]="'changeItem' + shopItem.id" class="collapse table-responsive well">
+            <app-add-item [category]="itemCategory" (onAddItemEvent)="onAddItemEvent($event)"></app-add-item>
             <div>
                 <div class="form-group">
                     <label class="control-label">Название</label>
@@ -27,5 +28,5 @@
 </div>
 
 <div class="row">
-    <app-item-size [attributeId]="'itemVariantsDescription' + shopItem.id" [itemSizes]="shopItem.sizes"></app-item-size>
+    <app-item-size [attributeId]="'itemVariantsDescription' + shopItem.id" [itemSizes]="shopItem.sizes" [itemId]="shopItem.id"></app-item-size>
 </div>

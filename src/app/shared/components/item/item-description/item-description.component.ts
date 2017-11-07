@@ -9,19 +9,24 @@ import { APP_CONFIG } from "../../../configs/app.config";
 export class ItemDescriptionComponent implements OnInit {
     @Input() attributeId: string;
     @Input() shopItem: any;
-    @Input() editRowId: any;
+
 
     @Output() onDeleted = new EventEmitter<number>();
 
-    private API_ROUTE: string = `${this.config.apiEndpoint}`;
+    private API_ROUTE: string = `${this.config.apiUrl}`;
 
     constructor( @Inject(APP_CONFIG) private config: any) {
     }
 
     ngOnInit() {
+
     }
 
     onDelete(data) {
         this.onDeleted.emit(data);
+    }
+
+    updateItem() {
+
     }
 }

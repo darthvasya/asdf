@@ -26,14 +26,13 @@ export class AddItemComponent implements OnInit {
     private currentImage: string = '';
 
     constructor(private itemService: ItemService, private loaderService: LoaderService, private notificationService: NotificationService) {
-
     }
 
     ngOnInit() {
-
     }
 
     addItem() {
+        this.model.categoryId = this.category.id;
         this.loaderService.display(true);
         this.itemService.addItem(this.model)
             .then((data) => {
