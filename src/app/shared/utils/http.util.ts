@@ -9,7 +9,7 @@ export class HttpUtil {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '**',
             'Access-Control-Allow-Methods': '**',
-            'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('shop-app-user-data')).access_token
+            'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('shop-app-user-data')).access_token ? null : ""
         })
     });
 
@@ -18,7 +18,7 @@ export class HttpUtil {
             'Accept': 'application/json',
             'Access-Control-Allow-Origin': '**',
             'Access-Control-Allow-Methods': '**',
-            'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('shop-app-user-data')).access_token
+            'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('shop-app-user-data')).access_token ? null : ""
         })
     });
 }
