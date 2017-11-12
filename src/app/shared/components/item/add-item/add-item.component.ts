@@ -21,9 +21,9 @@ export class AddItemComponent implements OnInit {
 
     model: AddItemData = new AddItemData("", "", -1, null);
     tags: string[] = [];
-    private supportedFileTypes: string[] = ['image/png', 'image/jpeg'];
-    private imageShown: boolean = false;
-    private currentImage: string = '';
+    public supportedFileTypes: string[] = ['image/png', 'image/jpeg'];
+    public imageShown: boolean = false;
+    public currentImage: string = '';
 
     constructor(private itemService: ItemService, private loaderService: LoaderService, private notificationService: NotificationService) {
     }
@@ -49,7 +49,7 @@ export class AddItemComponent implements OnInit {
             });
     }
 
-    private dragFileAccepted(acceptedFile: Ng2FileDropAcceptedFile) {
+    dragFileAccepted(acceptedFile: Ng2FileDropAcceptedFile) {
         this.model.picture = acceptedFile.file;
         this.readFile(this.model.picture);
     }
