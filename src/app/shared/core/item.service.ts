@@ -22,7 +22,7 @@ export class ItemService {
         let formData: FormData = new FormData();
         formData.append('Picture', item.picture);
         formData.append('Name', item.name);
-        formData.append('CategoryId', item.categoryId);
+        formData.append('CategoryId', item.categoryId.toString());
         formData.append('Description', item.description);
 
         return new Promise((resolve, reject) => {
