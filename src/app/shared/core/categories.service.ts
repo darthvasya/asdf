@@ -9,7 +9,7 @@ import { HttpUtil } from "../utils/http.util";
 
 @Injectable()
 export class CategoriesService {
-    private API_ROUTE: string = `${this.config.apiEndpoint}/shops`;
+    private API_ROUTE: string = `${this.config.apiEndpoint}`;
     private _user: any;
 
     constructor( @Inject(APP_CONFIG) private config: any, private http: Http) {
@@ -18,7 +18,7 @@ export class CategoriesService {
 
     getCategories(shopId: number) {
         return new Promise((resolve, reject) => {
-            this.http.get(`${this.API_ROUTE}/${shopId}/categories`)
+            this.http.get(`${this.API_ROUTE}/categories`)
                 .map(res => res.json())
                 .catch((err) => {
                     reject(err);
