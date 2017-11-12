@@ -13,7 +13,6 @@ import { ItemService } from './../../shared/core/item.service';
 import { SizeService } from './../../shared/core/size.service';
 import { CategoryService } from './../../shared/core/category.service';
 
-import { APP_CONFIG, AppConfig } from "./../../shared/configs/app.config";
 import { environment } from '../../../environments/environment';
 
 import { SortPipe } from './../../shared/pipes/sort.pipe';
@@ -51,8 +50,7 @@ import {
         CategoriesService,
         ItemService,
         SizeService,
-        CategoryService,
-        { provide: APP_CONFIG, useValue: AppConfig }
+        CategoryService
     ]
 })
 export class ItemsModule { }

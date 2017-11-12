@@ -12,8 +12,12 @@ import { AppComponent } from './app.component';
 
 import { LoaderService } from './shared/core/loader.service';
 import { NotificationService } from './shared/core/notification.service';
+import { AuthService } from './shared/core/auth.service';
 
 import { SortPipe } from './shared/pipes/sort.pipe';
+
+
+import { APP_CONFIG, AppConfig } from "./shared/configs/app.config";
 
 @NgModule({
     declarations: [
@@ -25,7 +29,8 @@ import { SortPipe } from './shared/pipes/sort.pipe';
         HttpModule,
         AppRoutingModule
     ],
-    providers: [AuthGuard, LoaderService, NotificationService],
+    providers: [AuthGuard, LoaderService, NotificationService, AuthService,
+        { provide: APP_CONFIG, useValue: AppConfig }],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

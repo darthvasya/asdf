@@ -22,11 +22,6 @@ export class AppComponent implements OnInit {
     this.loaderService.status.subscribe((val: boolean) => {
       this.showLoader = val;
     });
-
-    const value = {
-        access_token: ""
-    };
-    localStorage.setItem('shop-app-user-data', JSON.stringify(value));
   }
 
   isMaps(path) {
