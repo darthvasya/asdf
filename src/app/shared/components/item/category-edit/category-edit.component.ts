@@ -1,7 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { AddCategoryData } from './../../../models/AddCategoryData';
+import { UpdateCategoryModel } from './../../../models/UpdateCategoryModel';
+
+import { CategoryService } from './../../../core/category.service';
+import { NotificationService } from './../../../core/notification.service';
+import { LoaderService } from './../../../core/loader.service';
 
 @Component({
     selector: 'app-category-edit',
@@ -11,15 +15,33 @@ import { AddCategoryData } from './../../../models/AddCategoryData';
 export class CategoryEditComponent implements OnInit {
     @Input() category: any;
 
-    addCategoryData = new AddCategoryData("", "", "");
+    updateCategoryModel = new UpdateCategoryModel(-1, "");
 
-    constructor() { }
+    constructor(private categoryService: CategoryService, private notificationService: NotificationService, private loaderService: LoaderService) { }
 
     ngOnInit() {
     }
 
-    addItem() {
-        //this.category.shopItems.push(this.addItemData);
-        console.log(this.addCategoryData);
+    editCategory() {
+        if(this.category.categoryId === undefined || this.category.categoryId === null) {
+            this.updateCategoryModel.CategoryId = this.category.id;
+        } else {
+            this.updateCategoryModel.CategoryId = this.category.categoryId;
+        }
+        console.log(this.category);
+        console.log(this.updateCategoryModel);
+        this.categoryService.editCategory(this.updateCategoryModel)
+        .then((data) => {
+            console.log(this.category);
+            this.category.categoryName = this.updateCategoryModel.CategoryName;
+            console.log(this.category);
+            this.updateCategoryModel = new UpdateCategoryModel(-1, null);
+            this.loaderService.display(false);
+            this.notificationService.showNotification("bottom", "center", "Категория успешно изменена!", "success");
+        })
+        .catch((err) => {
+            this.loaderService.display(false);
+            this.notificationService.showNotification("bottom", "center", "Произошла ошибка реадктирования!", "danger");
+        });
     }
 }
