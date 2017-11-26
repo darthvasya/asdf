@@ -42,6 +42,12 @@ export class AddItemComponent implements OnInit {
                 this.loaderService.display(false);
                 this.notificationService.showNotification("bottom", "center", "Товар успешно добавлен!", "success");
                 this.onAddItemEvent.emit(data);
+
+                if (this.category.shopItems === undefined)
+                    this.category.shopItems = [];
+
+                console.log(this.category);
+                this.category.shopItems.push(data);
             })
             .catch((err) => {
                 this.loaderService.display(false);
