@@ -20,6 +20,7 @@
                 <div [attr.id]="'category' + item.id" class="collapse">
                     <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#" [attr.data-target]="'#addcategory' + item.id">Добавить новую категорию</button>
                     <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#" [attr.data-target]="'#editcategory' + item.id">Изменить категорию</button>
+                    <button type="button" class="btn btn-danger" (click)="deleteCategory(item.id)">Удалить категорию</button>
 
                     <div [attr.id]="'addcategory' + item.id" class="collapse well">
                         <app-category-add [category]="item" (onAddCategoryEvent)="onAddCategoryEvent($event)"></app-category-add>
@@ -37,6 +38,11 @@
                             </button>
                         </div>
                         <div [attr.id]="'category' + itemCategory.id" class="collapse">
+                            <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#" [attr.data-target]="'#editSubCategory' + itemCategory.id">Изменить категорию</button>
+                            <button type="button" class="btn btn-danger" (click)="deleteCategory(itemCategory)">Удалить категорию</button>
+                            <div [attr.id]="'editSubCategory' + itemCategory.id" class="collapse well">
+                                <app-category-edit [category]="itemCategory"></app-category-edit>
+                            </div>
                             <app-add-item [category]="itemCategory" (onAddItemEvent)="onAddItemEvent($event)"></app-add-item>
                             <div *ngFor="let shopItem of itemCategory.shopItems">
                                 <app-item-description [attributeId]="" [shopItem]="shopItem" (onDeleted)="onDeleted($event)"></app-item-description>

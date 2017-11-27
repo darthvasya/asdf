@@ -5,6 +5,7 @@ import { ReplaySubject } from "rxjs";
 import { Subject, Observable } from 'rxjs';
 
 import { AddCategoryModel } from "../models/AddCategoryModel";
+import { UpdateCategoryModel } from "../models/UpdateCategoryModel";
 
 import { APP_CONFIG } from "../configs/app.config";
 import { HttpUtil } from "../utils/http.util";
@@ -38,12 +39,31 @@ export class CategoryService {
         });
     }
 
-    deleteItem(itemId: number) {
+    editCategory(item: UpdateCategoryModel) {
         let headers = HttpUtil.REQUEST_OPTIONS_WITH_CONTENT_TYPE_JSON;
         headers.headers.set("Authorization", "Bearer " + this.authService.token);
 
         return new Promise((resolve, reject) => {
-            this.http.delete(`${this.API_ROUTE}/` + itemId, HttpUtil.REQUEST_OPTIONS_WITH_CONTENT_TYPE_JSON)
+            return this.http.put(`${this.API_ROUTE}`, item, headers)
+                .map(res => {
+                    return res.json();
+                })
+                .catch((err) => {
+                    reject(err);
+                    return Observable.throw(err);
+                })
+                .subscribe((data) => {
+                    resolve(data);
+                });
+        });
+    }
+
+    deleteItem(itemId: number) {
+        let headers = HttpUtil.REQUEST_OPTIONS_WITH_CONTENT_TYPE_JSON_WITHOUT_CONTENT_TYPE;
+        headers.headers.set("Authorization", "Bearer " + this.authService.token);
+
+        return new Promise((resolve, reject) => {
+            this.http.delete(`${this.API_ROUTE}/` + itemId, headers)
                 .catch((err) => {
                     reject(err);
                     return Observable.throw(err);

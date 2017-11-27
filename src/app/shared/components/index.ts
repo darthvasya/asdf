@@ -7,3 +7,4 @@ export * from './item/item-controls/item-controls.component';
 export * from './item/add-item/add-item.component';
 export * from './item/category-add/category-add.component';
 export * from './item/category-edit/category-edit.component';
+export * from './item/edit-item/edit-item.component';

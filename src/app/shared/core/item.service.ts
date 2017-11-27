@@ -5,6 +5,7 @@ import { ReplaySubject } from "rxjs";
 import { Subject, Observable } from 'rxjs';
 
 import { AddItemData } from "../models/AddItemData";
+import { UpdateItemModel } from "../models/UpdateItemModel";
 
 import { APP_CONFIG } from "../configs/app.config";
 import { HttpUtil } from "../utils/http.util";
@@ -55,8 +56,42 @@ export class ItemService {
                     return Observable.throw(err);
                 })
                 .subscribe((result) => {
-                    console.log(result);
                     resolve(result.ok);
+                });
+        });
+    }
+
+    editItem(model: UpdateItemModel) {
+        let headers = HttpUtil.REQUEST_OPTIONS_WITH_CONTENT_TYPE_JSON_WITHOUT_CONTENT_TYPE;
+        headers.headers.set("Authorization", "Bearer " + this.authService.token);
+
+        return new Promise((resolve, reject) => {
+            this.http.put(`${this.API_ROUTE}/`, model, headers)
+                .catch((err) => {
+                    reject(err);
+                    return Observable.throw(err);
+                })
+                .subscribe((result) => {
+                    resolve(result.ok);
+                });
+        });
+    }
+
+    updatePicture(itemId: number, picture: File) {
+        let headers = HttpUtil.REQUEST_OPTIONS_WITH_CONTENT_TYPE_JSON_WITHOUT_CONTENT_TYPE;
+        headers.headers.set("Authorization", "Bearer " + this.authService.token);
+
+        let formData: FormData = new FormData();
+        formData.append('Picture', picture);
+
+        return new Promise((resolve, reject) => {
+            this.http.put(`${this.API_ROUTE}/` + itemId + `/Picture`, formData, headers)
+                .catch((err) => {
+                    reject(err);
+                    return Observable.throw(err);
+                })
+                .subscribe((result) => {
+                    resolve(result);
                 });
         });
     }

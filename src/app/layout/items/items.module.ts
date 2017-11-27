@@ -23,7 +23,8 @@ import {
     ItemDescriptionComponent,
     AddItemComponent,
     CategoryAddComponent,
-    CategoryEditComponent
+    CategoryEditComponent,
+    EditItemComponent
 } from './../../shared';
 
 
@@ -44,6 +45,7 @@ import {
         AddItemComponent,
         CategoryAddComponent,
         CategoryEditComponent,
+        EditItemComponent,
         SortPipe
     ],
     providers: [
