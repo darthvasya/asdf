@@ -1,5 +1,9 @@
 import { Component, ViewChild, OnInit } from "@angular/core";
 
+import { LoaderService } from "./../../shared/core/loader.service";
+import { NotificationService } from "./../../shared/core/notification.service";
+import { OrdersService } from "./../../shared/core/orders.service";
+
 declare const $: any;
 
 @Component({
@@ -7,10 +11,32 @@ declare const $: any;
     templateUrl: "./orders.component.html",
     styleUrls: ["./orders.component.css"]
 })
-export class OrdersComponent {
+export class OrdersComponent implements OnInit {
+    orders: any;
 
-    constructor() {
+    constructor(
+        private ordersService: OrdersService,
+        private notificationService: NotificationService,
+        private loaderService: LoaderService
+    ) {
+        this.loadOrders();
+    }
 
+    ngOnInit() {}
+
+    loadOrders() {
+        this.loaderService.display(true);
+        this.ordersService
+            .getOrders()
+            .then(orders => {
+                this.orders = orders;
+                this.loaderService.display(false);
+                console.log(orders);
+            })
+            .catch(err => {
+                this.loaderService.display(false);
+                console.log(err);
+            });
     }
 
     sortTable(n) {

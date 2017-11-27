@@ -6,41 +6,26 @@
         <table class="table table-hover" id="myTable2">
             <thead>
                 <tr>
-                    <th (click)="sortTable(0)">Firstname</th>
-                    <th (click)="sortTable(1)">Lastname</th>
-                    <th (click)="sortTable(2)">Email</th>
+                    <th (click)="sortTable(0)">Номер</th>
+                    <th (click)="sortTable(1)">Заказчик</th>
+                    <th (click)="sortTable(2)">Количество элементов</th>
+                    <th (click)="sortTable(3)">Время подтверждения</th>
+                    <th (click)="sortTable(4)">Время выдачи</th>
+                    <th (click)="sortTable(5)">Время готовности</th>
+                    <th (click)="sortTable(6)">Время получения заказа</th>
+                    <th (click)="sortTable(7)">Статус заказа</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Default</td>
-                    <td>Defaultson</td>
-                    <td>def@somemail.com</td>
-                </tr>
-                <tr class="success">
-                    <td>Success</td>
-                    <td>Doe</td>
-                    <td>john@example.com</td>
-                </tr>
-                <tr class="danger">
-                    <td>Danger</td>
-                    <td>Moe</td>
-                    <td>mary@example.com</td>
-                </tr>
-                <tr class="info">
-                    <td>Info</td>
-                    <td>Dooley</td>
-                    <td>july@example.com</td>
-                </tr>
-                <tr class="warning">
-                    <td>Warning</td>
-                    <td>Refs</td>
-                    <td>bo@example.com</td>
-                </tr>
-                <tr class="active">
-                    <td>Active</td>
-                    <td>Activeson</td>
-                    <td>act@example.com</td>
+                <tr *ngFor="let order of orders">
+                    <td>{{order.id}}</td>
+                    <td>{{order.customerId}}</td>
+                    <td>{{order.items.length}}</td>
+                    <td>{{order.orderAcceptTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+                    <td>{{order.orderIssuedTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+                    <td>{{order.orderReadyTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+                    <td>{{order.orderRegisterTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+                    <td>{{order.orderState}}</td>
                 </tr>
             </tbody>
         </table>
