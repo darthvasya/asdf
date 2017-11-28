@@ -46,7 +46,7 @@ export class EditItemComponent implements OnInit {
 
   ngOnInit() {
       this.imageShown = true;
-      this.currentImage = this.currentImage + this.item.picture.path;
+      this.currentImage = this.item.picture.path;
       this.model.Name = this.item.name;
       this.model.Description = this.item.description;
   }
@@ -57,7 +57,7 @@ export class EditItemComponent implements OnInit {
     if(this.pictureIsChanged) {
         this.itemService.updatePicture(this.item.id, this.modelPicture.picture)
             .then((data) => {
-                this.currentImage = this.API_ROUTE + JSON.parse(data["_body"]).path;
+                this.currentImage = JSON.parse(data["_body"]).path;
                 this.itemImage.path = JSON.parse(data["_body"]).path;
             })
             .catch((err) => {
