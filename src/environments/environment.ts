@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://165.227.168.147'
+  apiUrl: 'https://suvorov.co'
 };
