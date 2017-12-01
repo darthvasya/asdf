@@ -73,3 +73,7 @@ html {
   .custom-checkbox .custom-control-input:focus ~ .custom-control-indicator {
     box-shadow: none !important;
   }
+
+  .image {
+    width: 120px;
+  }

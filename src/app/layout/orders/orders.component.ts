@@ -7,6 +7,9 @@ import { OrdersService } from "./../../shared/core/orders.service";
 import * as _ from "lodash";
 declare const $: any;
 
+import 'rxjs/Rx';
+import {Observable} from 'rxjs/Rx';
+
 @Component({
     selector: "app-orders",
     templateUrl: "./orders.component.html",
@@ -25,6 +28,13 @@ export class OrdersComponent implements OnInit {
     ) {
         this.fillStatuses();
         this.loadOrders();
+
+        Observable.interval(2000)
+        .switchMap(() => this.ordersService.getOrder(16))
+            .subscribe((data) => {
+               console.log(data);// see console you get output every 5 sec
+            });
+
     }
 
     ngOnInit() {
@@ -51,11 +61,21 @@ export class OrdersComponent implements OnInit {
                 this.loaderService.display(false);
                 console.log(orders);
                 this.sortOrders('id');
+                this.getOrder();
             })
             .catch(err => {
                 this.loaderService.display(false);
                 console.log(err);
             });
+    }
+
+    getOrder() {
+        if(this.orders.length > 0) {
+            let lastId = this.orders[this.orders.length - 1].id;
+            console.log(lastId);
+        } 
+
+
     }
 
     changeStatus(orderId: number, statusId: number) {
