@@ -1,28 +1,29 @@
 <div class="main-content">
     <div class="container-fluid">
-        <h2>Contextual Classes</h2>
-        <p>Contextual classes can be used to color table rows or table cells. The classes that can be used are: .active, .success,
-            .info, .warning, and .danger.</p>
+        <h2>Заказы</h2>
+
 
         <div class="card mb-12">
-            <div class="card-header">Заказы</div>
             <div class="card-block p-0">
                 <table class="table table-bordered table-sm m-0" id="myTable2">
                     <thead class="">
                         <tr>
                             <!-- <th>s</th> -->
-                            <th (click)="sortTable(0)">№</th>
-                            <th (click)="sortTable(1)">Заказчик</th>
-                            <th (click)="sortTable(2)">Количество элементов</th>
-                            <th (click)="sortTable(3)">Время подтверждения</th>
-                            <th (click)="sortTable(4)">Время выдачи</th>
-                            <th (click)="sortTable(5)">Время готовности</th>
-                            <th (click)="sortTable(6)">Время получения заказа</th>
-                            <th (click)="sortTable(7)">Статус заказа</th>
+                            <th (click)="sortOrders('id')">№</th>
+                            <th (click)="sortOrders('customerId')">Заказчик</th>
+                            <th (click)="sortOrders('items.length')">Количество элементов </th>
+                            <th (click)="sortOrders('orderIssuedTime')">Время выдачи</th>
+                            <th (click)="sortOrders('orderReadyTime')">Время готовности</th>
+                            <th (click)="sortOrders('orderAcceptTime')">Время подтверждения</th>
+                            <th (click)="sortOrders('orderRegisterTime')">Время получения заказа</th>
+                            <th (click)="sortOrders('orderState')">Статус заказа</th>
+                            <!-- <i class="material-icons">reorder</i>  -->
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr *ngFor="let order of orders">
+                    <tbody *ngFor="let order of orders">
+                        <tr data-toggle="collapse" data-target="#" [attr.data-target]="'#itemsInfo' + order.id" [class.active]="order.orderState === 1"
+                            [class.warning]="order.orderState === 2" [class.info]="order.orderState === 3" [class.success]="order.orderState === 4"
+                            [class.danger]="order.orderState === 5">
                             <!-- <td>
                                 <label class="custom-control custom-checkbox">
                                     <input type="checkbox" class="custom-control-input">
@@ -30,31 +31,47 @@
                                 </label>
                             </td> -->
                             <td>{{order.id}}</td>
-                            <td>{{order.customerId}}</td>
+                            <td>{{order.customerId}}
+                                <button type="button" class="btn btn-info" data-toggle="modal">Open Modal</button>
+                            </td>
                             <td>{{order.items.length}}</td>
-                            <td>{{order.orderAcceptTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
                             <td>{{order.orderIssuedTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
                             <td>{{order.orderReadyTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+                            <td>{{order.orderAcceptTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
                             <td>{{order.orderRegisterTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
-                            <td>{{order.orderState}}
+                            <td>
+                                <!-- {{order.orderState}} -->
                                 <div class="dropdown">
-                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+                                    <button class="btn btn dropdown-toggle" type="button" data-toggle="dropdown"> {{statuses[order.orderState].statusRU}}
                                         <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="#">HTML</a>
+                                        <li (click)="changeStatus(order.id, 1)">
+                                            <a>Подтвердить</a>
                                         </li>
-                                        <li>
-                                            <a href="#">CSS</a>
+                                        <li (click)="changeStatus(order.id, 2)">
+                                            <a>Отклонить</a>
                                         </li>
-                                        <li>
-                                            <a href="#">JavaScript</a>
+                                        <li (click)="changeStatus(order.id, 3)">
+                                            <a>Готов</a>
+                                        </li>
+                                        <li (click)="changeStatus(order.id, 4)">
+                                            <a>Получен</a>
                                         </li>
                                     </ul>
                                 </div>
                             </td>
                         </tr>
+                        <tr [attr.id]="'itemsInfo' + order.id" class="row collapse well">
+                            <td colspan="8">
+                                <h3>Список товаров</h3>
+                                <div class="col-md-1">
+                                    <img src="https://s3.eu-central-1.amazonaws.com/shop-app-files/Shops/Test/Pictures/fb08bb6e-708b-4db2-a2cc-4343f7984c50_happy-sad-frog-05.jpg"
+                                        alt="" class="align-middle" width="20">
+                                </div>
+                            </td>
+                        </tr>
+
                     </tbody>
                 </table>
             </div>

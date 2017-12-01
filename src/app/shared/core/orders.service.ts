@@ -40,4 +40,22 @@ export class OrdersService {
                 });
         });
     }
+
+    changeStatus(orderId: number, statusId: number) {
+        let headers = HttpUtil.REQUEST_OPTIONS_WITH_CONTENT_TYPE_JSON;
+        headers.headers.set("Authorization", "Bearer " + this.authService.token);
+
+        let body = {OrderId: orderId, State: statusId}
+        return new Promise((resolve, reject) => {
+            this.http
+                .put(`${this.API_ROUTE}`, body, headers)
+                .catch(err => {
+                    reject(err);
+                    return Observable.throw(err);
+                })
+                .subscribe(() => {
+                    resolve();
+                });
+        });
+    }
 }
