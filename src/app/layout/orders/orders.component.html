@@ -1,0 +1,111 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <h2>Заказы</h2>
+
+
+        <div class="card mb-12">
+            <div class="card-block p-0">
+                <table class="table table-bordered table-sm m-0" id="myTable2">
+                    <thead class="">
+                        <tr>
+                            <!-- <th>s</th> -->
+                            <th (click)="sortOrders('id')">№</th>
+                            <th (click)="sortOrders('customerId')">Заказчик</th>
+                            <th (click)="sortOrders('items.length')">Количество элементов </th>
+                            <th (click)="sortOrders('orderIssuedTime')">Время выдачи</th>
+                            <th (click)="sortOrders('orderReadyTime')">Время готовности</th>
+                            <th (click)="sortOrders('orderAcceptTime')">Время подтверждения</th>
+                            <th (click)="sortOrders('orderRegisterTime')">Время получения заказа</th>
+                            <th (click)="sortOrders('orderState')">Статус заказа</th>
+                            <!-- <i class="material-icons">reorder</i>  -->
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let order of orders">
+                        <tr data-toggle="collapse" data-target="#" [attr.data-target]="'#itemsInfo' + order.id" [class.active]="order.orderState === 1"
+                            [class.warning]="order.orderState === 2" [class.info]="order.orderState === 3" [class.success]="order.orderState === 4"
+                            [class.danger]="order.orderState === 5">
+                            <!-- <td>
+                                <label class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input">
+                                    <span class="custom-control-indicator"></span>
+                                </label>
+                            </td> -->
+                            <td>{{order.id}}</td>
+                            <td>{{order.customerId}}
+                                <button type="button" class="btn btn-info" data-toggle="modal">Open Modal</button>
+                            </td>
+                            <td>{{order.items.length}}</td>
+                            <td>{{order.orderIssuedTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+                            <td>{{order.orderReadyTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+                            <td>{{order.orderAcceptTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+                            <td>{{order.orderRegisterTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+                            <td>
+                                <!-- {{order.orderState}} -->
+                                <div class="dropdown">
+                                    <button class="btn btn dropdown-toggle" type="button" data-toggle="dropdown"> {{statuses[order.orderState].statusRU}}
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li (click)="changeStatus(order.id, 1)">
+                                            <a>Подтвердить</a>
+                                        </li>
+                                        <li (click)="changeStatus(order.id, 2)">
+                                            <a>Отклонить</a>
+                                        </li>
+                                        <li (click)="changeStatus(order.id, 3)">
+                                            <a>Готов</a>
+                                        </li>
+                                        <li (click)="changeStatus(order.id, 4)">
+                                            <a>Получен</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr [attr.id]="'itemsInfo' + order.id" class="row collapse">
+                            <td colspan="8">
+                                <h3>Список товаров</h3>
+
+                                <div class="media"  *ngFor="let item of order.items">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object image" width="100px" src="https://s3.eu-central-1.amazonaws.com/shop-app-files/Shops/Test/Pictures/fb08bb6e-708b-4db2-a2cc-4343f7984c50_happy-sad-frog-05.jpg"
+                                            alt="...">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">{{item.shopItem.name}}</h4>
+                                        <p>{{item.shopItem.description}}</p>
+                                        <!-- {{item.shopItem.size.name}} ({{item.shopItem.size.measureValue}}{{item.shopItem.size.measure}} 35руб) * 1 шт. = 35 руб -->
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer p-0">
+                <nav aria-label="...">
+                    <ul class="pagination justify-content-end mt-3 mr-3">
+                        <li class="page-item disabled">
+                            <span class="page-link">Previous</span>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">1</a>
+                        </li>
+                        <li class="page-item active">
+                            <span class="page-link">2
+                                <span class="sr-only">(current)</span>
+                            </span>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">3</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>

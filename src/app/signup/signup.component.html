@@ -1,0 +1,123 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <br><br>
+        <div class="row">
+            <div class="col-md-offset-4 col-md-4">
+                <div class="card card-profile">
+                    <div class="card-avatar">
+                        <a href="#pablo">
+                                            <img class="img" src="https://pbs.twimg.com/profile_images/864485501943767044/RmyyCmtN.jpg" />
+                                        </a>
+                    </div>
+
+                    <div class="content">
+                        <h6 class="category text-gray">CEO / Co-Founder</h6>
+                        <h4 class="card-title">Leha Suvorov</h4>
+                        <p class="card-content">
+                            Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye
+                            I love Rick Owens’ bed design but the back is...
+                        </p>
+                        <a href="#pablo" class="btn btn-danger btn-round">Like</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+                <div class="card">
+                    <div class="card-header" data-background-color="red">
+                        <h4 class="title">Регистрация заведения</h4>
+                        <p class="category">Заполните все поля</p>
+                    </div>
+                    <div class="card-content">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Название компании, например "Пицца-Итальяна"</label>
+                                        <input type="text" class="form-control" [(ngModel)]="shopRegistrationData.name" (keypress)="validate()" name="companyname"
+                                            autofocus required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Email адресс</label>
+                                        <input type="email" class="form-control" [(ngModel)]="userRegistrationData.email" (keypress)="validate()" name="email" required pattern="[a-zA-Z_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Пароль</label>
+                                        <input type="text" class="form-control" [(ngModel)]="userRegistrationData.password" (keypress)="validate()" name="password" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Повторите пароль</label>
+                                        <input type="text" class="form-control" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Имя</label>
+                                        <input type="text" class="form-control" [(ngModel)]="userRegistrationData.name" (keypress)="validate()" name="name" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Фамилия</label>
+                                        <input type="text" class="form-control" [(ngModel)]="userRegistrationData.surname" (keypress)="validate()" name="surname" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Телефон</label>
+                                        <input type="text" class="form-control" [(ngModel)]="userRegistrationData.phone" (keypress)="validate()" name="phone" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Город</label>
+                                        <input type="text" class="form-control" [(ngModel)]="shopRegistrationData.town" (keypress)="validate()" name="town" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Адресс</label>
+                                        <input type="text" class="form-control" [(ngModel)]="shopRegistrationData.address" (keypress)="validate()" name="address" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Описание</label>
+                                        <div class="form-group form-black label-floating is-empty">
+                                            <label class="control-label"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
+                                            <textarea class="form-control" rows="5" [(ngModel)]="shopRegistrationData.description" (keypress)="validate()" name="description"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-danger pull-right" (click)="onRegistration()">Регистрация</button>
+                            <h5 class="pull-left">Уже есть аккаунт? <a [routerLink]="['/login']">Войти</a></h5>
+                            
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

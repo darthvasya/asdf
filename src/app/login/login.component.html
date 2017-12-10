@@ -1,0 +1,71 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <br><br>
+        <div class="row">
+            <div class="col-md-offset-4 col-md-4">
+                <div class="card card-profile">
+                    <div class="card-avatar">
+                        <a href="#pablo">
+                                            <img class="img" src="https://pbs.twimg.com/profile_images/864485501943767044/RmyyCmtN.jpg" />
+                                        </a>
+                    </div>
+
+                    <div class="content">
+                        <h6 class="category text-gray">CEO / Co-Founder</h6>
+                        <h4 class="card-title">Leha Suvorov</h4>
+                        <p class="card-content">
+                            Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye
+                            I love Rick Owens’ bed design but the back is...
+                        </p>
+                        <a href="#pablo" class="btn btn-danger btn-round">Like</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+                <div class="card">
+                    <div class="card-header" data-background-color="red">
+                        <h4 class="title">Login</h4>
+                        <p class="category">Enter your email and password</p>
+                    </div>
+                    <div class="card-content">
+                        <form action="index.html">
+                            <div class="row">
+                                <div *ngIf="errorMessage" class="alert alert-danger">
+                                    <div>{{errorMessage}}</div>
+                                </div>
+                                <div *ngIf="validationError.email.status" class="alert alert-danger">
+                                    <div>{{validationError.email.message}}</div>
+                                </div>
+                                <div *ngIf="validationError.password.status" class="alert alert-danger">
+                                    <div>{{validationError.password.message}}</div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Email address</label>
+                                        <input type="text" class="form-control" [(ngModel)]="loginData.email" (keypress)="validate()" name="email" autofocus>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Password</label>
+                                        <input type="text" class="form-control" class="form-control" [(ngModel)]="loginData.password" (keypress)="validate()" name="password">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <!-- <button type="submit" class="btn btn-danger pull-left" [routerLink]="['/signup']">Register</button> -->
+                                <h5 class="pull-left">Нет зарегистрированного заведения? <a [routerLink]="['/signup']">Регистрация</a></h5>
+                                <button type="submit" class="btn btn-danger pull-right" (click)="onLogging()">Login</button>
+                                <!-- [routerLink]="['/dashboard']" -->
+                            </div>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

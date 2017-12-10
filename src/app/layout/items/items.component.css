@@ -1,0 +1,27 @@
+hr {
+    background-color: black;
+    height: 2px;
+}
+
+.table th {
+    font-weight: bold;
+}
+
+ng2-smart-table {
+    font-size: 16px;
+}
+
+.input-group {
+    margin-left: -15%;
+    padding-left: 0px;
+}
+
+.td-actions button {
+    margin-right: 20px;
+    width: 35px;
+    height: 35px;
+}
+
+.itemDescription {
+    width: 100%;
+}
