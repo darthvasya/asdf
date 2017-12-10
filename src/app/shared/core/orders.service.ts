@@ -65,7 +65,7 @@ export class OrdersService {
 
         return new Promise((resolve, reject) => {
             this.http
-                .get(`${this.API_ROUTE}` + '?orderId=' + orderId, headers)
+                .get(`${this.API_ROUTE}` + '/' + orderId, headers)
                 .map(res => res.json())
                 .catch(err => {
                     reject(err);
