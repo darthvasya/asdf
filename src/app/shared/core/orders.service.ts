@@ -15,7 +15,14 @@ import { AuthService } from "./auth.service";
 export class OrdersService {
     private API_ROUTE: string = `${this.config.apiEndpoint}/orders`;
     private _user: any;
-
+    private OrderStatuses = {
+        Registered: 0,
+        Accepted: 1,
+        Declined: 2,
+        Ready: 3,
+        Issued: 4,
+        Canceled: 5
+    };
     constructor(
         @Inject(APP_CONFIG) private config: any,
         private http: Http,
@@ -39,5 +46,9 @@ export class OrdersService {
                     resolve(result);
                 });
         });
+    }
+
+    getOrderStatuses() {
+        return this.OrderStatuses;
     }
 }

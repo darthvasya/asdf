@@ -4,10 +4,10 @@
         <p>Contextual classes can be used to color table rows or table cells. The classes that can be used are: .active, .success,
             .info, .warning, and .danger.</p>
 
-        <div class="card mb-12">
+        <div class="card">
             <div class="card-header">Заказы</div>
-            <div class="card-block p-0">
-                <table class="table table-bordered table-sm m-0" id="myTable2">
+            <div class="card-block">
+                <table class="table table-bordered" id="myTable2">
                     <thead class="">
                         <tr>
                             <!-- <th>s</th> -->
@@ -36,24 +36,25 @@
                             <td>{{order.orderIssuedTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
                             <td>{{order.orderReadyTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
                             <td>{{order.orderRegisterTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
-                            <td>{{order.orderState}}
+                            <td>
                                 <div class="dropdown">
-                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{order.orderState}}
                                         <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu">
+                                        <li class="dropdown-header">Dropdown header 1</li>
                                         <li>
-                                            <a href="#">HTML</a>
+                                            <a href="#">Зарегистрирован</a>
                                         </li>
                                         <li>
-                                            <a href="#">CSS</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">JavaScript</a>
+                                            <a href="#">Зарегистрирован</a>
                                         </li>
                                     </ul>
                                 </div>
                             </td>
+                        </tr>
+                        <tr>
+                            <td>s</td>
                         </tr>
                     </tbody>
                 </table>

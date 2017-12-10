@@ -15,22 +15,20 @@ import { NotificationService } from './shared/core/notification.service';
 import { AuthService } from './shared/core/auth.service';
 
 import { SortPipe } from './shared/pipes/sort.pipe';
-
+import { KeysPipe } from "./shared/pipes/keys.pipe";
 
 import { APP_CONFIG, AppConfig } from "./shared/configs/app.config";
 
 @NgModule({
-    declarations: [
-        AppComponent
+    declarations: [AppComponent, KeysPipe],
+    imports: [BrowserModule, FormsModule, HttpModule, AppRoutingModule],
+    providers: [
+        AuthGuard,
+        LoaderService,
+        NotificationService,
+        AuthService,
+        { provide: APP_CONFIG, useValue: AppConfig }
     ],
-    imports: [
-        BrowserModule,
-        FormsModule,
-        HttpModule,
-        AppRoutingModule
-    ],
-    providers: [AuthGuard, LoaderService, NotificationService, AuthService,
-        { provide: APP_CONFIG, useValue: AppConfig }],
     bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

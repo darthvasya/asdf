@@ -4,6 +4,8 @@ import { LoaderService } from "./../../shared/core/loader.service";
 import { NotificationService } from "./../../shared/core/notification.service";
 import { OrdersService } from "./../../shared/core/orders.service";
 
+import { KeysPipe } from "./../../shared/pipes/keys.pipe";
+
 declare const $: any;
 
 @Component({
@@ -13,12 +15,14 @@ declare const $: any;
 })
 export class OrdersComponent implements OnInit {
     orders: any;
+    orderStatuses: any;
 
     constructor(
         private ordersService: OrdersService,
         private notificationService: NotificationService,
         private loaderService: LoaderService
     ) {
+        this.orderStatuses = this.ordersService.getOrderStatuses();
         this.loadOrders();
     }
 
