@@ -29,15 +29,15 @@ export class OrdersComponent implements OnInit {
         this.fillStatuses();
         this.loadOrders();
 
-        Observable.interval(2000)
-            .switchMap(() =>
-                this.ordersService.getOrder(
-                    this.orders[0].id
-                )
-            )
-            .subscribe(data => {
-                console.log(data); // see console you get output every 5 sec
-            });
+        // Observable.interval(2000)
+        //     .switchMap(() =>
+        //         this.ordersService.getOrder(
+        //             this.orders[0].id
+        //         )
+        //     )
+        //     .subscribe(data => {
+        //         console.log(data); // see console you get output every 5 sec
+        //     });
     }
 
     ngOnInit() {}
