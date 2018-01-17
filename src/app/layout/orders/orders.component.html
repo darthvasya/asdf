@@ -10,20 +10,32 @@
                         <tr>
                             <!-- <th>s</th> -->
                             <th (click)="sortOrders('id')">№</th>
-                            <th (click)="sortOrders('customerId')">Заказчик</th>
-                            <th (click)="sortOrders('items.length')">Количество элементов </th>
-                            <th (click)="sortOrders('orderIssuedTime')">Время выдачи</th>
-                            <th (click)="sortOrders('orderReadyTime')">Время готовности</th>
-                            <th (click)="sortOrders('orderAcceptTime')">Время подтверждения</th>
-                            <th (click)="sortOrders('orderRegisterTime')">Время получения заказа</th>
-                            <th (click)="sortOrders('orderState')">Статус заказа</th>
+                            <th (click)="sortOrders('customerId')">
+                                <p>Заказчик</p>
+                            </th>
+                            <th (click)="sortOrders('items.length')">
+                                <p>Количество элементов</p>
+                            </th>
+                            <th (click)="sortOrders('orderIssuedTime')">
+                                <p>Время выдачи</p>
+                            </th>
+                            <th (click)="sortOrders('orderReadyTime')">
+                                <p>Время готовности</p>
+                            </th>
+                            <th (click)="sortOrders('orderAcceptTime')">
+                                <p>Время подтверждения</p>
+                            </th>
+                            <th (click)="sortOrders('orderRegisterTime')">
+                                <p>Время получения заказа</p>
+                            </th>
+                            <th (click)="sortOrders('orderState')">
+                                <p>Статус заказа</p>
+                            </th>
                             <!-- <i class="material-icons">reorder</i>  -->
                         </tr>
                     </thead>
                     <tbody *ngFor="let order of orders">
-                        <tr [class.active]="order.orderState === 1"
-                            [class.warning]="order.orderState === 2" [class.info]="order.orderState === 3" [class.success]="order.orderState === 4"
-                            [class.danger]="order.orderState === 5">
+                        <tr [class.active]="order.orderState === 1" [class.warning]="order.orderState === 2" [class.info]="order.orderState === 3" [class.success]="order.orderState === 4" [class.danger]="order.orderState === 5">
                             <!-- <td>
                                 <label class="custom-control custom-checkbox">
                                     <input type="checkbox" class="custom-control-input">
@@ -62,28 +74,29 @@
                         </tr>
                         <tr [attr.id]="'itemsInfo' + order.id" class="row collapse">
                             <td colspan="8">
-                                <h3>Список товаров</h3>
+                                <h3 class="text-left font-weight-bold">Список товаров</h3>
 
                                 <div class="media" *ngFor="let item of order.items">
                                     <a class="pull-left" href="#">
                                         <img class="media-object image" width="100px" [src]="item.shopItem.picture.path" alt="...">
                                     </a>
                                     <div class="media-body">
-                                        <h4 class="media-heading">{{item.shopItem.name}}</h4>
-                                        <p>{{item.shopItem.description}}</p>
-                                        {{item.size.name}} ({{item.size.measureValue}}{{item.size.measure}} * {{item.count}} штук * {{item.size.price}} р ) = {{item.totalPrice}}
-                                        р
+                                        <h4 class="media-heading text-left">{{item.shopItem.name}}</h4>
+                                        <p class="text-left font-weight-light">{{item.shopItem.description}}</p>
+                                        <p class="text-left">{{item.size.name}} ({{item.size.measureValue}}{{item.size.measure}} * {{item.count}} штук * {{item.size.price}} р ) = {{item.totalPrice}} р</p>
                                     </div>
                                 </div>
-                                <hr> Сумма заказа: (sum)
+                                <hr> Сумма заказа:
+                                <span class="text-danger">(sum)</span>
                             </td>
                         </tr>
-                        <tr  [attr.id]="'customerInfo' + order.id" class="row collapse">
+                        <tr [attr.id]="'customerInfo' + order.id" class="row collapse">
                             <td colspan="8">
-                                <h3>Покупатель:</h3>
-                                {{order.customer.firstName}}
-                                <br>
-                                {{order.customer.phoneNumber}}
+                                <h3>
+                                    <p class="text-left"><i class="material-icons ">&#xE547;</i> Покупатель:</p>
+                                </h3>
+                                <p class="customer text-left"><i class="material-icons">sentiment_satisfied</i>{{order.customer.firstName}}</p>
+                                <p class="phone text-left"><i class="material-icons">call </i>{{order.customer.phoneNumber}}</p>
                             </td>
                         </tr>
 
@@ -91,27 +104,7 @@
                 </table>
             </div>
             <div class="card-footer p-0">
-                <nav aria-label="...">
-                    <ul class="pagination justify-content-end mt-3 mr-3">
-                        <li class="page-item disabled">
-                            <span class="page-link">Previous</span>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">1</a>
-                        </li>
-                        <li class="page-item active">
-                            <span class="page-link">2
-                                <span class="sr-only">(current)</span>
-                            </span>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">3</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                    </ul>
-                </nav>
+                <button type="button" class="btn btn-danger btnShowNext">Показать следующие записи</button>
             </div>
         </div>
     </div>
