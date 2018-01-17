@@ -3,12 +3,16 @@ import { Component, ViewChild, OnInit } from "@angular/core";
 import { LoaderService } from "./../../shared/core/loader.service";
 import { NotificationService } from "./../../shared/core/notification.service";
 import { OrdersService } from "./../../shared/core/orders.service";
+import { SignalRService } from "./../../shared/core/signalr.service";
 
 import * as _ from "lodash";
 declare const $: any;
 
 import "rxjs/Rx";
 import { Observable } from "rxjs/Rx";
+import { from } from "rxjs/observable/from";
+
+import { HubConnection, TransportType } from "@aspnet/signalr-client";
 
 @Component({
     selector: "app-orders",
@@ -21,10 +25,16 @@ export class OrdersComponent implements OnInit {
 
     statuses: any = [];
 
+    private hubConnection: HubConnection;
+    nick = "";
+    message = "";
+    messages: string[] = [];
+
     constructor(
         private ordersService: OrdersService,
         private notificationService: NotificationService,
-        private loaderService: LoaderService
+        private loaderService: LoaderService,
+        private signalrService: SignalRService
     ) {
         this.fillStatuses();
         this.loadOrders();
@@ -40,7 +50,31 @@ export class OrdersComponent implements OnInit {
         //     });
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+
+        this.hubConnection = new HubConnection(
+            "https://suvorov.co/ordersHub",
+            {
+                transport: TransportType.LongPolling
+            }
+        );
+
+        this.hubConnection
+            .start()
+            .then(() => {
+                this.hubConnection.invoke("RegisterConnection", 1);
+            })
+            .catch(err => console.log(err));
+
+                 this.hubConnection.on(
+                     "newOrder",
+                     (
+                         data
+                     ) => {
+                         console.log(data);
+                     }
+                 );
+    }
 
     sortOrders(property: string) {
         console.log(property);
