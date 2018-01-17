@@ -28,7 +28,7 @@ export class OrdersService {
 
         return new Promise((resolve, reject) => {
             this.http
-                .get(`${this.API_ROUTE}` + "?page" + 1 + "&pageSize=" + 200, headers)
+                .get(`${this.API_ROUTE}` + "?page" + 1 + "&pageSize=" + 5, headers)
                 .map(res => res.json())
                 .catch(err => {
                     reject(err);

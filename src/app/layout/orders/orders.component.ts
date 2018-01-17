@@ -93,7 +93,7 @@ export class OrdersComponent implements OnInit {
     }
 
     fillStatuses() {
-        this.statuses[0] = { statusRU: "Зарегистрирован", value: 0 };
+        this.statuses[0] = { statusRU: "Получен", value: 0 };
         this.statuses[1] = { statusRU: "Принят", value: 1 };
         this.statuses[2] = { statusRU: "Отклонен", value: 2 };
         this.statuses[3] = { statusRU: "Готов", value: 3 };
