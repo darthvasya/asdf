@@ -74,20 +74,24 @@ export class AuthService {
         });
     }
 
-    logout() {
-        return new Promise((resolve, reject) => {
-            this.http.post(`${this.AUTH_ROUTE}/logout?token=${this.token}`, null, HttpUtil.REQUEST_OPTIONS_WITH_CONTENT_TYPE_JSON)
-                .catch((err) => {
-                    reject(err);
-                    return Observable.throw(err);
-                })
-                .subscribe((res) => {
-                    this.userData = null;
-                    localStorage.setItem('isLogged', JSON.stringify(false));
-                    resolve();
-                });
+    // logout() {
+    //     return new Promise((resolve, reject) => {
+    //         this.http.post(`${this.AUTH_ROUTE}/logout?token=${this.token}`, null, HttpUtil.REQUEST_OPTIONS_WITH_CONTENT_TYPE_JSON)
+    //             .catch((err) => {
+    //                 reject(err);
+    //                 return Observable.throw(err);
+    //             })
+    //             .subscribe((res) => {
+    //                 this.userData = null;
+    //                 localStorage.setItem('isLogged', JSON.stringify(false));
+    //                 resolve();
+    //             });
 
-        });
+    //     });
+    // }
+    logout() {
+        this.userData = null;
+        localStorage.setItem('isLogged', '');
     }
 
     isLogged() {
