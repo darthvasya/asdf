@@ -2,7 +2,6 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { AuthService } from 'app/shared/core/auth.service';
-import { inject } from '@angular/core/testing';
 import { Router } from '@angular/router';
 
 @Component({
