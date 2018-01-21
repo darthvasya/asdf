@@ -28,13 +28,11 @@ export class LoginComponent implements AfterViewInit {
 
   }
 
-    ngOnInit() {
+    ngOnInit () {
     }
 
   onLogging() {
-    console.log(this.loginData);
-    // this.validate();
-    if (true) {//(this.isDataValid()) {
+    if (true) {
       this.authService.login(this.loginData)
         .then(() => {
           this.router.navigate(['/dashboard']);
@@ -54,25 +52,19 @@ export class LoginComponent implements AfterViewInit {
   }
 
   validateLogin() {
-    console.log(this.validationError);
     const username = this.loginData.email;
     const regxp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 
     if (!username || (username.length < 6 || username.length > 60) || (!regxp.test(username))) {
         if (!username) {
-            console.log(username + ' length:' + username.length);
             this.validationError.email.status = true;
             this.validationError.email.message = 'Введите имя пользователя';
         }
         if (username.length < 6 || username.length > 60) {
-            console.log('Length error');
-            console.log(username + ' length:' + username.length);
             this.validationError.email.status = true;
             this.validationError.email.message = 'Имя пользоваетля должно иметь не менее 6 и не более 24 символов';
         }
         if (!regxp.test(username)) {
-            console.log('Validate error');
-            console.log(username + ' length:' + username.length);
             this.validationError.email.status = true;
             this.validationError.email.message = 'Имя пользователя может ' +
                 'содержать буквы латинского алфавита (большие и маленькие), знак подчёркивания "_" и точку "."';
@@ -98,49 +90,6 @@ export class LoginComponent implements AfterViewInit {
         this.validationError.password.status = false;
       }
   }
-//   validate() {
-//     console.log(this.validationError);
-//     const username = this.loginData.email;
-//     const password = this.loginData.password;
-//     const regxp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-
-//     if (!username || (username.length < 6 || username.length > 60) || (!regxp.test(username))) {
-//         if (!username) {
-//             console.log(username + ' length:' + username.length);
-//             this.validationError.email.status = true;
-//             this.validationError.email.message = 'Введите имя пользователя';
-//         }
-//         if (username.length < 6 || username.length > 60) {
-//             console.log('Length error');
-//             console.log(username + ' length:' + username.length);
-//             this.validationError.email.status = true;
-//             this.validationError.email.message = 'Имя пользоваетля должно иметь не менее 6 и не более 24 символов';
-//         }
-//         if (!regxp.test(username)) {
-//             console.log('Validate error');
-//             console.log(username + ' length:' + username.length);
-//             this.validationError.email.status = true;
-//             this.validationError.email.message = 'Имя пользователя может ' +
-//                 'содержать буквы латинского алфавита (большие и маленькие), знак подчёркивания "_" и точку "."';
-//             }
-//         } else {
-//             this.validationError.email.status = false;
-//             this.validationError.email.message = 'Валидный';
-//         }
-
-//     if (!password || (password.length < 5 || password.length > 60)) {
-//         if (!password) {
-//             this.validationError.password.status = true;
-//             this.validationError.password.message = 'Введите пароль';
-//           }
-//           if (password.length < 5 || password.length > 60) {
-//             this.validationError.password.status = true;
-//             this.validationError.password.message = 'Пароль должен содержать не менее 6 и не более 60 символов';
-//           }
-//     } else {
-//         this.validationError.password.status = false;
-//       }
-//   }
 
   isDataValid() {
     return !this.validationError.password.status && !this.validationError.email.status;
