@@ -3,7 +3,7 @@ import { Component, ViewChild, OnInit } from "@angular/core";
 import { LoaderService } from "./../../shared/core/loader.service";
 import { NotificationService } from "./../../shared/core/notification.service";
 import { OrdersService } from "./../../shared/core/orders.service";
-//import { SignalRService } from "./../../shared/core/signalr.service";
+import { SignalRService } from "./../../shared/core/signalr.service";
 
 import * as _ from "lodash";
 declare const $: any;
@@ -53,29 +53,33 @@ export class OrdersComponent implements OnInit {
     }
 
     ngOnInit() {
-        // this.hubConnection = new HubConnection(
-        //     "https://suvorov.co/ordersHub",
-        //     {
-        //         transport: TransportType.LongPolling
-        //     }
-        // );
-        // this.hubConnection
-        //     .start()
-        //     .then(() => {
-        //         this.hubConnection.invoke("RegisterConnection", 1);
-        //     })
-        //     .catch(err => console.log(err));
-        //          this.hubConnection.on(
-        //              "newOrder",
-        //              (
-        //                  data
-        //              ) => {
-        //                  console.log(data);
-        //              }
-        //          );
+        this.hubConnection = new HubConnection("http://localhost:5000/chat", {
+            transport: TransportType.LongPolling
+        });
+        this.hubConnection
+            .start()
+            .then(() => console.log("Connection started!"))
+            .catch(err =>
+                console.log("Error while establishing connection :(")
+            );
+
+        this.hubConnection.on(
+            "sendToAll",
+            (nick: string, receivedMessage: string) => {
+                const text = `${nick}: ${receivedMessage}`;
+                console.log(text);
+            }
+        );
+    }
+
+    sendMessage(): void {
+        this.hubConnection
+            .invoke("sendToAll", "Vasya", "dadsasadsad")
+            .catch(err => console.error(err));
     }
 
     sortOrders(property: string) {
+            this.sendMessage();
         console.log(property);
         console.log(this.ordering);
         this.ordering = this.ordering ? false : true;
@@ -140,9 +144,9 @@ export class OrdersComponent implements OnInit {
     }
 
     getPastOrders() {
-        if(this.page >= 2) {
-        this.page -= 1;
-        this.loadOrders();
+        if (this.page >= 2) {
+            this.page -= 1;
+            this.loadOrders();
         }
     }
 }
