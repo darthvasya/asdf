@@ -3,7 +3,7 @@ import { Component, ViewChild, OnInit } from "@angular/core";
 import { LoaderService } from "./../../shared/core/loader.service";
 import { NotificationService } from "./../../shared/core/notification.service";
 import { OrdersService } from "./../../shared/core/orders.service";
-import { SignalRService } from "./../../shared/core/signalr.service";
+//import { SignalRService } from "./../../shared/core/signalr.service";
 
 import * as _ from "lodash";
 declare const $: any;
@@ -33,8 +33,8 @@ export class OrdersComponent implements OnInit {
     constructor(
         private ordersService: OrdersService,
         private notificationService: NotificationService,
-        private loaderService: LoaderService,
-        private signalrService: SignalRService
+        private loaderService: LoaderService
+        //private signalrService: SignalRService
     ) {
         this.fillStatuses();
         this.loadOrders();
@@ -52,28 +52,28 @@ export class OrdersComponent implements OnInit {
 
     ngOnInit() {
 
-        this.hubConnection = new HubConnection(
-            "https://suvorov.co/ordersHub",
-            {
-                transport: TransportType.LongPolling
-            }
-        );
+        // this.hubConnection = new HubConnection(
+        //     "https://suvorov.co/ordersHub",
+        //     {
+        //         transport: TransportType.LongPolling
+        //     }
+        // );
 
-        this.hubConnection
-            .start()
-            .then(() => {
-                this.hubConnection.invoke("RegisterConnection", 1);
-            })
-            .catch(err => console.log(err));
+        // this.hubConnection
+        //     .start()
+        //     .then(() => {
+        //         this.hubConnection.invoke("RegisterConnection", 1);
+        //     })
+        //     .catch(err => console.log(err));
 
-                 this.hubConnection.on(
-                     "newOrder",
-                     (
-                         data
-                     ) => {
-                         console.log(data);
-                     }
-                 );
+        //          this.hubConnection.on(
+        //              "newOrder",
+        //              (
+        //                  data
+        //              ) => {
+        //                  console.log(data);
+        //              }
+        //          );
     }
 
     sortOrders(property: string) {
