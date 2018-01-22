@@ -25,6 +25,9 @@ export class OrdersComponent implements OnInit {
 
     statuses: any = [];
 
+    page = 1;
+    pageSize = 10;
+
     private hubConnection: HubConnection;
     nick = "";
     message = "";
@@ -33,8 +36,7 @@ export class OrdersComponent implements OnInit {
     constructor(
         private ordersService: OrdersService,
         private notificationService: NotificationService,
-        private loaderService: LoaderService
-        //private signalrService: SignalRService
+        private loaderService: LoaderService //private signalrService: SignalRService
     ) {
         this.fillStatuses();
         this.loadOrders();
@@ -51,21 +53,18 @@ export class OrdersComponent implements OnInit {
     }
 
     ngOnInit() {
-
         // this.hubConnection = new HubConnection(
         //     "https://suvorov.co/ordersHub",
         //     {
         //         transport: TransportType.LongPolling
         //     }
         // );
-
         // this.hubConnection
         //     .start()
         //     .then(() => {
         //         this.hubConnection.invoke("RegisterConnection", 1);
         //     })
         //     .catch(err => console.log(err));
-
         //          this.hubConnection.on(
         //              "newOrder",
         //              (
@@ -90,12 +89,12 @@ export class OrdersComponent implements OnInit {
     loadOrders() {
         this.loaderService.display(true);
         this.ordersService
-            .getOrders()
+            .getOrders(this.page, this.pageSize)
             .then(orders => {
                 this.orders = orders;
                 this.loaderService.display(false);
                 console.log(orders);
-                this.sortOrders("id");
+                // ..this.sortOrders("id");
                 this.getOrder();
             })
             .catch(err => {
@@ -133,5 +132,17 @@ export class OrdersComponent implements OnInit {
         this.statuses[3] = { statusRU: "Готов", value: 3 };
         this.statuses[4] = { statusRU: "Выдан", value: 4 };
         this.statuses[5] = { statusRU: "Отменен", value: 5 };
+    }
+
+    getNextOrders() {
+        this.page += 1;
+        this.loadOrders();
+    }
+
+    getPastOrders() {
+        if(this.page >= 2) {
+        this.page -= 1;
+        this.loadOrders();
+        }
     }
 }
