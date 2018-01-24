@@ -22,8 +22,12 @@
         position: relative;
         padding: 0;
         margin: 0%;
-        width: 100%;
+        width: 20%;
         height: 35px;
+    }
+    
+    .btn.btn-danger.btnShowNext:nth-child(2) {
+        float: right;
     }
     
     td,
@@ -118,6 +122,9 @@
         table th:nth-last-child(2) {
             display: none;
         }
+        .btn.btn-danger.btnShowNext {
+            font-size: 10px;
+        }
     }
     /* Small Devices, Tablets */
     
@@ -127,6 +134,15 @@
         }
         table th:nth-last-child(3) {
             display: none;
+        }
+        .btn.btn-danger.btnShowNext {
+            font-size: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .btn.btn-danger.btnShowNext {
+            width: 35%;
         }
     }
     /* Extra Small Devices, Phones */
@@ -138,6 +154,9 @@
         table th:nth-last-child(4) {
             display: none;
         }
+        .btn.btn-danger.btnShowNext {
+            width: 35%;
+        }
     }
     
     @media only screen and (max-width: 500px) {
@@ -147,6 +166,9 @@
         table th:nth-last-child(5) {
             display: none;
         }
+        .btn.btn-danger.btnShowNext {
+            width: 40%;
+        }
     }
     
     @media only screen and (max-width: 425px) {
@@ -155,6 +177,18 @@
             white-space: nowrap;
             overflow: hidden;
             width: 25px;
+        }
+        .btn.btn-danger.btnShowNext {
+            width: 40%;
+        }
+        .btnShowNext span {
+            display: none;
+        }
+        .ShowPrev:after {
+            content: 'Предыдущие';
+        }
+        .ShowNext:after {
+            content: 'Следующие';
         }
     }
     
@@ -169,5 +203,8 @@
         }
         table th:nth-child(1) {
             width: 30px;
+        }
+        .btn.btn-danger.btnShowNext {
+            width: 40%;
         }
     }
