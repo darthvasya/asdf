@@ -28,7 +28,7 @@ export class OrdersComponent implements OnInit {
     page = 1;
     pageSize = 10;
 
-    private hubConnection: HubConnection;
+    hubConnection: HubConnection;
     nick = "";
     message = "";
     messages: string[] = [];
@@ -53,29 +53,27 @@ export class OrdersComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.hubConnection = new HubConnection("http://localhost:5000/chat", {
-            transport: TransportType.LongPolling
-        });
-        this.hubConnection
-            .start()
-            .then(() => console.log("Connection started!"))
-            .catch(err =>
-                console.log("Error while establishing connection :(")
-            );
+        //this.hubConnection = new HubConnection('http://localhost:5000/chat');
+        // this.hubConnection
+        //     .start()
+        //     .then(() => console.log('Connection started!'))
+        //     .catch(err =>
+        //         console.log('Error while establishing connection :(')
+        //     );
 
-        this.hubConnection.on(
-            "sendToAll",
-            (nick: string, receivedMessage: string) => {
-                const text = `${nick}: ${receivedMessage}`;
-                console.log(text);
-            }
-        );
+        // this.hubConnection.on(
+        //     'sendToAll',
+        //     (nick: string, receivedMessage: string) => {
+        //         const text = nick + '' + receivedMessage;
+        //         console.log(text);
+        //     }
+        // );
     }
 
-    sendMessage(): void {
-        this.hubConnection
-            .invoke("sendToAll", "Vasya", "dadsasadsad")
-            .catch(err => console.error(err));
+    sendMessage() {
+        // this.hubConnection
+        //     .invoke('sendToAll', 'Vasya', 'dadsasadsad')
+        //     .catch(err => console.error(err));
     }
 
     sortOrders(property: string) {
