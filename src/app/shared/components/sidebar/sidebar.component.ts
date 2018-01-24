@@ -7,7 +7,7 @@ declare interface RouteInfo {
     icon: string;
     class: string;
 }
-export const ROUTES: RouteInfo[] = [{ path: "/dashboard", title: "Панель управления", icon: "dashboard", class: "" }, { path: "/items", title: "Товары", icon: "store", class: "" }, { path: "/orders", title: "Заказы", icon: "bubble_chart", class: "" }, { path: "/contacts", title: "Контакты", icon: "person", class: "" }];
+export const ROUTES: RouteInfo[] = [{ path: "/dashboard", title: "Панель управления", icon: "dashboard", class: "" }, { path: "/items", title: "Товары", icon: "store", class: "" }, { path: "/orders", title: "Заказы", icon: "bubble_chart", class: "" }, { path: "/contacts", title: "Контакты", icon: "person", class: "" }, { path: "/instruction", title: "Инструкция", icon: "list", class: "" }];
            // { path: '/table-list', title: 'Table List',  icon:'content_paste', class: '' },
            // { path: '/typography', title: 'Typography',  icon:'library_books', class: '' },
            // { path: '/icons', title: 'Icons',  icon:'bubble_chart', class: '' },

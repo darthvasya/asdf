@@ -8,4 +8,4 @@ import { InstructionComponent } from "./instruction.component";
     imports: [CommonModule, InstructionRoutingModule],
     declarations: [InstructionComponent]
 })
-export class ContactsModule {}
+export class InstructionModule {}
