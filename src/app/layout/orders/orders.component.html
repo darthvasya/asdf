@@ -1,8 +1,5 @@
 <div class="main-content">
     <div class="container-fluid">
-        <h2>Заказы</h2>
-
-
         <div class="card mb-12">
             <div class="card-block p-0">
                 <table class="table table-bordered table-sm m-0" id="myTable2">
@@ -93,7 +90,7 @@
                                     </div>
                                 </div>
                                 <hr> Сумма заказа:
-                                <span class="text-danger">(sum)</span>
+                                <span class="text-danger">{{order.totalPrice}} р</span>
                             </td>
                         </tr>
                         <tr [attr.id]="'customerInfo' + order.id" class="row collapse">
