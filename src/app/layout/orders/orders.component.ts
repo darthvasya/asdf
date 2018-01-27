@@ -12,7 +12,7 @@ import "rxjs/Rx";
 import { Observable } from "rxjs/Rx";
 import { from } from "rxjs/observable/from";
 
-import { HubConnection, TransportType } from "@aspnet/signalr-client";
+import { HubConnection, TransportType, HttpConnection } from "@aspnet/signalr-client";
 
 @Component({
     selector: "app-orders",
@@ -29,6 +29,7 @@ export class OrdersComponent implements OnInit {
     pageSize = 10;
 
     hubConnection: HubConnection;
+    httpConnection: HttpConnection;
     nick = "";
     message = "";
     messages: string[] = [];
@@ -53,22 +54,25 @@ export class OrdersComponent implements OnInit {
     }
 
     ngOnInit() {
-        //this.hubConnection = new HubConnection('http://localhost:5000/chat');
-        // this.hubConnection
-        //     .start()
-        //     .then(() => console.log('Connection started!'))
-        //     .catch(err =>
-        //         console.log('Error while establishing connection :(')
-        //     );
+        this.httpConnection = new HttpConnection('https://suvorov.co/ordersHub');
+        this.hubConnection = new HubConnection(this.httpConnection);
+        this.hubConnection
+            .start()
+            .then(() => {
+                console.log('Connection started!');
+                // Тут вместо 1 надо отправить id магаза
+                this.hubConnection.invoke("registerConnection", 1)
+            })
+            .catch(err =>
+                console.log('Error while establishing connection :(')
+            );
 
-        // this.hubConnection.on(
-        //     'sendToAll',
-        //     (nick: string, receivedMessage: string) => {
-        //         const text = nick + '' + receivedMessage;
-        //         console.log(text);
-        //     }
-        // );
+            this.hubConnection.on("newOrder", data => {
+                // обработка заказа
+                console.log(data);
+            });
     }
+
 
     sendMessage() {
         // this.hubConnection
