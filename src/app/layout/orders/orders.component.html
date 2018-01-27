@@ -35,7 +35,13 @@
                         </tr>
                     </thead>
                     <tbody *ngFor="let order of orders">
-                        <tr [class.active]="order.orderState === 1" [class.warning]="order.orderState === 2" [class.info]="order.orderState === 3" [class.success]="order.orderState === 4" [class.danger]="order.orderState === 5">
+                        <tr
+                        [class.active]="order.orderState === 1"
+                        [class.warning]="order.orderState === 2"
+                        [class.ready]="order.orderState === 3"
+                        [class.success]="order.orderState === 4"
+                        [class.danger]="order.orderState === 5"
+                        [class.received]="order.orderState === 0">
                             <!-- <td>
                                 <label class="custom-control custom-checkbox">
                                     <input type="checkbox" class="custom-control-input">
@@ -104,8 +110,8 @@
                 </table>
             </div>
             <div class="card-footer p-0">
-                <button type="button" class="btn btn-danger btnShowNext ShowNext" (click)="getNextOrders()"><span>Следующие заказы</span></button>
-                <button type="button" class="btn btn-danger btnShowNext ShowPrev" (click)="getPastOrders()"><span>Предыдущие заказы</span></button>
+                <button type="button" class="btn btn-danger btnShowNext ShowPrev" (click)="getPastOrders()"><span> Следующие заказы</span></button>
+                <button type="button" class="btn btn-danger btnShowNext ShowNext" (click)="getNextOrders()"><span>Предыдущие заказы</span></button>
             </div>
         </div>
     </div>

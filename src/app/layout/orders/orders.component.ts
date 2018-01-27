@@ -23,6 +23,7 @@ import { HubConnection, TransportType, HttpConnection } from "@aspnet/signalr-cl
 export class OrdersComponent implements OnInit {
     orders: any;
     ordering: boolean = true;
+    currentPredicate: any;
 
     statuses: any = [];
 
@@ -31,8 +32,6 @@ export class OrdersComponent implements OnInit {
 
     hubConnection: HubConnection;
     httpConnection: HttpConnection;
-    nick = "";
-    message = "";
     messages: string[] = [];
 
     constructor(
@@ -43,16 +42,6 @@ export class OrdersComponent implements OnInit {
     ) {
         this.fillStatuses();
         this.loadOrders();
-
-        // Observable.interval(2000)
-        //     .switchMap(() =>
-        //         this.ordersService.getOrder(
-        //             this.orders[0].id
-        //         )
-        //     )
-        //     .subscribe(data => {
-        //         console.log(data); // see console you get output every 5 sec
-        //     });
     }
 
     ngOnInit() {
@@ -66,12 +55,16 @@ export class OrdersComponent implements OnInit {
                 this.hubConnection.invoke("registerConnection", 1)
             })
             .catch(err =>
-                console.log('Error while establishing connection :(')
+                console.log('Error while establishing connection :((')
             );
 
             this.hubConnection.on("newOrder", data => {
                 // обработка заказа
-                console.log(data);
+                this.orders.splice(-1, 1);
+                this.orders.push(data);
+                this.ordering = true;
+                this.sortOrders("id");
+                this.notificationService.showNotification("bottom", "center", "Получен новый заказ!", "success");
             });
 
             this.hubConnection.on("Heartbeat", data => {
@@ -84,41 +77,8 @@ export class OrdersComponent implements OnInit {
             })
     }
 
-
-    sendMessage() {
-        // this.hubConnection
-        //     .invoke('sendToAll', 'Vasya', 'dadsasadsad')
-        //     .catch(err => console.error(err));
-    }
-
     sortOrders(property: string) {
-        console.log(property);
-        console.log(this.ordering);
         this.ordering = this.ordering ? false : true;
-        console.log(this.ordering);
-
-        //this.helperService.orderArray(this.orders, property, this.ordering);
-        // if (
-        //     this.orders === undefined ||
-        //     this.orders === null ||
-        //     this.orders.length < 1
-        // ) {
-        // } else {
-        //     if (this.isDate(new Date(this.orders[0][property]))) {
-        //         this.orders = _.orderBy(
-        //             this.orders,
-        //             function(item) {
-        //                 return -new Date(item[property]).getTime();
-        //             },
-        //             [this.ordering ? "asc" : "desc"]
-        //         );
-        //     } else {
-        //         this.orders = _.orderBy(this.ordering, [
-        //             property,
-        //             this.ordering ? "asc" : "desc"
-        //         ]);
-        //     }
-        // }
 
         if (this.ordering)
             this.orders = _.orderBy(this.orders, property, "asc");
@@ -132,10 +92,8 @@ export class OrdersComponent implements OnInit {
             .getOrders(this.page, this.pageSize)
             .then(orders => {
                 this.orders = orders;
+                this.sortOrders('id');
                 this.loaderService.display(false);
-                console.log(orders);
-                // ..this.sortOrders("id");
-                this.getOrder();
             })
             .catch(err => {
                 this.loaderService.display(false);
