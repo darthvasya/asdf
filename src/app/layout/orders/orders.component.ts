@@ -13,7 +13,7 @@ import "rxjs/Rx";
 import { Observable } from "rxjs/Rx";
 import { from } from "rxjs/observable/from";
 
-import { HubConnection, TransportType } from "@aspnet/signalr-client";
+import { HubConnection, TransportType, HttpConnection } from "@aspnet/signalr-client";
 
 @Component({
     selector: "app-orders",
@@ -30,6 +30,7 @@ export class OrdersComponent implements OnInit {
     pageSize = 10;
 
     hubConnection: HubConnection;
+    httpConnection: HttpConnection;
     nick = "";
     message = "";
     messages: string[] = [];
@@ -55,27 +56,34 @@ export class OrdersComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.hubConnection = new HubConnection("http://suvorov.co/ordersHub", {
-            transport: TransportType.WebSockets
-        });
+        this.httpConnection = new HttpConnection('https://suvorov.co/ordersHub');
+        this.hubConnection = new HubConnection(this.httpConnection);
         this.hubConnection
             .start()
             .then(() => {
-                this.hubConnection.invoke("RegisterConnection", 1);
-                console.log("Connection started!");
+                console.log('Connection started!');
+                // Тут вместо 1 надо отправить id магаза
+                this.hubConnection.invoke("registerConnection", 1)
             })
             .catch(err =>
-                console.log("Error while establishing connection :(")
+                console.log('Error while establishing connection :(')
             );
 
-        this.hubConnection.on(
-            "newOrder",
-            (nick: string, receivedMessage: string) => {
-                const text = nick + "" + receivedMessage;
-                console.log(text);
-            }
-        );
+            this.hubConnection.on("newOrder", data => {
+                // обработка заказа
+                console.log(data);
+            });
+
+            this.hubConnection.on("Heartbeat", data => {
+                // обработка заказа
+                console.log("heartBeat: ", data);
+            });
+
+            this.hubConnection.onclose(() => {
+                console.log("ws closed");
+            })
     }
+
 
     sendMessage() {
         // this.hubConnection
