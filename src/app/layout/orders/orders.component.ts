@@ -71,6 +71,15 @@ export class OrdersComponent implements OnInit {
                 // обработка заказа
                 console.log(data);
             });
+
+            this.hubConnection.on("Heartbeat", data => {
+                // обработка заказа
+                console.log("heartBeat: ", data);
+            });
+
+            this.hubConnection.onclose(() => {
+                console.log("ws closed");
+            })
     }
 
 
