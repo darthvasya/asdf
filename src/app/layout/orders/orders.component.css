@@ -117,7 +117,7 @@
     .marginLeft {
         margin-left: 17px;
     }
-    .widthSeventy{ 
+    .widthSeventy{
         width: 15%;
     }
     .filters tr:nth-child(2) td:nth-child(1),
@@ -130,12 +130,12 @@
         display: none;
     }
     /* Large Devices, Wide Screens */
-    
+
     @media only screen and (max-width: 1200px) {
-        
+
     }
     /* Medium Devices, Desktops */
-    
+
 
     @media only screen and (max-width: 1060px) {
         table.tableOrders td:nth-last-child(2) {
@@ -148,7 +148,7 @@
             font-size: 10px;
         }
 
-        
+
     }
     /* Small Devices, Tablets */
 
@@ -270,5 +270,9 @@
 
 .approved {
     background-color: #FFA6D0;
+}
+
+.modal-dialog {
+    z-index: 9999;
 }
 
