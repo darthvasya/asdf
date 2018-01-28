@@ -60,7 +60,9 @@ export class OrdersComponent implements OnInit {
 
             this.hubConnection.on("newOrder", data => {
                 // обработка заказа
-                this.orders.splice(-1, 1);
+                if(this.orders.length >= 15) {
+                    this.orders.splice(-1, 1);
+                }
                 this.orders.push(data);
                 this.ordering = true;
                 this.sortOrders("id");

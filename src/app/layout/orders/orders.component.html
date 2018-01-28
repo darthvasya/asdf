@@ -48,10 +48,10 @@
                             <td>{{order.id}}</td>
                             <td data-toggle="collapse" data-target="#" [attr.data-target]="'#customerInfo' + order.id">{{order.customerId}}</td>
                             <td data-toggle="collapse" data-target="#" [attr.data-target]="'#itemsInfo' + order.id">{{order.items.length}}</td>
-                            <td>{{order.orderIssuedTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
-                            <td>{{order.orderReadyTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
-                            <td>{{order.orderAcceptTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
-                            <td>{{order.orderRegisterTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+                            <td>{{order.orderIssuedTime | date: 'HH:mm:ss'}}</td>
+                            <td>{{order.orderReadyTime | date: 'HH:mm:ss'}}</td>
+                            <td>{{order.orderAcceptTime | date: 'HH:mm:ss'}}</td>
+                            <td>{{order.orderRegisterTime | date: 'HH:mm:ss'}}</td>
                             <td>
                                 <!-- {{order.orderState}} -->
                                 <div class="dropdown">
