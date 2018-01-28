@@ -135,8 +135,10 @@ export class OrdersComponent implements OnInit {
     }
 
     getNextOrders() {
-        this.page += 1;
-        this.loadOrders();
+        if(this.orders.length === 15) {
+            this.page += 1;
+            this.loadOrders();
+        }
     }
 
     getPastOrders() {

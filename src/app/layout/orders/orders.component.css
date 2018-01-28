@@ -144,6 +144,10 @@
         .btn.btn-danger.btnShowNext {
             width: 35%;
         }
+
+        .main-content, .container-fluid {
+            padding: 0px !important;
+        }
     }
     /* Extra Small Devices, Phones */
 
@@ -220,3 +224,4 @@
 .approved {
     background-color: #FFA6D0;
 }
+
