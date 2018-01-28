@@ -1,23 +1,23 @@
     th:hover {
         cursor: pointer;
     }
-
+    
     html {
         font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
         font-size: 14px;
     }
-
+    
     .table {
         border: none;
     }
-
+    
     button {
         position: relative;
         margin: 2% 2% 2% 0;
         width: 100%;
         height: 100%;
     }
-
+    
     .btn.btn-danger.btnShowNext {
         position: relative;
         padding: 0;
@@ -25,22 +25,22 @@
         width: 20%;
         height: 35px;
     }
-
+    
     .btn.btn-danger.btnShowNext:nth-child(2) {
         float: right;
     }
-
+    
     td,
     th {
         text-align: center;
     }
-
+    
     .table-definition thead th:first-child {
         pointer-events: none;
         background: white;
         border: none;
     }
-
+    
     .table td {
         vertical-align: middle;
     }
@@ -48,21 +48,39 @@
     position: relative;
     padding: 10px;
 } */
+    
     .card-header {
         background-color: #f44336;
         color: #ffffff;
     }
+    
     .page-item>* {
         border: none;
     }
-
+    
     .custom-checkbox {
         min-height: 1rem;
         padding-left: 0;
         margin-right: 0;
         cursor: pointer;
     }
-
+    
+    .flex {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    .numerick {
+        margin: -4px 0px 0px 10px;
+        width: 70px;
+        height: 30px;
+    }
+    
+    .checkbox {
+        margin: -2px 0 0 15px;
+    }
+    
     .custom-checkbox .custom-control-indicator {
         content: "";
         display: inline-block;
@@ -71,14 +89,13 @@
         height: 10px;
         background-color: #818181;
         border-radius: 15px;
-        margin-right: 10px;
         -webkit-transition: background .3s ease;
         transition: background .3s ease;
         vertical-align: middle;
         margin: 0 16px;
         box-shadow: none;
     }
-
+    
     .custom-checkbox .custom-control-indicator:after {
         content: "";
         position: absolute;
@@ -93,50 +110,50 @@
         -webkit-transition: left .3s ease, background .3s ease, box-shadow .1s ease;
         transition: left .3s ease, background .3s ease, box-shadow .1s ease;
     }
-
+    
     .custom-checkbox .custom-control-input:checked~.custom-control-indicator {
         background-color: #84c7c1;
         background-image: none;
         box-shadow: none !important;
     }
-
+    
     .custom-checkbox .custom-control-input:checked~.custom-control-indicator:after {
         background-color: #84c7c1;
         left: 15px;
     }
-
+    
     .custom-checkbox .custom-control-input:focus~.custom-control-indicator {
         box-shadow: none !important;
     }
-
+    
     .image {
         width: 120px;
         border-radius: 5%;
     }
-
-    .marginLeft {
-        margin-left: 17px;
+    
+    .filters {
+        margin: 40px 0 0 0;
+        padding-left: 15%;
     }
-    .widthSeventy{ 
-        width: 15%;
-    }
-    .filters tr:nth-child(2) td:nth-child(1),
-    .filters tr:nth-child(2) td:nth-child(2),
-    .filters tr:nth-child(2) td:nth-child(3),
-    .filters tr:nth-child(2) td:nth-child(4),
-    .filters tr:nth-child(3) td:nth-child(1),
-    .filters tr:nth-child(3) td:nth-child(2)
-    {
-        display: none;
+    
+    .filter:not(:nth-last-child(1)) {
+        margin: 0 0 20px 30px;
     }
     /* Large Devices, Wide Screens */
     
-    @media only screen and (max-width: 1200px) {
-        
+    .filters tr {
+        width: 50px;
     }
-    /* Medium Devices, Desktops */
     
-
+    @media only screen and (max-width: 1240px) {
+        .filters {
+            padding-left: 0;
+        }
+        .filter:first-child {
+            margin-left: 30px;
+        }
+    }
+    
     @media only screen and (max-width: 1060px) {
         table.tableOrders td:nth-last-child(2) {
             display: none;
@@ -147,11 +164,9 @@
         .btn.btn-danger.btnShowNext {
             font-size: 10px;
         }
-
-        
     }
     /* Small Devices, Tablets */
-
+    
     @media only screen and (max-width: 768px) {
         table.tableOrders td:nth-last-child(3) {
             display: none;
@@ -168,12 +183,13 @@
         .btn.btn-danger.btnShowNext {
             width: 35%;
         }
-        .main-content, .container-fluid {
+        .main-content,
+        .container-fluid {
             padding: 0px !important;
         }
     }
     /* Extra Small Devices, Phones */
-
+    
     @media only screen and (max-width: 615px) {
         table.tableOrders td:nth-last-child(4) {
             display: none;
@@ -184,17 +200,11 @@
         .btn.btn-danger.btnShowNext {
             width: 35%;
         }
-    }
-    @media only screen and (max-width: 500px) {
-        .filters tr:nth-child(1) td:nth-child(5),
-        .filters tr:nth-child(1) td:nth-child(6){
-            display: none;
-        }
-        .filters tr:nth-child(2) td:nth-child(3),
-        .filters tr:nth-child(2) td:nth-child(4){
-            display: table-cell;
+        .filter:nth-last-child(1) {
+            margin-left: 30px;
         }
     }
+    
     @media only screen and (max-width: 500px) {
         table.tableOrders td:nth-last-child(5) {
             display: none;
@@ -206,7 +216,7 @@
             width: 40%;
         }
     }
-
+    
     @media only screen and (max-width: 425px) {
         table.tableOrders th:nth-child(2) p,
         table.tableOrders th:nth-child(3) p {
@@ -227,22 +237,9 @@
             content: 'Следующие';
         }
     }
-    @media only screen and (max-width: 370px) {
-        .filters tr:nth-child(1) td:nth-child(3),
-        .filters tr:nth-child(1) td:nth-child(4),
-        .filters tr:nth-child(2) td:nth-child(3),
-        .filters tr:nth-child(2) td:nth-child(4){
-            display: none;
-        }
-        .filters tr:nth-child(2) td:nth-child(1),
-        .filters tr:nth-child(2) td:nth-child(2){
-            display: table-cell;
-        }
-        .filters tr:nth-child(3) td:nth-child(1),
-        .filters tr:nth-child(3) td:nth-child(2){
-            display: table-cell;
-        }
-    }
+    
+    @media only screen and (max-width: 370px) {}
+    
     @media only screen and (max-width: 355px) {
         table.tableOrders td:nth-last-child(1) button {
             padding: 5px 0;
@@ -259,16 +256,15 @@
             width: 40%;
         }
     }
-
-.received {
-    background-color: #A4FFB1;
-}
-
-.ready {
-    background-color: #6767FF;
-}
-
-.approved {
-    background-color: #FFA6D0;
-}
-
+    
+    .received {
+        background-color: #A4FFB1;
+    }
+    
+    .ready {
+        background-color: #6767FF;
+    }
+    
+    .approved {
+        background-color: #FFA6D0;
+    }
