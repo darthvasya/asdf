@@ -4,6 +4,7 @@ import { LoaderService } from "./../../shared/core/loader.service";
 import { NotificationService } from "./../../shared/core/notification.service";
 import { OrdersService } from "./../../shared/core/orders.service";
 import { SignalRService } from "./../../shared/core/signalr.service";
+import { HelperService } from "./../../shared/core/helper.service";
 
 import * as _ from "lodash";
 declare const $: any;
@@ -12,7 +13,7 @@ import "rxjs/Rx";
 import { Observable } from "rxjs/Rx";
 import { from } from "rxjs/observable/from";
 
-import { HubConnection, TransportType } from "@aspnet/signalr-client";
+import { HubConnection, TransportType, HttpConnection } from "@aspnet/signalr-client";
 
 @Component({
     selector: "app-orders",
@@ -22,6 +23,7 @@ import { HubConnection, TransportType } from "@aspnet/signalr-client";
 export class OrdersComponent implements OnInit {
     orders: any;
     ordering: boolean = true;
+    currentPredicate: any;
 
     statuses: any = [];
 
@@ -29,59 +31,57 @@ export class OrdersComponent implements OnInit {
     pageSize = 10;
 
     hubConnection: HubConnection;
-    nick = "";
-    message = "";
+    httpConnection: HttpConnection;
     messages: string[] = [];
 
     constructor(
         private ordersService: OrdersService,
         private notificationService: NotificationService,
-        private loaderService: LoaderService //private signalrService: SignalRService
+        private loaderService: LoaderService, //private signalrService: SignalRService
+        private helperService: HelperService
     ) {
         this.fillStatuses();
         this.loadOrders();
-
-        // Observable.interval(2000)
-        //     .switchMap(() =>
-        //         this.ordersService.getOrder(
-        //             this.orders[0].id
-        //         )
-        //     )
-        //     .subscribe(data => {
-        //         console.log(data); // see console you get output every 5 sec
-        //     });
     }
 
     ngOnInit() {
-        //this.hubConnection = new HubConnection('http://localhost:5000/chat');
-        // this.hubConnection
-        //     .start()
-        //     .then(() => console.log('Connection started!'))
-        //     .catch(err =>
-        //         console.log('Error while establishing connection :(')
-        //     );
+        this.httpConnection = new HttpConnection('https://suvorov.co/ordersHub');
+        this.hubConnection = new HubConnection(this.httpConnection);
+        this.hubConnection
+            .start()
+            .then(() => {
+                console.log('Connection started!');
+                // Тут вместо 1 надо отправить id магаза
+                this.hubConnection.invoke("registerConnection", 1)
+            })
+            .catch(err =>
+                console.log('Error while establishing connection :((')
+            );
 
-        // this.hubConnection.on(
-        //     'sendToAll',
-        //     (nick: string, receivedMessage: string) => {
-        //         const text = nick + '' + receivedMessage;
-        //         console.log(text);
-        //     }
-        // );
-    }
+            this.hubConnection.on("newOrder", data => {
+                // обработка заказа
+                if(this.orders.length >= 15) {
+                    this.orders.splice(-1, 1);
+                }
+                this.orders.push(data);
+                this.ordering = true;
+                this.sortOrders("id");
+                this.notificationService.showNotification("bottom", "center", "Получен новый заказ!", "success");
+            });
 
-    sendMessage() {
-        // this.hubConnection
-        //     .invoke('sendToAll', 'Vasya', 'dadsasadsad')
-        //     .catch(err => console.error(err));
+            this.hubConnection.on("Heartbeat", data => {
+                // обработка заказа
+                console.log("heartBeat: ", data);
+            });
+
+            this.hubConnection.onclose(() => {
+                console.log("ws closed");
+            })
     }
 
     sortOrders(property: string) {
-            this.sendMessage();
-        console.log(property);
-        console.log(this.ordering);
         this.ordering = this.ordering ? false : true;
-        console.log(this.ordering);
+
         if (this.ordering)
             this.orders = _.orderBy(this.orders, property, "asc");
         if (!this.ordering)
@@ -94,10 +94,8 @@ export class OrdersComponent implements OnInit {
             .getOrders(this.page, this.pageSize)
             .then(orders => {
                 this.orders = orders;
+                this.sortOrders('id');
                 this.loaderService.display(false);
-                console.log(orders);
-                // ..this.sortOrders("id");
-                this.getOrder();
             })
             .catch(err => {
                 this.loaderService.display(false);
@@ -137,14 +135,24 @@ export class OrdersComponent implements OnInit {
     }
 
     getNextOrders() {
-        this.page += 1;
-        this.loadOrders();
+        if(this.orders.length === 15) {
+            this.page += 1;
+            this.loadOrders();
+        }
     }
 
     getPastOrders() {
         if (this.page >= 2) {
             this.page -= 1;
             this.loadOrders();
+        }
+    }
+
+    isDate(value) {
+        if (isNaN(value.getTime())) {
+            return false; //date is invalid
+        } else {
+            return value instanceof Date;
         }
     }
 }
