@@ -1,10 +1,39 @@
 <div class="main-content">
     <div class="container-fluid">
-        <div class="col-lg-4">
+        <div class="col-lg-2">
             <h2>Заказы</h2>
         </div>
-        <div class="col-lg-8 filters">
-            <table class="table">
+        <div class="flex filters col-lg-10">
+            <div class="filter flex">
+                <span>Все</span>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="optionsCheckboxes" checked>
+                    </label>
+                </div>
+            </div>
+            <div class="filter flex">
+                <span>Сегодняшние</span>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="optionsCheckboxes">
+                    </label>
+                </div>
+            </div>
+            <div class="filter flex">
+                <span>Незавершенные</span>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="optionsCheckboxes">
+                    </label>
+                </div>
+            </div>
+            <div class="filter flex">
+                <span>Количество записей:</span>
+                <input type="number" class="numerick">
+            </div>
+        </div>
+        <!-- <table class="table">
                 <tbody class="">
                     <tr>
                         <td>Все</td>
@@ -74,8 +103,8 @@
                         <td><input type="number" class="marginLeft widthSeventy"></td>
                     </tr>
                 </tbody>
-            </table>
-        </div>
+            </table> -->
+        <!-- </div> -->
 
         <!-- <div class="col-lg-6 col-md-12">
             <div class="card card-nav-tabs">

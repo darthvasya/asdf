@@ -65,6 +65,22 @@
         cursor: pointer;
     }
     
+    .flex {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    .numerick {
+        margin: -4px 0px 0px 10px;
+        width: 70px;
+        height: 30px;
+    }
+    
+    .checkbox {
+        margin: -2px 0 0 15px;
+    }
+    
     .custom-checkbox .custom-control-indicator {
         content: "";
         display: inline-block;
@@ -73,7 +89,6 @@
         height: 10px;
         background-color: #818181;
         border-radius: 15px;
-        margin-right: 10px;
         -webkit-transition: background .3s ease;
         transition: background .3s ease;
         vertical-align: middle;
@@ -116,41 +131,28 @@
         border-radius: 5%;
     }
     
-    .marginLeft {
-        margin-left: 17px;
-    }
-    
     .filters {
-        margin: 19px 0px -18px 0px;
-        padding: 0px 0px 0px 20px;
+        margin: 40px 0 0 0;
+        padding-left: 15%;
     }
     
-    .widthSeventy {
-        width: 50%;
-    }
-    
-    .filters tr:nth-child(2) td:nth-child(1),
-    .filters tr:nth-child(2) td:nth-child(2),
-    .filters tr:nth-child(2) td:nth-child(3),
-    .filters tr:nth-child(2) td:nth-child(4),
-    .filters tr:nth-child(2) td:nth-child(5),
-    .filters tr:nth-child(2) td:nth-child(6),
-    .filters tr:nth-child(3) td:nth-child(1),
-    .filters tr:nth-child(3) td:nth-child(2),
-    .filters tr:nth-child(3) td:nth-child(3),
-    .filters tr:nth-child(3) td:nth-child(4),
-    .filters tr:nth-child(4) td:nth-child(1),
-    .filters tr:nth-child(4) td:nth-child(2) {
-        display: none;
-    }
-    
-    .filters td:nth-child(2n):not(:nth-last-child(1)) {
-        border-right: 1px solid #e2e2e2;
+    .filter:not(:nth-last-child(1)) {
+        margin: 0 0 20px 30px;
     }
     /* Large Devices, Wide Screens */
     
-    @media only screen and (max-width: 1200px) {}
-    /* Medium Devices, Desktops */
+    .filters tr {
+        width: 50px;
+    }
+    
+    @media only screen and (max-width: 1240px) {
+        .filters {
+            padding-left: 0;
+        }
+        .filter:first-child {
+            margin-left: 30px;
+        }
+    }
     
     @media only screen and (max-width: 1060px) {
         table.tableOrders td:nth-last-child(2) {
@@ -198,13 +200,8 @@
         .btn.btn-danger.btnShowNext {
             width: 35%;
         }
-        .filters tr:nth-child(1) td:nth-child(7),
-        .filters tr:nth-child(1) td:nth-child(8) {
-            display: none;
-        }
-        .filters tr:nth-child(2) td:nth-child(5),
-        .filters tr:nth-child(2) td:nth-child(6) {
-            display: table-cell;
+        .filter:nth-last-child(1) {
+            margin-left: 30px;
         }
     }
     
@@ -217,14 +214,6 @@
         }
         .btn.btn-danger.btnShowNext {
             width: 40%;
-        }
-        .filters tr:nth-child(1) td:nth-child(5),
-        .filters tr:nth-child(1) td:nth-child(6) {
-            display: none;
-        }
-        .filters tr:nth-child(2) td:nth-child(3),
-        .filters tr:nth-child(2) td:nth-child(4) {
-            display: table-cell;
         }
     }
     
@@ -247,24 +236,6 @@
         .ShowNext:after {
             content: 'Следующие';
         }
-        .filters tr:nth-child(1) td:nth-child(3),
-        .filters tr:nth-child(1) td:nth-child(4),
-        .filters tr:nth-child(3) td:nth-child(3),
-        .filters tr:nth-child(3) td:nth-child(4),
-        .filters tr:nth-child(2) td:nth-child(3),
-        .filters tr:nth-child(2) td:nth-child(4),
-        .filters tr:nth-child(2) td:nth-child(5),
-        .filters tr:nth-child(2) td:nth-child(6) {
-            display: none;
-        }
-        .filters tr:nth-child(3) td:nth-child(3),
-        .filters tr:nth-child(3) td:nth-child(4),
-        .filters tr:nth-child(4) td:nth-child(1),
-        .filters tr:nth-child(4) td:nth-child(2),
-        .filters tr:nth-child(2) td:nth-child(1),
-        .filters tr:nth-child(2) td:nth-child(2) {
-            display: table-cell;
-        }
     }
     
     @media only screen and (max-width: 370px) {}
@@ -283,9 +254,6 @@
         }
         .btn.btn-danger.btnShowNext {
             width: 40%;
-        }
-        .checkbox {
-            margin-left: 50%;
         }
     }
     
