@@ -1,14 +1,144 @@
 <div class="main-content">
     <div class="container-fluid">
+        <div class="col-lg-6">
+            <h2>Заказы</h2>
+        </div>
+        <div class="col-lg-6 col-md-12">
+            <div class="card card-nav-tabs">
+                <div class="card-header">
+                    <div class="nav-tabs-navigation">
+                        <div class="nav-tabs-wrapper">
+                            <span class="nav-tabs-title">Фильтры:</span>
+                            <ul class="nav nav-tabs" data-tabs="tabs">
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-content">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="profile">
+                            <table class="table">
+                                <tbody class="filters">
+                                    <tr>
+                                        <td>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="optionsCheckboxes" checked>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>Все</td>
+                                        <td>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>Сегодняшние</td>
+                                        <td>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="optionsCheckboxes" checked>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>Незавершенные</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>Сегодняшние</td>
+                                        <td>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="optionsCheckboxes" checked>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>Незавершенные</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="optionsCheckboxes" checked>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>Незавершенные</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <span class="marginLeft">Количество записей:</span>
+                            <input type="number" class="marginLeft widthSeventy">
+                        </div>
+                        <div class="tab-pane" id="messages">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="checkbox">
+                                                <label>
+                                                            <input type="checkbox" name="optionsCheckboxes" checked>
+                                                        </label>
+                                            </div>
+                                        </td>
+                                        <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
+                                        </td>
+                                        <td class="td-actions text-right">
+                                            <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
+                                                        <i class="material-icons">edit</i>
+                                                    </button>
+                                            <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                                                        <i class="material-icons">close</i>
+                                                    </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="checkbox">
+                                                <label>
+                                                            <input type="checkbox" name="optionsCheckboxes">
+                                                        </label>
+                                            </div>
+                                        </td>
+                                        <td>Sign contract for "What are conference organizers afraid of?"</td>
+                                        <td class="td-actions text-right">
+                                            <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
+                                                        <i class="material-icons">edit</i>
+                                                    </button>
+                                            <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                                                        <i class="material-icons">close</i>
+                                                    </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <div class="card mb-12">
             <div class="card-block p-0">
-                <table class="table table-bordered table-sm m-0" id="myTable2">
+                <table class="tableOrders table table-bordered table-sm m-0" id="myTable2">
                     <thead class="">
                         <tr>
                             <!-- <th>s</th> -->
                             <th (click)="sortOrders('id')">№</th>
                             <th (click)="sortOrders('customerId')">
-                                <p>Заказчик</p>
+                                <p>Заказчик </p>
+                                <i class="material-icons">swap_vert</i>
                             </th>
                             <th (click)="sortOrders('items.length')">
                                 <p>Количество элементов</p>

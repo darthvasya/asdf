@@ -13,7 +13,7 @@
 
     button {
         position: relative;
-        margin: 2%;
+        margin: 2% 2% 2% 0;
         width: 100%;
         height: 100%;
     }
@@ -48,7 +48,10 @@
     position: relative;
     padding: 10px;
 } */
-
+    .card-header {
+        background-color: #f44336;
+        color: #ffffff;
+    }
     .page-item>* {
         border: none;
     }
@@ -110,29 +113,50 @@
         width: 120px;
         border-radius: 5%;
     }
-    /* Large Devices, Wide Screens */
 
-    @media only screen and (max-width: 1200px) {}
+    .marginLeft {
+        margin-left: 17px;
+    }
+    .widthSeventy{ 
+        width: 15%;
+    }
+    .filters tr:nth-child(2) td:nth-child(1),
+    .filters tr:nth-child(2) td:nth-child(2),
+    .filters tr:nth-child(2) td:nth-child(3),
+    .filters tr:nth-child(2) td:nth-child(4),
+    .filters tr:nth-child(3) td:nth-child(1),
+    .filters tr:nth-child(3) td:nth-child(2)
+    {
+        display: none;
+    }
+    /* Large Devices, Wide Screens */
+    
+    @media only screen and (max-width: 1200px) {
+        
+    }
     /* Medium Devices, Desktops */
+    
 
     @media only screen and (max-width: 1060px) {
-        table td:nth-last-child(2) {
+        table.tableOrders td:nth-last-child(2) {
             display: none;
         }
-        table th:nth-last-child(2) {
+        table.tableOrders th:nth-last-child(2) {
             display: none;
         }
         .btn.btn-danger.btnShowNext {
             font-size: 10px;
         }
+
+        
     }
     /* Small Devices, Tablets */
 
     @media only screen and (max-width: 768px) {
-        table td:nth-last-child(3) {
+        table.tableOrders td:nth-last-child(3) {
             display: none;
         }
-        table th:nth-last-child(3) {
+        table.tableOrders th:nth-last-child(3) {
             display: none;
         }
         .btn.btn-danger.btnShowNext {
@@ -144,7 +168,6 @@
         .btn.btn-danger.btnShowNext {
             width: 35%;
         }
-
         .main-content, .container-fluid {
             padding: 0px !important;
         }
@@ -152,22 +175,31 @@
     /* Extra Small Devices, Phones */
 
     @media only screen and (max-width: 615px) {
-        table td:nth-last-child(4) {
+        table.tableOrders td:nth-last-child(4) {
             display: none;
         }
-        table th:nth-last-child(4) {
+        table.tableOrders th:nth-last-child(4) {
             display: none;
         }
         .btn.btn-danger.btnShowNext {
             width: 35%;
         }
     }
-
     @media only screen and (max-width: 500px) {
-        table td:nth-last-child(5) {
+        .filters tr:nth-child(1) td:nth-child(5),
+        .filters tr:nth-child(1) td:nth-child(6){
             display: none;
         }
-        table th:nth-last-child(5) {
+        .filters tr:nth-child(2) td:nth-child(3),
+        .filters tr:nth-child(2) td:nth-child(4){
+            display: table-cell;
+        }
+    }
+    @media only screen and (max-width: 500px) {
+        table.tableOrders td:nth-last-child(5) {
+            display: none;
+        }
+        table.tableOrders th:nth-last-child(5) {
             display: none;
         }
         .btn.btn-danger.btnShowNext {
@@ -176,8 +208,8 @@
     }
 
     @media only screen and (max-width: 425px) {
-        table th:nth-child(2) p,
-        table th:nth-child(3) p {
+        table.tableOrders th:nth-child(2) p,
+        table.tableOrders th:nth-child(3) p {
             white-space: nowrap;
             overflow: hidden;
             width: 25px;
@@ -195,17 +227,32 @@
             content: 'Следующие';
         }
     }
-
+    @media only screen and (max-width: 370px) {
+        .filters tr:nth-child(1) td:nth-child(3),
+        .filters tr:nth-child(1) td:nth-child(4),
+        .filters tr:nth-child(2) td:nth-child(3),
+        .filters tr:nth-child(2) td:nth-child(4){
+            display: none;
+        }
+        .filters tr:nth-child(2) td:nth-child(1),
+        .filters tr:nth-child(2) td:nth-child(2){
+            display: table-cell;
+        }
+        .filters tr:nth-child(3) td:nth-child(1),
+        .filters tr:nth-child(3) td:nth-child(2){
+            display: table-cell;
+        }
+    }
     @media only screen and (max-width: 355px) {
-        table td:nth-last-child(1) button {
+        table.tableOrders td:nth-last-child(1) button {
             padding: 5px 0;
             font-size: 10px;
             height: 30px;
         }
-        table th:nth-child(1) {
+        table.tableOrders th:nth-child(1) {
             width: 40px;
         }
-        table th:nth-child(1) {
+        table.tableOrders th:nth-child(1) {
             width: 30px;
         }
         .btn.btn-danger.btnShowNext {
