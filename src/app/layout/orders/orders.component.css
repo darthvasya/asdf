@@ -26,6 +26,10 @@
         height: 35px;
     }
     
+    .btnStatus {
+        background-color: #f44336;
+    }
+    
     .btn.btn-danger.btnShowNext:nth-child(2) {
         float: right;
     }
@@ -75,6 +79,9 @@
         margin: -4px 0px 0px 10px;
         width: 70px;
         height: 30px;
+        background-color: #fff;
+        border: 1px solid #4c5765;
+        border-radius: 5px;
     }
     
     .checkbox {
@@ -145,6 +152,14 @@
         width: 50px;
     }
     
+    .dropdown-menu li:hover {
+        cursor: pointer;
+    }
+    
+    .dropdown-menu li a:hover {
+        background-color: #52973c;
+    }
+    
     @media only screen and (max-width: 1240px) {
         .filters {
             padding-left: 0;
@@ -164,8 +179,6 @@
         .btn.btn-danger.btnShowNext {
             font-size: 10px;
         }
-
-
     }
     /* Small Devices, Tablets */
     
@@ -220,16 +233,36 @@
     }
     
     @media only screen and (max-width: 425px) {
-        table.tableOrders th:nth-child(2) p,
-        table.tableOrders th:nth-child(3) p {
-            white-space: nowrap;
-            overflow: hidden;
+        table.tableOrders th:nth-child(3) {
             width: 25px;
         }
         .btn.btn-danger.btnShowNext {
             width: 40%;
         }
-        .btnShowNext span {
+        /* .btnCount spam {
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        .btnCount {
+            width: 25%;
+        }
+        .btnCount span {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        } */
+        .thCount span,
+        .thStatus span {
+            display: none;
+        }
+        .thCount:after {
+            content: "Кол-во";
+        }
+        .thStatus:after {
+            content: "Статус";
+        }
+        .ShowPrev span,
+        .ShowNext span {
             display: none;
         }
         .ShowPrev:after {
@@ -243,10 +276,14 @@
     @media only screen and (max-width: 370px) {}
     
     @media only screen and (max-width: 355px) {
-        table.tableOrders td:nth-last-child(1) button {
+        table.tableOrders td:nth-last-child(1) button,
+        table.tableOrders td:nth-child(3) button {
             padding: 5px 0;
             font-size: 10px;
             height: 30px;
+        }
+        table.tableOrders td:nth-child(3) button span {
+            margin-left: 4px;
         }
         table.tableOrders th:nth-child(1) {
             width: 40px;
