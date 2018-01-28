@@ -1,7 +1,112 @@
 <div class="main-content">
     <div class="container-fluid">
+        <div class="col-lg-2">
+            <h2>Заказы</h2>
+        </div>
+        <div class="flex filters col-lg-10">
+            <div class="filter flex">
+                <span>Все</span>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="optionsCheckboxes" checked>
+                    </label>
+                </div>
+            </div>
+            <div class="filter flex">
+                <span>Сегодняшние</span>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="optionsCheckboxes">
+                    </label>
+                </div>
+            </div>
+            <div class="filter flex">
+                <span>Незавершенные</span>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="optionsCheckboxes">
+                    </label>
+                </div>
+            </div>
+            <div class="filter flex">
+                <span>Количество записей:</span>
+                <input type="number" class="numerick">
+            </div>
+        </div>
+        <!-- <table class="table">
+                <tbody class="">
+                    <tr>
+                        <td>Все</td>
+                        <td>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="optionsCheckboxes" checked>
+                                </label>
+                            </div>
+                        </td>
+                        <td>Сегодняшние</td>
+                        <td>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="optionsCheckboxes">
+                                </label>
+                            </div>
+                        </td>
+                        <td>Незавершенные</td>
+                        <td>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="optionsCheckboxes" checked>
+                                </label>
+                            </div>
+                        </td>
 
-        <div class="col-lg-6 col-md-12">
+                        <td><span class="marginLeft">Количество записей:</span></td>
+                        <td><input type="number" class="marginLeft widthSeventy"></td>
+                    </tr>
+                    <tr>
+                        <td>Сегодняшние</td>
+                        <td>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="optionsCheckboxes">
+                                </label>
+                            </div>
+                        </td>
+                        <td>Незавершенные</td>
+                        <td>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="optionsCheckboxes" checked>
+                                </label>
+                            </div>
+                        </td>
+
+                        <td><span class="marginLeft">Количество записей:</span></td>
+                        <td><input type="number" class="marginLeft widthSeventy"></td>
+                    </tr>
+                    <tr>
+                        <td><span class="marginLeft">Количество записей:</span></td>
+                        <td><input type="number" class="marginLeft widthSeventy"></td>
+                        <td>Незавершенные</td>
+                        <td>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="optionsCheckboxes" checked>
+                                </label>
+                            </div>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td><span class="marginLeft">Количество записей:</span></td>
+                        <td><input type="number" class="marginLeft widthSeventy"></td>
+                    </tr>
+                </tbody>
+            </table> -->
+        <!-- </div> -->
+
+        <!-- <div class="col-lg-6 col-md-12">
             <div class="card card-nav-tabs">
                 <div class="card-header">
                     <div class="nav-tabs-navigation">
@@ -14,7 +119,7 @@
                     </div>
                 </div>
 
-                <div class="card-content">
+                <!-- <div class="card-content">
                     <div class="tab-content">
                         <div class="tab-pane active" id="profile">
                             <table class="table">
@@ -79,9 +184,9 @@
                             <input type="number" class="marginLeft widthSeventy">
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
+                </div> -->
+        <!-- </div>
+</div> -->
 
 
         <div class="card mb-12">
@@ -117,13 +222,7 @@
                         </tr>
                     </thead>
                     <tbody *ngFor="let order of orders">
-                        <tr
-                        [class.active]="order.orderState === 1"
-                        [class.warning]="order.orderState === 2"
-                        [class.ready]="order.orderState === 3"
-                        [class.success]="order.orderState === 4"
-                        [class.danger]="order.orderState === 5"
-                        [class.received]="order.orderState === 0">
+                        <tr [class.active]="order.orderState === 1" [class.warning]="order.orderState === 2" [class.ready]="order.orderState === 3" [class.success]="order.orderState === 4" [class.danger]="order.orderState === 5" [class.received]="order.orderState === 0">
                             <!-- <td>
                                 <label class="custom-control custom-checkbox">
                                     <input type="checkbox" class="custom-control-input">
