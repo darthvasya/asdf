@@ -312,17 +312,18 @@
     @media only screen and (max-width: 355px) {}
     
     .ready {
-        background-color: #fdd868;
+        background-color: #cdffd8;
     }
     
     .accepted {
-        background-color: #007bff;
+        background-color: #bbdcfc;
     }
     
     .discard {
-        background-color: #b8b8b8;
+        background-color: #ffeef0;
+        /* ; */
     }
     
     .given {
-        background-color: #28a745;
+        background-color: #b8b8b8;
     }
