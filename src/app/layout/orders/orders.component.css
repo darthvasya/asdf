@@ -26,8 +26,19 @@
         height: 35px;
     }
     
-    .btnStatus {
+    .btnStatus,
+    .btnCount,
+    .btnCustomer {
         background-color: #f44336;
+    }
+    
+    .btnCount:active,
+    .btnCustomer:active {
+        background-color: #cf3b31;
+    }
+    
+    .open>.btnStatus.dropdown-toggle {
+        background-color: #cf3b31;
     }
     
     .btn.btn-danger.btnShowNext:nth-child(2) {
@@ -300,14 +311,18 @@
     
     @media only screen and (max-width: 355px) {}
     
-    .received {
-        background-color: #A4FFB1;
-    }
-    
     .ready {
-        background-color: #6767FF;
+        background-color: #fdd868;
     }
     
-    .approved {
-        background-color: #FFA6D0;
+    .accepted {
+        background-color: #007bff;
+    }
+    
+    .discard {
+        background-color: #b8b8b8;
+    }
+    
+    .given {
+        background-color: #28a745;
     }
