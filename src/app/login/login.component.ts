@@ -32,7 +32,8 @@ export class LoginComponent implements AfterViewInit {
     }
 
   onLogging() {
-    if (true) {
+    if (((this.validateLogin() == true) && (this.validatePassword() == true))) {
+
       this.authService.login(this.loginData)
         .then(() => {
           this.router.navigate(['/dashboard']);
@@ -40,13 +41,17 @@ export class LoginComponent implements AfterViewInit {
         .catch((err) => {
           if (err.status === 401 || err.status == 400) {
             this.errorMessage = 'Неправильный логин или пароль';
+            console.log(1);
           } else if (err.status === 500) {
             this.errorMessage = 'Извините, ошибка на сервере';
+            console.log(2);
           } else if (err.status === 404) {
             this.errorMessage = 'Извините, ошибка на сервере';
+            console.log(3);
           } {
             this.errorMessage = err._body;
           }
+          console.log(err);
         });
     }
   }
@@ -55,7 +60,7 @@ export class LoginComponent implements AfterViewInit {
     const username = this.loginData.email;
     const regxp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 
-    if (!username || (username.length < 6 || username.length > 60) || (!regxp.test(username))) {
+    if (!username || (username.length < 7 || username.length > 60) || (!regxp.test(username))) {
         if (!username) {
             this.validationError.email.status = true;
             this.validationError.email.message = 'Введите имя пользователя';
@@ -72,12 +77,14 @@ export class LoginComponent implements AfterViewInit {
         } else {
             this.validationError.email.status = false;
             this.validationError.email.message = 'Валидный';
+            return true;
         }
+        return false;
   }
 
   validatePassword() {
     const password = this.loginData.password;
-    if (!password || (password.length < 5 || password.length > 60)) {
+    if (!password || (password.length < 6 || password.length > 60)) {
         if (!password) {
             this.validationError.password.status = true;
             this.validationError.password.message = 'Введите пароль';
@@ -88,7 +95,9 @@ export class LoginComponent implements AfterViewInit {
           }
     } else {
         this.validationError.password.status = false;
+        return true;
       }
+      return false;
   }
 
   isDataValid() {
