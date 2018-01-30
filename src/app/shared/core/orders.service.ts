@@ -22,13 +22,13 @@ export class OrdersService {
         private authService: AuthService
     ) {}
 
-    getOrders() {
+    getOrders(page, pageSize) {
         let headers = HttpUtil.REQUEST_OPTIONS_WITH_CONTENT_TYPE_JSON;
         headers.headers.set("Authorization", "Bearer " + this.authService.token);
 
         return new Promise((resolve, reject) => {
             this.http
-                .get(`${this.API_ROUTE}` + "?page" + 1 + "&pageSize=" + 5, headers)
+                .get(`${this.API_ROUTE}` + "?page=" + page + "&pageSize=" + pageSize, headers)
                 .map(res => res.json())
                 .catch(err => {
                     reject(err);

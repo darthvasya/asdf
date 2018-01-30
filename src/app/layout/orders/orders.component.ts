@@ -3,7 +3,7 @@ import { Component, ViewChild, OnInit } from "@angular/core";
 import { LoaderService } from "./../../shared/core/loader.service";
 import { NotificationService } from "./../../shared/core/notification.service";
 import { OrdersService } from "./../../shared/core/orders.service";
-//import { SignalRService } from "./../../shared/core/signalr.service";
+import { SignalRService } from "./../../shared/core/signalr.service";
 
 import * as _ from "lodash";
 declare const $: any;
@@ -25,6 +25,9 @@ export class OrdersComponent implements OnInit {
 
     statuses: any = [];
 
+    page = 1;
+    pageSize = 10;
+
     private hubConnection: HubConnection;
     nick = "";
     message = "";
@@ -33,8 +36,7 @@ export class OrdersComponent implements OnInit {
     constructor(
         private ordersService: OrdersService,
         private notificationService: NotificationService,
-        private loaderService: LoaderService
-        //private signalrService: SignalRService
+        private loaderService: LoaderService //private signalrService: SignalRService
     ) {
         this.fillStatuses();
         this.loadOrders();
@@ -51,32 +53,33 @@ export class OrdersComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.hubConnection = new HubConnection("http://localhost:5000/chat", {
+            transport: TransportType.LongPolling
+        });
+        this.hubConnection
+            .start()
+            .then(() => console.log("Connection started!"))
+            .catch(err =>
+                console.log("Error while establishing connection :(")
+            );
 
-        // this.hubConnection = new HubConnection(
-        //     "https://suvorov.co/ordersHub",
-        //     {
-        //         transport: TransportType.LongPolling
-        //     }
-        // );
+        this.hubConnection.on(
+            "sendToAll",
+            (nick: string, receivedMessage: string) => {
+                const text = `${nick}: ${receivedMessage}`;
+                console.log(text);
+            }
+        );
+    }
 
-        // this.hubConnection
-        //     .start()
-        //     .then(() => {
-        //         this.hubConnection.invoke("RegisterConnection", 1);
-        //     })
-        //     .catch(err => console.log(err));
-
-        //          this.hubConnection.on(
-        //              "newOrder",
-        //              (
-        //                  data
-        //              ) => {
-        //                  console.log(data);
-        //              }
-        //          );
+    sendMessage(): void {
+        this.hubConnection
+            .invoke("sendToAll", "Vasya", "dadsasadsad")
+            .catch(err => console.error(err));
     }
 
     sortOrders(property: string) {
+            this.sendMessage();
         console.log(property);
         console.log(this.ordering);
         this.ordering = this.ordering ? false : true;
@@ -90,12 +93,12 @@ export class OrdersComponent implements OnInit {
     loadOrders() {
         this.loaderService.display(true);
         this.ordersService
-            .getOrders()
+            .getOrders(this.page, this.pageSize)
             .then(orders => {
                 this.orders = orders;
                 this.loaderService.display(false);
                 console.log(orders);
-                this.sortOrders("id");
+                // ..this.sortOrders("id");
                 this.getOrder();
             })
             .catch(err => {
@@ -133,5 +136,17 @@ export class OrdersComponent implements OnInit {
         this.statuses[3] = { statusRU: "Готов", value: 3 };
         this.statuses[4] = { statusRU: "Выдан", value: 4 };
         this.statuses[5] = { statusRU: "Отменен", value: 5 };
+    }
+
+    getNextOrders() {
+        this.page += 1;
+        this.loadOrders();
+    }
+
+    getPastOrders() {
+        if (this.page >= 2) {
+            this.page -= 1;
+            this.loadOrders();
+        }
     }
 }
