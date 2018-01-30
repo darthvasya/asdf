@@ -32,14 +32,13 @@
                 <table class="tableOrders table table-bordered table-sm m-0" id="myTable2">
                     <thead class="">
                         <tr>
-                            <!-- <th>s</th> -->
                             <th (click)="sortOrders('id')">№</th>
                             <th (click)="sortOrders('customerId')">
                                 <p>Заказчик </p>
                                 <i class="material-icons">swap_vert</i>
                             </th>
                             <th (click)="sortOrders('items.length')">
-                                <p>Количество элементов</p>
+                                <p class="thCount"><span>Количество </span> <span class="shift">элементов</span> </p>
                             </th>
                             <th (click)="sortOrders('orderIssuedTime')">
                                 <p>Время выдачи</p>
@@ -54,22 +53,16 @@
                                 <p>Время получения заказа</p>
                             </th>
                             <th (click)="sortOrders('orderState')">
-                                <p>Статус заказа</p>
+                                <p class="thStatus"><span>Статус </span><span class="shift">заказа</span></p>
                             </th>
                             <!-- <i class="material-icons">reorder</i>  -->
                         </tr>
                     </thead>
                     <tbody *ngFor="let order of orders">
-                        <tr [class.active]="order.orderState === 1" [class.warning]="order.orderState === 2" [class.ready]="order.orderState === 3" [class.success]="order.orderState === 4" [class.danger]="order.orderState === 5" [class.received]="order.orderState === 0">
-                            <!-- <td>
-                                <label class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input">
-                                    <span class="custom-control-indicator"></span>
-                                </label>
-                            </td> -->
+                        <tr [class.accepted]="order.orderState === 1" [class.discard]="order.orderState === 2" [class.ready]="order.orderState === 3" [class.given]="order.orderState === 4" [class.danger]="order.orderState === 5" [class.received]="order.orderState === 0">
                             <td>{{order.id}}</td>
-                            <td data-toggle="collapse" data-target="#" [attr.data-target]="'#customerInfo' + order.id">{{order.customerId}}</td>
-                            <td data-toggle="collapse" data-target="#" [attr.data-target]="'#itemsInfo' + order.id">{{order.items.length}}</td>
+                            <td data-toggle="collapse" data-target="#" [attr.data-target]="'#customerInfo' + order.id"><button class="btn btnCustomer"><span><i class="material-icons">assignment_ind</i> Клиент<i class="material-icons">expand_more</i></span></button></td>
+                            <td data-toggle="collapse" data-target="#" [attr.data-target]="'#itemsInfo' + order.id"><button class="btn btnCount"><span>Показать {{order.items.length}} <i class="material-icons">expand_more</i></span> </button></td>
                             <td>{{order.orderIssuedTime | date: 'HH:mm:ss'}}</td>
                             <td>{{order.orderReadyTime | date: 'HH:mm:ss'}}</td>
                             <td>{{order.orderAcceptTime | date: 'HH:mm:ss'}}</td>
@@ -131,31 +124,6 @@
             <div class="card-footer p-0">
                 <button type="button" class="btn btn-danger btnShowNext ShowPrev" (click)="getPastOrders()"><span> Следующие заказы</span></button>
                 <button type="button" class="btn btn-danger btnShowNext ShowNext" (click)="getNextOrders()"><span>Предыдущие заказы</span></button>
-            </div>
-        </div>
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-            Launch demo modal
-        </button>
-
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-                    </div>
-                    <div class="modal-body">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
