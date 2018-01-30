@@ -4,7 +4,7 @@
             <h2>Заказы</h2>
         </div>
         <div class="flex filters col-lg-10">
-            <div class="filter flex">
+            <!-- <div class="filter flex">
                 <span>Сегодняшние</span>
                 <div class="checkbox">
                     <label>
@@ -19,10 +19,10 @@
                         <input (ngModelChange)="loadOrders()" [(ngModel)]="filterModel.isReady" type="checkbox" name="optionsCheckboxes">
                     </label>
                 </div>
-            </div>
+            </div> -->
             <div class="filter flex">
                 <span>Количество записей:</span>
-                <input (ngModelChange)="loadOrders()"  [(ngModel)]="filterModel.pageSize" type="number" class="numerick">
+                <input (ngModelChange)="loadOrders()"  [(ngModel)]="filterModel.pageSize" min="5" type="number" class="numerick">
             </div>
         </div>
 
@@ -64,7 +64,12 @@
                             <td data-toggle="collapse" data-target="#" [attr.data-target]="'#customerInfo' + order.id"><button class="btn btnCustomer"><span><i class="material-icons">assignment_ind</i> Клиент<i class="material-icons">expand_more</i></span></button></td>
                             <td data-toggle="collapse" data-target="#" [attr.data-target]="'#itemsInfo' + order.id"><button class="btn btnCount"><span>Показать {{order.items.length}} <i class="material-icons">expand_more</i></span> </button></td>
                             <td>{{order.orderIssuedTime | date: 'HH:mm:ss'}}</td>
-                            <td>{{order.orderReadyTime | date: 'HH:mm:ss'}}</td>
+                            <td>
+                                <div [hidden]="order.orderState === 0">{{order.orderReadyTime | date: 'HH:mm:ss'}}</div>
+                                <div [hidden]="order.orderState !== 0">
+                                    <input type="number" [(ngModel)]="order.waitingTime" class="numerick" min="0" name="waitMinutes">
+                                </div>
+                            </td>
                             <td>{{order.orderAcceptTime | date: 'HH:mm:ss'}}</td>
                             <td>{{order.orderRegisterTime | date: 'HH:mm:ss'}}</td>
                             <td>
@@ -83,8 +88,8 @@
                                         <li (click)="changeStatus(order.id, 3)">
                                             <a>Готов</a>
                                         </li>
-                                        <li (click)="changeStatus(order.id, 4)">
-                                            <a>Получен</a>
+                                        <li (click)="changeStatus(order.id, 4, order.waitingTime)">
+                                            <a>Забрали</a>
                                         </li>
                                     </ul>
                                 </div>

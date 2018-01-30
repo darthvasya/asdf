@@ -41,14 +41,18 @@ export class OrdersService {
         });
     }
 
-    changeStatus(orderId: number, statusId: number) {
+    changeStatus(orderId: number, statusId: number, waitingTime: number) {
         let headers = HttpUtil.REQUEST_OPTIONS_WITH_CONTENT_TYPE_JSON;
         headers.headers.set("Authorization", "Bearer " + this.authService.token);
+
+        let url = `${this.API_ROUTE}`;
+        if(waitingTime >= 0)
+            url = url + '?waitingTime=' + waitingTime;
 
         let body = {OrderId: orderId, State: statusId};
         return new Promise((resolve, reject) => {
             this.http
-                .put(`${this.API_ROUTE}`, body, headers)
+                .put(url, body, headers)
                 .catch(err => {
                     reject(err);
                     return Observable.throw(err);

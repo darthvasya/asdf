@@ -104,7 +104,7 @@ export class OrdersComponent implements OnInit {
     loadOrders() {
         this.loaderService.display(true);
         this.ordersService
-            .getOrders(this.page, this.filterModel.pageSize, this.filterModel.onlyToday, this.filterModel.isReady)
+            .getOrders(this.page, this.filterModel.pageSize, false, false)
             .then(orders => {
                 this.orders = orders;
                 this.sortOrders("id");
@@ -123,10 +123,14 @@ export class OrdersComponent implements OnInit {
         }
     }
 
-    changeStatus(orderId: number, statusId: number) {
+    changeStatus(orderId: number, statusId: number, waitingTime: number) {
         this.loaderService.display(true);
+        console.log(waitingTime);
+        if(statusId !== 1)
+            waitingTime = -1;
+
         this.ordersService
-            .changeStatus(orderId, statusId)
+            .changeStatus(orderId, statusId, waitingTime)
             .then(() => {
                 this.loaderService.display(false);
                 let order = _.find(this.orders, ["id", orderId]);
