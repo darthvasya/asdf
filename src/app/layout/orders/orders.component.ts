@@ -26,6 +26,12 @@ export class OrdersComponent implements OnInit {
     currentPredicate: any;
 
     statuses: any = [];
+    filterModel: any = {
+        all: true,
+        onlyToday: true,
+        isReady: true,
+        pageSize: 15
+    };
 
     page = 1;
     pageSize = 10;
@@ -45,38 +51,45 @@ export class OrdersComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.httpConnection = new HttpConnection('https://suvorov.co/ordersHub');
+        this.httpConnection = new HttpConnection(
+            "https://suvorov.co/ordersHub"
+        );
         this.hubConnection = new HubConnection(this.httpConnection);
         this.hubConnection
             .start()
             .then(() => {
-                console.log('Connection started!');
+                console.log("Connection started!");
                 // Тут вместо 1 надо отправить id магаза
-                this.hubConnection.invoke("registerConnection", 1)
+                this.hubConnection.invoke("registerConnection", 1);
             })
             .catch(err =>
-                console.log('Error while establishing connection :((')
+                console.log("Error while establishing connection :((")
             );
 
-            this.hubConnection.on("newOrder", data => {
-                // обработка заказа
-                if(this.orders.length >= 15) {
-                    this.orders.splice(-1, 1);
-                }
-                this.orders.push(data);
-                this.ordering = true;
-                this.sortOrders("id");
-                this.notificationService.showNotification("bottom", "center", "Получен новый заказ!", "success");
-            });
+        this.hubConnection.on("newOrder", data => {
+            // обработка заказа
+            if (this.orders.length >= 15) {
+                this.orders.splice(-1, 1);
+            }
+            this.orders.push(data);
+            this.ordering = true;
+            this.sortOrders("id");
+            this.notificationService.showNotification(
+                "bottom",
+                "center",
+                "Получен новый заказ!",
+                "success"
+            );
+        });
 
-            this.hubConnection.on("Heartbeat", data => {
-                // обработка заказа
-                console.log("heartBeat: ", data);
-            });
+        this.hubConnection.on("Heartbeat", data => {
+            // обработка заказа
+            console.log("heartBeat: ", data);
+        });
 
-            this.hubConnection.onclose(() => {
-                console.log("ws closed");
-            })
+        this.hubConnection.onclose(() => {
+            console.log("ws closed");
+        });
     }
 
     sortOrders(property: string) {
@@ -91,10 +104,10 @@ export class OrdersComponent implements OnInit {
     loadOrders() {
         this.loaderService.display(true);
         this.ordersService
-            .getOrders(this.page, this.pageSize)
+            .getOrders(this.page, this.filterModel.pageSize, this.filterModel.onlyToday, this.filterModel.isReady)
             .then(orders => {
                 this.orders = orders;
-                this.sortOrders('id');
+                this.sortOrders("id");
                 this.loaderService.display(false);
             })
             .catch(err => {
@@ -135,7 +148,7 @@ export class OrdersComponent implements OnInit {
     }
 
     getNextOrders() {
-        if(this.orders.length === 15) {
+        if (this.orders.length === 15) {
             this.page += 1;
             this.loadOrders();
         }
