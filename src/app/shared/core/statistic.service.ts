@@ -10,7 +10,7 @@ import { APP_CONFIG } from "../configs/app.config";
 import { HttpUtil } from "../utils/http.util";
 
 import { AuthService } from "./auth.service";
-import { Promise } from "q";
+// import { Promise } from "q";
 
 @Injectable()
 export class StatisticService {
