@@ -14,7 +14,7 @@
     button {
         position: relative;
         margin: 2% 2% 2% 0;
-        width: 100%;
+        width: 90%;
         height: 100%;
     }
     
@@ -24,6 +24,21 @@
         margin: 0%;
         width: 20%;
         height: 35px;
+    }
+    
+    .btnStatus,
+    .btnCount,
+    .btnCustomer {
+        background-color: #f44336;
+    }
+    
+    .btnCount:active,
+    .btnCustomer:active {
+        background-color: #cf3b31;
+    }
+    
+    .open>.btnStatus.dropdown-toggle {
+        background-color: #cf3b31;
     }
     
     .btn.btn-danger.btnShowNext:nth-child(2) {
@@ -75,6 +90,9 @@
         margin: -4px 0px 0px 10px;
         width: 70px;
         height: 30px;
+        background-color: #fff;
+        border: 1px solid #4c5765;
+        border-radius: 5px;
     }
     
     .checkbox {
@@ -145,6 +163,14 @@
         width: 50px;
     }
     
+    .dropdown-menu li:hover {
+        cursor: pointer;
+    }
+    
+    .dropdown-menu li a:hover {
+        background-color: #52973c;
+    }
+    
     @media only screen and (max-width: 1240px) {
         .filters {
             padding-left: 0;
@@ -152,30 +178,35 @@
         .filter:first-child {
             margin-left: 30px;
         }
-    }
-    
-    @media only screen and (max-width: 1060px) {
-        table.tableOrders td:nth-last-child(2) {
-            display: none;
-        }
+        table.tableOrders td:nth-last-child(2),
         table.tableOrders th:nth-last-child(2) {
             display: none;
         }
+        .shift {
+            display: block;
+        }
+    }
+    
+    @media only screen and (max-width: 1106px) {
         .btn.btn-danger.btnShowNext {
             font-size: 10px;
         }
-
-
-    }
-    /* Small Devices, Tablets */
-    
-    @media only screen and (max-width: 768px) {
-        table.tableOrders td:nth-last-child(3) {
-            display: none;
-        }
+        table.tableOrders td:nth-last-child(3),
         table.tableOrders th:nth-last-child(3) {
             display: none;
         }
+    }
+    
+    @media only screen and (max-width: 1060px) {
+        .btn.btn-danger.btnShowNext {
+            font-size: 10px;
+        }
+    }
+    
+    @media only screen and (max-width: 855px) {}
+    /* Small Devices, Tablets */
+    
+    @media only screen and (max-width: 768px) {
         .btn.btn-danger.btnShowNext {
             font-size: 10px;
             white-space: nowrap;
@@ -190,15 +221,16 @@
             padding: 0px !important;
         }
     }
-    /* Extra Small Devices, Phones */
     
-    @media only screen and (max-width: 615px) {
-        table.tableOrders td:nth-last-child(4) {
-            display: none;
-        }
+    @media only screen and (max-width: 668px) {
+        table.tableOrders td:nth-last-child(4),
         table.tableOrders th:nth-last-child(4) {
             display: none;
         }
+    }
+    /* Extra Small Devices, Phones */
+    
+    @media only screen and (max-width: 615px) {
         .btn.btn-danger.btnShowNext {
             width: 35%;
         }
@@ -220,16 +252,24 @@
     }
     
     @media only screen and (max-width: 425px) {
-        table.tableOrders th:nth-child(2) p,
-        table.tableOrders th:nth-child(3) p {
-            white-space: nowrap;
-            overflow: hidden;
+        table.tableOrders th:nth-child(3) {
             width: 25px;
         }
         .btn.btn-danger.btnShowNext {
             width: 40%;
         }
-        .btnShowNext span {
+        .thCount span,
+        .thStatus span {
+            display: none;
+        }
+        .thCount:after {
+            content: "Кол-во";
+        }
+        .thStatus:after {
+            content: "Статус";
+        }
+        .ShowPrev span,
+        .ShowNext span {
             display: none;
         }
         .ShowPrev:after {
@@ -238,15 +278,23 @@
         .ShowNext:after {
             content: 'Следующие';
         }
-    }
-    
-    @media only screen and (max-width: 370px) {}
-    
-    @media only screen and (max-width: 355px) {
-        table.tableOrders td:nth-last-child(1) button {
+        table.tableOrders td:nth-last-child(1) button,
+        table.tableOrders td:nth-child(3) button,
+        table.tableOrders td:nth-child(2) button {
             padding: 5px 0;
             font-size: 10px;
             height: 30px;
+        }
+        table.tableOrders td:nth-last-child(1),
+        table.tableOrders td:nth-child(3),
+        table.tableOrders td:nth-child(2) {
+            padding: 0;
+        }
+        table.tableOrders td:nth-child(3) button {
+            padding: 0 10px 0 10px;
+        }
+        table.tableOrders td:nth-child(3) button span {
+            margin-left: 4px;
         }
         table.tableOrders th:nth-child(1) {
             width: 40px;
@@ -259,14 +307,22 @@
         }
     }
     
-    .received {
-        background-color: #A4FFB1;
-    }
+    @media only screen and (max-width: 370px) {}
+    
+    @media only screen and (max-width: 355px) {}
     
     .ready {
-        background-color: #6767FF;
+        background-color: #fdd868;
     }
     
-    .approved {
-        background-color: #FFA6D0;
+    .accepted {
+        background-color: #007bff;
+    }
+    
+    .discard {
+        background-color: #b8b8b8;
+    }
+    
+    .given {
+        background-color: #28a745;
     }
