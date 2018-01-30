@@ -33,7 +33,6 @@ export class LoginComponent implements AfterViewInit {
 
   onLogging() {
     if (((this.validateLogin() == true) && (this.validatePassword() == true))) {
-
       this.authService.login(this.loginData)
         .then(() => {
           this.router.navigate(['/dashboard']);
@@ -41,17 +40,13 @@ export class LoginComponent implements AfterViewInit {
         .catch((err) => {
           if (err.status === 401 || err.status == 400) {
             this.errorMessage = 'Неправильный логин или пароль';
-            console.log(1);
           } else if (err.status === 500) {
             this.errorMessage = 'Извините, ошибка на сервере';
-            console.log(2);
           } else if (err.status === 404) {
             this.errorMessage = 'Извините, ошибка на сервере';
-            console.log(3);
           } {
             this.errorMessage = err._body;
           }
-          console.log(err);
         });
     }
   }
