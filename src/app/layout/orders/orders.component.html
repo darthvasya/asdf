@@ -67,7 +67,7 @@
                             <td>
                                 <div [hidden]="order.orderState === 0">{{order.orderReadyTime | date: 'HH:mm:ss'}}</div>
                                 <div [hidden]="order.orderState !== 0">
-                                    <input type="number" [(ngModel)]="order.waitingTime" class="numerick" min="0" name="waitMinutes">
+                                    <input type="number" [(ngModel)]="order.orderReadyTime" class="numerick" min="0" name="waitMinutes">
                                 </div>
                             </td>
                             <td>{{order.orderAcceptTime | date: 'HH:mm:ss'}}</td>
@@ -88,7 +88,7 @@
                                         <li (click)="changeStatus(order.id, 3)">
                                             <a>Готов</a>
                                         </li>
-                                        <li (click)="changeStatus(order.id, 4, order.waitingTime)">
+                                        <li (click)="changeStatus(order.id, 4, order.orderReadyTime)">
                                             <a>Забрали</a>
                                         </li>
                                     </ul>
