@@ -102,6 +102,7 @@ export class OrdersComponent implements OnInit {
     }
 
     loadOrders() {
+        this.filterModel.pageSize = (this.filterModel.pageSize >= 5) ? this.filterModel.pageSize : 5;
         this.loaderService.display(true);
         this.ordersService
             .getOrders(this.page, this.filterModel.pageSize, this.filterModel.onlyToday, this.filterModel.isReady)
