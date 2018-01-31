@@ -4,22 +4,6 @@
             <h2>Заказы</h2>
         </div>
         <div class="flex filters col-lg-10">
-            <!-- <div class="filter flex">
-                <span>Сегодняшние</span>
-                <div class="checkbox">
-                    <label>
-                        <input (ngModelChange)="loadOrders()" [(ngModel)]="filterModel.onlyToday" type="checkbox" name="optionsCheckboxes">
-                    </label>
-                </div>
-            </div>
-            <div class="filter flex">
-                <span>Готовые</span>
-                <div class="checkbox">
-                    <label>
-                        <input (ngModelChange)="loadOrders()" [(ngModel)]="filterModel.isReady" type="checkbox" name="optionsCheckboxes">
-                    </label>
-                </div>
-            </div> -->
             <div class="filter flex">
                 <span>Количество записей:</span>
                 <input (ngModelChange)="loadOrders()"  [(ngModel)]="filterModel.pageSize" min="5" type="number" class="numerick">
