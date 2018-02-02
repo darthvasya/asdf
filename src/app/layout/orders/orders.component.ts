@@ -126,7 +126,6 @@ export class OrdersComponent implements OnInit {
 
     changeStatus(orderId: number, statusId: number, waitingTime: number) {
         this.loaderService.display(true);
-        console.log(waitingTime);
         if(statusId !== 1)
             waitingTime = -1;
 
@@ -136,6 +135,13 @@ export class OrdersComponent implements OnInit {
                 this.loaderService.display(false);
                 let order = _.find(this.orders, ["id", orderId]);
                 order.orderState = statusId;
+
+                if (statusId === 1)
+                    order.orderAcceptTime = new Date();
+                if(statusId === 3)
+                    order.orderReadyTime = new Date();
+                if(statusId === 4)
+                    order.orderIssuedTime = new Date();
             })
             .catch(err => {
                 this.loaderService.display(false);
@@ -167,10 +173,9 @@ export class OrdersComponent implements OnInit {
     }
 
     isDate(value) {
-        if (isNaN(value.getTime())) {
+        if (isNaN(value.getTime()))
             return false; //date is invalid
-        } else {
+        else
             return value instanceof Date;
-        }
     }
 }

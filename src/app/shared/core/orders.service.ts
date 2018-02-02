@@ -46,7 +46,7 @@ export class OrdersService {
         headers.headers.set("Authorization", "Bearer " + this.authService.token);
 
         let url = `${this.API_ROUTE}`;
-        if(waitingTime >= 0)
+        if(waitingTime >= 0 && waitingTime !== null)
             url = url + '?waitingTime=' + waitingTime;
 
         let body = {OrderId: orderId, State: statusId};

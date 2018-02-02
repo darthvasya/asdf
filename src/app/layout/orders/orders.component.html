@@ -63,7 +63,7 @@
                                         <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li (click)="changeStatus(order.id, 1)">
+                                        <li (click)="changeStatus(order.id, 1, order.orderReadyTime)">
                                             <a>Подтвердить</a>
                                         </li>
                                         <li (click)="changeStatus(order.id, 2)">
@@ -72,7 +72,7 @@
                                         <li (click)="changeStatus(order.id, 3)">
                                             <a>Готов</a>
                                         </li>
-                                        <li (click)="changeStatus(order.id, 4, order.orderReadyTime)">
+                                        <li (click)="changeStatus(order.id, 4)">
                                             <a>Забрали</a>
                                         </li>
                                     </ul>
