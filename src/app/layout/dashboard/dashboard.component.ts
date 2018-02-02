@@ -12,6 +12,9 @@ export class DashboardComponent implements OnInit {
     hours: {};
     orders: {};
     customers: {};
+    weekHours : number;
+    weekCustomers : number;
+    weekOrders : number;
     private hubConnection: HubConnection;
 
 
@@ -84,10 +87,8 @@ export class DashboardComponent implements OnInit {
     .getHoursOrders()
     .then(hours => {
         this.hours = hours;
-        dataCompletedTasksChart = {
-            labels: ['2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24'],
-            series: [
-                [this.hours[0].count,
+        let arrHours = [
+            this.hours[0].count,
                  this.hours[1].count,
                  this.hours[2].count,
                  this.hours[3].count,
@@ -98,7 +99,12 @@ export class DashboardComponent implements OnInit {
                  this.hours[8].count,
                  this.hours[9].count,
                  this.hours[10].count,
-                 this.hours[11].count]
+                 this.hours[11].count
+        ];
+        dataCompletedTasksChart = {
+            labels: ['2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24'],
+            series: [
+                arrHours
             ]
         };
         const optionsCompletedTasksChart: any = {
@@ -106,14 +112,15 @@ export class DashboardComponent implements OnInit {
                 tension: 0
             }),
             low: 0,
-            high: 20, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+            high: Math.max.apply(null, arrHours)+5,
             chartPadding: { top: 0, right: 0, bottom: 0, left: 0}
         }
-
         var completedTasksChart = new Chartist.Line('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
-
-        // start animation for the Completed Tasks Chart - Line Chart
         this.startAnimationForLineChart(completedTasksChart);
+        this.weekHours  = arrHours.reduce(function(sum, current) {
+            return sum + current;
+          }, 0);
+
     })
     .catch(err => {
         console.log(err);
@@ -126,6 +133,15 @@ export class DashboardComponent implements OnInit {
       .getWeekOrders()
       .then(orders => {
           this.orders = orders;
+          let arrOrders = [
+            this.orders[0].count,
+            this.orders[1].count,
+            this.orders[2].count,
+            this.orders[3].count,
+            this.orders[4].count,
+            this.orders[5].count,
+            this.orders[6].count
+          ];
           dataDailySalesChart= {
             labels: [new Date(this.orders[0].date).toLocaleString('ru', {weekday: 'short'}),
                     new Date(this.orders[1].date).toLocaleString('ru', {weekday: 'short'}),
@@ -135,13 +151,7 @@ export class DashboardComponent implements OnInit {
                     new Date(this.orders[5].date).toLocaleString('ru', {weekday: 'short'}),
                     new Date(this.orders[6].date).toLocaleString('ru', {weekday: 'short'})],
             series: [
-                [this.orders[0].count,
-                this.orders[1].count,
-                this.orders[2].count,
-                this.orders[3].count,
-                this.orders[4].count,
-                this.orders[5].count,
-                this.orders[6].count]
+                arrOrders
             ]
         };
         const optionsDailySalesChart: any = {
@@ -149,11 +159,16 @@ export class DashboardComponent implements OnInit {
               tension: 0
           }),
           low: 0,
-          high: 12, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+          high: Math.max.apply(null, arrOrders)+10,
           chartPadding: { top: 0, right: 0, bottom: 0, left: 0},
       }
       var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
       this.startAnimationForLineChart(dailySalesChart);
+
+      this.weekOrders = arrOrders.reduce(function(sum, current) {
+        return sum + current;
+      }, 0);
+
       })
       .catch(err => {
           console.log(err);
@@ -166,6 +181,15 @@ export class DashboardComponent implements OnInit {
       .getNewCustomers()
       .then(customers => {
           this.customers = customers;
+          let arrCustomers = [
+            this.customers[0].count,
+            this.customers[1].count,
+            this.customers[2].count,
+            this.customers[3].count,
+            this.customers[4].count,
+            this.customers[5].count,
+            this.customers[6].count
+          ];
            dataEmailsSubscriptionChart = {
             labels: [new Date(this.customers[0].date).toLocaleString('ru', {weekday: 'short'}),
                         new Date(this.customers[1].date).toLocaleString('ru', {weekday: 'short'}),
@@ -175,13 +199,7 @@ export class DashboardComponent implements OnInit {
                         new Date(this.customers[5].date).toLocaleString('ru', {weekday: 'short'}),
                         new Date(this.customers[6].date).toLocaleString('ru', {weekday: 'short'})],
             series: [
-                [this.customers[0].count,
-                this.customers[1].count,
-                this.customers[2].count,
-                this.customers[3].count,
-                this.customers[4].count,
-                this.customers[5].count,
-                this.customers[6].count]
+                arrCustomers
             ]
           };
           var optionsEmailsSubscriptionChart = {
@@ -189,7 +207,7 @@ export class DashboardComponent implements OnInit {
                   showGrid: false
               },
               low: 0,
-              high: 5,
+              high: Math.max.apply(null, arrCustomers)+5,
               chartPadding: { top: 0, right: 5, bottom: 0, left: 0}
           };
           var responsiveOptions: any[] = [
@@ -204,6 +222,10 @@ export class DashboardComponent implements OnInit {
           ];
           var emailsSubscriptionChart = new Chartist.Bar('#emailsSubscriptionChart', dataEmailsSubscriptionChart, optionsEmailsSubscriptionChart, responsiveOptions);
           this.startAnimationForBarChart(emailsSubscriptionChart);
+          this.weekCustomers = arrCustomers.reduce(function(sum, current) {
+            return sum + current;
+          }, 0);
+
       })
       .catch(err => {
           console.log(err);
