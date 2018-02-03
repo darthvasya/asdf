@@ -1,0 +1,11 @@
+.col-md-12:nth-last-child(2) {
+    margin-left: 2%;
+    width: 96%;
+    padding: 0 !important;
+}
+
+.col-md-12:nth-last-child(1) {
+    margin-left: 2%;
+    width: 96%;
+    padding: 0 !important;
+}

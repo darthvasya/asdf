@@ -1,0 +1,14 @@
+.block {
+    /* margin: 1px; */
+}
+
+h4 {
+    white-space: nowrap;
+}
+
+input {
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid grey;
+    margin-bottom: 5px;
+}

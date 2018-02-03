@@ -1,20 +1,28 @@
 <div class="main-content">
     <div class="container-fluid">
-        <h2>Заказы</h2>
+        <div class="col-lg-2">
+            <h2>Заказы</h2>
+        </div>
+        <div class="flex filters col-lg-10">
+            <div class="filter flex">
+                <span>Количество записей:</span>
+                <input (ngModelChange)="loadOrders()"  [(ngModel)]="filterModel.pageSize" min="5" type="number" class="numerick">
+            </div>
+        </div>
 
 
         <div class="card mb-12">
             <div class="card-block p-0">
-                <table class="table table-bordered table-sm m-0" id="myTable2">
+                <table class="tableOrders table table-bordered table-sm m-0" id="myTable2">
                     <thead class="">
                         <tr>
-                            <!-- <th>s</th> -->
                             <th (click)="sortOrders('id')">№</th>
                             <th (click)="sortOrders('customerId')">
-                                <p>Заказчик</p>
+                                <p>Заказчик </p>
+                                <i class="material-icons">swap_vert</i>
                             </th>
                             <th (click)="sortOrders('items.length')">
-                                <p>Количество элементов</p>
+                                <p class="thCount"><span>Количество </span> <span class="shift">элементов</span> </p>
                             </th>
                             <th (click)="sortOrders('orderIssuedTime')">
                                 <p>Время выдачи</p>
@@ -29,26 +37,25 @@
                                 <p>Время получения заказа</p>
                             </th>
                             <th (click)="sortOrders('orderState')">
-                                <p>Статус заказа</p>
+                                <p class="thStatus"><span>Статус </span><span class="shift">заказа</span></p>
                             </th>
                             <!-- <i class="material-icons">reorder</i>  -->
                         </tr>
                     </thead>
                     <tbody *ngFor="let order of orders">
-                        <tr [class.active]="order.orderState === 1" [class.warning]="order.orderState === 2" [class.info]="order.orderState === 3" [class.success]="order.orderState === 4" [class.danger]="order.orderState === 5">
-                            <!-- <td>
-                                <label class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input">
-                                    <span class="custom-control-indicator"></span>
-                                </label>
-                            </td> -->
+                        <tr [class.accepted]="order.orderState === 1" [class.discard]="order.orderState === 2" [class.ready]="order.orderState === 3" [class.given]="order.orderState === 4" [class.danger]="order.orderState === 5" [class.received]="order.orderState === 0">
                             <td>{{order.id}}</td>
-                            <td data-toggle="collapse" data-target="#" [attr.data-target]="'#customerInfo' + order.id">{{order.customerId}}</td>
-                            <td data-toggle="collapse" data-target="#" [attr.data-target]="'#itemsInfo' + order.id">{{order.items.length}}</td>
-                            <td>{{order.orderIssuedTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
-                            <td>{{order.orderReadyTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
-                            <td>{{order.orderAcceptTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
-                            <td>{{order.orderRegisterTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+                            <td data-toggle="collapse" data-target="#" [attr.data-target]="'#customerInfo' + order.id"><button class="btn btnCustomer"><span><i class="material-icons">assignment_ind</i> Клиент<i class="material-icons">expand_more</i></span></button></td>
+                            <td data-toggle="collapse" data-target="#" [attr.data-target]="'#itemsInfo' + order.id"><button class="btn btnCount"><span>Показать {{order.items.length}} <i class="material-icons">expand_more</i></span> </button></td>
+                            <td>{{order.orderIssuedTime | date: 'HH:mm:ss'}}</td>
+                            <td>
+                                <div [hidden]="order.orderState === 0">{{order.orderReadyTime | date: 'HH:mm:ss'}}</div>
+                                <div [hidden]="order.orderState !== 0">
+                                    <input type="number" [(ngModel)]="order.orderReadyTime" class="numerick" min="0" name="waitMinutes">
+                                </div>
+                            </td>
+                            <td>{{order.orderAcceptTime | date: 'HH:mm:ss'}}</td>
+                            <td>{{order.orderRegisterTime | date: 'HH:mm:ss'}}</td>
                             <td>
                                 <!-- {{order.orderState}} -->
                                 <div class="dropdown">
@@ -56,7 +63,7 @@
                                         <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li (click)="changeStatus(order.id, 1)">
+                                        <li (click)="changeStatus(order.id, 1, order.orderReadyTime)">
                                             <a>Подтвердить</a>
                                         </li>
                                         <li (click)="changeStatus(order.id, 2)">
@@ -66,7 +73,7 @@
                                             <a>Готов</a>
                                         </li>
                                         <li (click)="changeStatus(order.id, 4)">
-                                            <a>Получен</a>
+                                            <a>Забрали</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -87,7 +94,7 @@
                                     </div>
                                 </div>
                                 <hr> Сумма заказа:
-                                <span class="text-danger">(sum)</span>
+                                <span class="text-danger">{{order.totalPrice}} р</span>
                             </td>
                         </tr>
                         <tr [attr.id]="'customerInfo' + order.id" class="row collapse">
@@ -104,8 +111,8 @@
                 </table>
             </div>
             <div class="card-footer p-0">
-                <button type="button" class="btn btn-danger btnShowNext ShowNext" (click)="getNextOrders()"><span>Следующие заказы</span></button>
-                <button type="button" class="btn btn-danger btnShowNext ShowPrev" (click)="getPastOrders()"><span>Предыдущие заказы</span></button>
+                <button type="button" class="btn btn-danger btnShowNext ShowPrev" (click)="getPastOrders()"><span> Следующие заказы</span></button>
+                <button type="button" class="btn btn-danger btnShowNext ShowNext" (click)="getNextOrders()"><span>Предыдущие заказы</span></button>
             </div>
         </div>
     </div>

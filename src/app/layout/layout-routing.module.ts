@@ -10,6 +10,10 @@ const routes: Routes = [
             { path: 'items', loadChildren: './items/items.module#ItemsModule' },
             // { path: 'icons', loadChildren: './icons/icons.module#IconsModule' },
             { path: 'orders', loadChildren: './orders/orders.module#OrdersModule' },
+            { path: 'contacts', loadChildren: './contacts/contacts.module#ContactsModule' },
+            { path: 'instruction', loadChildren: './instruction/instruction.module#InstructionModule' },
+            { path: 'settings', loadChildren: './settings/settings.module#SettingsModule' },
+
             // { path: 'notifications', loadChildren: './notifications/notifications.module#NotificationsModule' },
             // { path: 'table-list', loadChildren: './table-list/table-list.module#TableListModule' },
             // { path: 'grid', loadChildren: './grid/grid.module#GridModule' },

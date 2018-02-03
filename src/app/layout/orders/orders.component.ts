@@ -4,6 +4,7 @@ import { LoaderService } from "./../../shared/core/loader.service";
 import { NotificationService } from "./../../shared/core/notification.service";
 import { OrdersService } from "./../../shared/core/orders.service";
 import { SignalRService } from "./../../shared/core/signalr.service";
+import { HelperService } from "./../../shared/core/helper.service";
 
 import * as _ from "lodash";
 declare const $: any;
@@ -12,7 +13,7 @@ import "rxjs/Rx";
 import { Observable } from "rxjs/Rx";
 import { from } from "rxjs/observable/from";
 
-import { HubConnection, TransportType } from "@aspnet/signalr-client";
+import { HubConnection, TransportType, HttpConnection } from "@aspnet/signalr-client";
 
 @Component({
     selector: "app-orders",
@@ -22,68 +23,78 @@ import { HubConnection, TransportType } from "@aspnet/signalr-client";
 export class OrdersComponent implements OnInit {
     orders: any;
     ordering: boolean = true;
+    currentPredicate: any;
 
     statuses: any = [];
+    filterModel: any = {
+        all: true,
+        onlyToday: true,
+        isReady: true,
+        pageSize: 15
+    };
 
     page = 1;
     pageSize = 10;
 
-    private hubConnection: HubConnection;
-    nick = "";
-    message = "";
+    hubConnection: HubConnection;
+    httpConnection: HttpConnection;
     messages: string[] = [];
 
     constructor(
         private ordersService: OrdersService,
         private notificationService: NotificationService,
-        private loaderService: LoaderService //private signalrService: SignalRService
+        private loaderService: LoaderService, //private signalrService: SignalRService
+        private helperService: HelperService
     ) {
         this.fillStatuses();
         this.loadOrders();
-
-        // Observable.interval(2000)
-        //     .switchMap(() =>
-        //         this.ordersService.getOrder(
-        //             this.orders[0].id
-        //         )
-        //     )
-        //     .subscribe(data => {
-        //         console.log(data); // see console you get output every 5 sec
-        //     });
     }
 
     ngOnInit() {
-        this.hubConnection = new HubConnection("http://localhost:5000/chat", {
-            transport: TransportType.LongPolling
-        });
+        this.httpConnection = new HttpConnection(
+            "https://suvorov.co/ordersHub"
+        );
+        this.hubConnection = new HubConnection(this.httpConnection);
         this.hubConnection
             .start()
-            .then(() => console.log("Connection started!"))
+            .then(() => {
+                console.log("Connection started!");
+                // Тут вместо 1 надо отправить id магаза
+                this.hubConnection.invoke("registerConnection", 1);
+            })
             .catch(err =>
-                console.log("Error while establishing connection :(")
+                console.log("Error while establishing connection :((")
             );
 
-        this.hubConnection.on(
-            "sendToAll",
-            (nick: string, receivedMessage: string) => {
-                const text = `${nick}: ${receivedMessage}`;
-                console.log(text);
+        this.hubConnection.on("newOrder", data => {
+            // обработка заказа
+            if (this.orders.length >= 15) {
+                this.orders.splice(-1, 1);
             }
-        );
-    }
+            this.orders.push(data);
+            this.ordering = true;
+            this.sortOrders("id");
+            this.notificationService.showNotification(
+                "bottom",
+                "center",
+                "Получен новый заказ!",
+                "success"
+            );
+        });
 
-    sendMessage(): void {
-        this.hubConnection
-            .invoke("sendToAll", "Vasya", "dadsasadsad")
-            .catch(err => console.error(err));
+        this.hubConnection.on("Heartbeat", data => {
+            // обработка заказа
+            console.log("heartBeat: ", data);
+        });
+
+        this.hubConnection.onclose(() => {
+            console.log("ws closed");
+        });
     }
 
     sortOrders(property: string) {
-            this.sendMessage();
-        console.log(property);
-        console.log(this.ordering);
         this.ordering = this.ordering ? false : true;
-        console.log(this.ordering);
+
         if (this.ordering)
             this.orders = _.orderBy(this.orders, property, "asc");
         if (!this.ordering)
@@ -91,15 +102,14 @@ export class OrdersComponent implements OnInit {
     }
 
     loadOrders() {
+        this.filterModel.pageSize = (this.filterModel.pageSize >= 5) ? this.filterModel.pageSize : 5;
         this.loaderService.display(true);
         this.ordersService
-            .getOrders(this.page, this.pageSize)
+            .getOrders(this.page, this.filterModel.pageSize, false, false)
             .then(orders => {
                 this.orders = orders;
+                this.sortOrders("id");
                 this.loaderService.display(false);
-                console.log(orders);
-                // ..this.sortOrders("id");
-                this.getOrder();
             })
             .catch(err => {
                 this.loaderService.display(false);
@@ -114,14 +124,24 @@ export class OrdersComponent implements OnInit {
         }
     }
 
-    changeStatus(orderId: number, statusId: number) {
+    changeStatus(orderId: number, statusId: number, waitingTime: number) {
         this.loaderService.display(true);
+        if(statusId !== 1)
+            waitingTime = -1;
+
         this.ordersService
-            .changeStatus(orderId, statusId)
+            .changeStatus(orderId, statusId, waitingTime)
             .then(() => {
                 this.loaderService.display(false);
                 let order = _.find(this.orders, ["id", orderId]);
                 order.orderState = statusId;
+
+                if (statusId === 1)
+                    order.orderAcceptTime = new Date();
+                if(statusId === 3)
+                    order.orderReadyTime = new Date();
+                if(statusId === 4)
+                    order.orderIssuedTime = new Date();
             })
             .catch(err => {
                 this.loaderService.display(false);
@@ -139,8 +159,10 @@ export class OrdersComponent implements OnInit {
     }
 
     getNextOrders() {
-        this.page += 1;
-        this.loadOrders();
+        if (this.orders.length === 15) {
+            this.page += 1;
+            this.loadOrders();
+        }
     }
 
     getPastOrders() {
@@ -148,5 +170,12 @@ export class OrdersComponent implements OnInit {
             this.page -= 1;
             this.loadOrders();
         }
+    }
+
+    isDate(value) {
+        if (isNaN(value.getTime()))
+            return false; //date is invalid
+        else
+            return value instanceof Date;
     }
 }

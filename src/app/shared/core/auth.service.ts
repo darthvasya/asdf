@@ -2,7 +2,9 @@ import { Injectable, Inject } from "@angular/core";
 import { Http, Headers, RequestOptions } from "@angular/http";
 
 import { ReplaySubject } from "rxjs";
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, Operator } from "rxjs";
+import "rxjs/add/operator/map";
+import "rxjs/add/operator/catch";
 
 import { LoginData } from "../models/LoginData";
 import { ShopRegistrationModel } from "../models/ShopRegistrationModel";
@@ -37,15 +39,16 @@ export class AuthService {
     }
 
     login(loginData: LoginData) {
-        console.log(loginData);
         return new Promise((resolve, reject) => {
             return this.http.post(`${this.AUTH_ROUTE}/token`, loginData, HttpUtil.REQUEST_OPTIONS_WITH_CONTENT_TYPE_JSON)
                 .map(res => {
                     this.userData = res.json();
+
                     localStorage.setItem('isLogged', JSON.stringify(true));
                     return res.json();
                 })
                 .catch((err) => {
+                    console.log(err);
                     reject(err);
                     return Observable.throw(err);
                 })
