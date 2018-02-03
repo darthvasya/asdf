@@ -106,7 +106,7 @@
                                     <p class="text-left"><i class="material-icons ">&#xE547;</i> Покупатель:</p>
                                 </h3>
                                 <p class="customer text-left"><i class="material-icons">sentiment_satisfied</i>{{order.customer.firstName}}</p>
-                                <p class="phone text-left"><i class="material-icons">call </i>{{order.customer.phoneNumber}}</p>
+                                <a class="phone text-left" [href]="'tel:' + order.customer.phoneNumber"><i class="material-icons"></i>+{{order.customer.phoneNumber}}</a>
                             </td>
                         </tr>
 
