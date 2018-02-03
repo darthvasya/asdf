@@ -6,7 +6,11 @@
         <div class="flex filters col-lg-10">
             <div class="filter flex">
                 <span>Количество записей:</span>
-                <input (ngModelChange)="loadOrders()"  [(ngModel)]="filterModel.pageSize" min="5" type="number" class="numerick">
+                <input [(ngModel)]="filterModel.pageSize" min="5" type="number" class="numerick">
+            </div>
+            <div class="filter flex">
+
+                <button class="btn btn-xs  btn-danger pull-right" (click)="loadOrders()">Применить </button>
             </div>
         </div>
 
@@ -19,7 +23,7 @@
                             <th (click)="sortOrders('id')">№</th>
                             <th (click)="sortOrders('customerId')">
                                 <p>Заказчик </p>
-                                <i class="material-icons">swap_vert</i>
+                                <!-- <i class="material-icons">swap_vert</i> -->
                             </th>
                             <th (click)="sortOrders('items.length')">
                                 <p class="thCount"><span>Количество </span> <span class="shift">элементов</span> </p>
