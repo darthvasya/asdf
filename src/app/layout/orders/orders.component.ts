@@ -92,6 +92,11 @@ export class OrdersComponent implements OnInit {
         });
     }
 
+    ngOnDestroy() {
+        this.httpConnection.stop();
+        console.log(31232132);
+    }
+
     sortOrders(property: string) {
         this.ordering = this.ordering ? false : true;
 
