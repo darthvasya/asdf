@@ -1,14 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import * as Chartist from 'chartist';
 
+import { StatisticService } from "./../../shared/core/statistic.service";
+import { HubConnection, TransportType } from "@aspnet/signalr-client";
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+    hours: {};
+    orders: {};
+    customers: {};
+    weekHours : number;
+    weekCustomers : number;
+    weekOrders : number;
+    private hubConnection: HubConnection;
 
-  constructor() { }
+
+
+  constructor(
+    private statisticService:StatisticService,
+  ) { }
+
   startAnimationForLineChart(chart){
       let seq: any, delays: any, durations: any;
       seq = 0;
@@ -65,86 +79,156 @@ export class DashboardComponent implements OnInit {
 
       seq2 = 0;
   };
+
   ngOnInit() {
-      /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
+    /* ----------==========     Количество заказов за сутки    ==========---------- */
+    let dataCompletedTasksChart: any;
+    this.statisticService
+    .getHoursOrders()
+    .then(hours => {
+        this.hours = hours;
+        let arrHours = [
+            this.hours[0].count,
+                 this.hours[1].count,
+                 this.hours[2].count,
+                 this.hours[3].count,
+                 this.hours[4].count,
+                 this.hours[5].count,
+                 this.hours[6].count,
+                 this.hours[7].count,
+                 this.hours[8].count,
+                 this.hours[9].count,
+                 this.hours[10].count,
+                 this.hours[11].count
+        ];
+        dataCompletedTasksChart = {
+            labels: ['2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24'],
+            series: [
+                arrHours
+            ]
+        };
+        const optionsCompletedTasksChart: any = {
+            lineSmooth: Chartist.Interpolation.cardinal({
+                tension: 0
+            }),
+            low: 0,
+            high: Math.max.apply(null, arrHours)+5,
+            chartPadding: { top: 0, right: 0, bottom: 0, left: 0}
+        }
+        var completedTasksChart = new Chartist.Line('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
+        this.startAnimationForLineChart(completedTasksChart);
+        this.weekHours  = arrHours.reduce(function(sum, current) {
+            return sum + current;
+          }, 0);
 
-      const dataDailySalesChart: any = {
-          labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
-          series: [
-              [12, 17, 7, 17, 23, 18, 38]
-          ]
-      };
+    })
+    .catch(err => {
+        console.log(err);
+    });
 
-     const optionsDailySalesChart: any = {
+      /* ----------==========     Количество заказов за последние 7 дей    ==========---------- */
+
+      let dataDailySalesChart: any;
+      this.statisticService
+      .getWeekOrders()
+      .then(orders => {
+          this.orders = orders;
+          let arrOrders = [
+            this.orders[0].count,
+            this.orders[1].count,
+            this.orders[2].count,
+            this.orders[3].count,
+            this.orders[4].count,
+            this.orders[5].count,
+            this.orders[6].count
+          ];
+          dataDailySalesChart= {
+            labels: [new Date(this.orders[0].date).toLocaleString('ru', {weekday: 'short'}),
+                    new Date(this.orders[1].date).toLocaleString('ru', {weekday: 'short'}),
+                    new Date(this.orders[2].date).toLocaleString('ru', {weekday: 'short'}),
+                    new Date(this.orders[3].date).toLocaleString('ru', {weekday: 'short'}),
+                    new Date(this.orders[4].date).toLocaleString('ru', {weekday: 'short'}),
+                    new Date(this.orders[5].date).toLocaleString('ru', {weekday: 'short'}),
+                    new Date(this.orders[6].date).toLocaleString('ru', {weekday: 'short'})],
+            series: [
+                arrOrders
+            ]
+        };
+        const optionsDailySalesChart: any = {
           lineSmooth: Chartist.Interpolation.cardinal({
               tension: 0
           }),
           low: 0,
-          high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+          high: Math.max.apply(null, arrOrders)+10,
           chartPadding: { top: 0, right: 0, bottom: 0, left: 0},
       }
-
       var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
-
       this.startAnimationForLineChart(dailySalesChart);
 
+      this.weekOrders = arrOrders.reduce(function(sum, current) {
+        return sum + current;
+      }, 0);
 
-      /* ----------==========     Completed Tasks Chart initialization    ==========---------- */
+      })
+      .catch(err => {
+          console.log(err);
+      });
 
-      const dataCompletedTasksChart: any = {
-          labels: ['12am', '3pm', '6pm', '9pm', '12pm', '3am', '6am', '9am'],
-          series: [
-              [230, 750, 450, 300, 280, 240, 200, 190]
-          ]
-      };
+      /* ----------==========     Количество новых пользователей    ==========---------- */
 
-     const optionsCompletedTasksChart: any = {
-          lineSmooth: Chartist.Interpolation.cardinal({
-              tension: 0
-          }),
-          low: 0,
-          high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-          chartPadding: { top: 0, right: 0, bottom: 0, left: 0}
-      }
+      let dataEmailsSubscriptionChart : any;
+      this.statisticService
+      .getNewCustomers()
+      .then(customers => {
+          this.customers = customers;
+          let arrCustomers = [
+            this.customers[0].count,
+            this.customers[1].count,
+            this.customers[2].count,
+            this.customers[3].count,
+            this.customers[4].count,
+            this.customers[5].count,
+            this.customers[6].count
+          ];
+           dataEmailsSubscriptionChart = {
+            labels: [new Date(this.customers[0].date).toLocaleString('ru', {weekday: 'short'}),
+                        new Date(this.customers[1].date).toLocaleString('ru', {weekday: 'short'}),
+                        new Date(this.customers[2].date).toLocaleString('ru', {weekday: 'short'}),
+                        new Date(this.customers[3].date).toLocaleString('ru', {weekday: 'short'}),
+                        new Date(this.customers[4].date).toLocaleString('ru', {weekday: 'short'}),
+                        new Date(this.customers[5].date).toLocaleString('ru', {weekday: 'short'}),
+                        new Date(this.customers[6].date).toLocaleString('ru', {weekday: 'short'})],
+            series: [
+                arrCustomers
+            ]
+          };
+          var optionsEmailsSubscriptionChart = {
+              axisX: {
+                  showGrid: false
+              },
+              low: 0,
+              high: Math.max.apply(null, arrCustomers)+5,
+              chartPadding: { top: 0, right: 5, bottom: 0, left: 0}
+          };
+          var responsiveOptions: any[] = [
+            ['screen and (max-width: 640px)', {
+              seriesBarDistance: 5,
+              axisX: {
+                labelInterpolationFnc: function (value) {
+                  return value[0];
+                }
+              }
+            }]
+          ];
+          var emailsSubscriptionChart = new Chartist.Bar('#emailsSubscriptionChart', dataEmailsSubscriptionChart, optionsEmailsSubscriptionChart, responsiveOptions);
+          this.startAnimationForBarChart(emailsSubscriptionChart);
+          this.weekCustomers = arrCustomers.reduce(function(sum, current) {
+            return sum + current;
+          }, 0);
 
-      var completedTasksChart = new Chartist.Line('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
-
-      // start animation for the Completed Tasks Chart - Line Chart
-      this.startAnimationForLineChart(completedTasksChart);
-
-
-
-      /* ----------==========     Emails Subscription Chart initialization    ==========---------- */
-
-      var dataEmailsSubscriptionChart = {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        series: [
-          [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]
-
-        ]
-      };
-      var optionsEmailsSubscriptionChart = {
-          axisX: {
-              showGrid: false
-          },
-          low: 0,
-          high: 1000,
-          chartPadding: { top: 0, right: 5, bottom: 0, left: 0}
-      };
-      var responsiveOptions: any[] = [
-        ['screen and (max-width: 640px)', {
-          seriesBarDistance: 5,
-          axisX: {
-            labelInterpolationFnc: function (value) {
-              return value[0];
-            }
-          }
-        }]
-      ];
-      var emailsSubscriptionChart = new Chartist.Bar('#emailsSubscriptionChart', dataEmailsSubscriptionChart, optionsEmailsSubscriptionChart, responsiveOptions);
-
-      //start animation for the Emails Subscription Chart
-      this.startAnimationForBarChart(emailsSubscriptionChart);
+      })
+      .catch(err => {
+          console.log(err);
+      });
   }
-
 }

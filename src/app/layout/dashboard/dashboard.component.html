@@ -4,16 +4,16 @@
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
-                    <div class="card-header" data-background-color="orange">
-                        <i class="material-icons">content_copy</i>
+                    <div class="card-header" data-background-color="red">
+                        <i class="material-icons">shopping_basket</i>
                     </div>
                     <div class="card-content">
-                        <p class="category">Used Space</p>
-                        <h3 class="title">49/50<small>GB</small></h3>
+                        <p class="category">Заказы</p>
+                        <h3 class="title">{{this.weekHours}}</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons text-danger">warning</i> <a href="#pablo">Get More Space...</a>
+                            <i class="material-icons">date_range</i> За сутки
                         </div>
                     </div>
                 </div>
@@ -21,31 +21,31 @@
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-header" data-background-color="green">
-                        <i class="material-icons">store</i>
+                        <i class="material-icons">shopping_cart</i>
                     </div>
                     <div class="card-content">
-                        <p class="category">Revenue</p>
-                        <h3 class="title">$34,245</h3>
+                        <p class="category">Заказы</p>
+                        <h3 class="title">{{this.weekOrders}}</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">date_range</i> Last 24 Hours
+                            <i class="material-icons">date_range</i> За последние 7 дней
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
-                    <div class="card-header" data-background-color="red">
-                        <i class="material-icons">info_outline</i>
+                    <div class="card-header" data-background-color="orange">
+                        <i class="material-icons" aria-hidden="true">people</i>
                     </div>
                     <div class="card-content">
-                        <p class="category">Fixed Issues</p>
+                        <p class="category">Новых пользователей</p>
                         <h3 class="title">75</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">local_offer</i> Tracked from Github
+                            <i class="material-icons">date_range</i> За последние 7 дней
                         </div>
                     </div>
                 </div>
@@ -54,15 +54,15 @@
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-header" data-background-color="blue">
-                        <i class="fa fa-twitter"></i>
+                        <i class="material-icons">people_outline</i>
                     </div>
                     <div class="card-content">
-                        <p class="category">Followers</p>
-                        <h3 class="title">+245</h3>
+                        <p class="category">Всех пользователей</p>
+                        <h3 class="title">245</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">update</i> Just Updated
+                            <i class="material-icons">date_range</i> За все время
                         </div>
                     </div>
                 </div>
@@ -70,18 +70,38 @@
         </div>
 
         <div class="row">
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header card-chart" data-background-color="red">
+                        <div class="ct-chart" id="completedTasksChart"></div>
+                    </div>
+                    <div class="card-content">
+                        <h4 class="title">Количество заказов</h4>
+                        <!-- <p class="category">Last Campaign Performance</p> -->
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">access_time</i> Каждые 2 часа в течение суток
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header card-chart" data-background-color="green">
                         <div class="ct-chart" id="dailySalesChart"></div>
                     </div>
                     <div class="card-content">
-                        <h4 class="title">Daily Sales</h4>
-                        <p class="category"><span class="text-success"><i class="fa fa-long-arrow-up"></i> 55%  </span> increase in today sales.</p>
+                        <h4 class="title">Количество заказов за последние 7 дней</h4>
+                        <!-- <p class="category"><span class="text-success"><i class="fa fa-long-arrow-up"></i> 55%  </span> increase in today sales.</p> -->
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">access_time</i> updated 4 minutes ago
+                            <i class="material-icons">access_time</i> За последние 7 дней
                         </div>
                     </div>
                 </div>
@@ -93,37 +113,20 @@
                         <div class="ct-chart" id="emailsSubscriptionChart"></div>
                     </div>
                     <div class="card-content">
-                        <h4 class="title">Email Subscriptions</h4>
-                        <p class="category">Last Campaign Performance</p>
+                        <h4 class="title">Количество новых пользователей</h4>
+                        <!-- <p class="category"><span class="text-success"><i class="fa fa-long-arrow-up"></i> 55%  </span> increase in today sales.</p> -->
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">access_time</i> campaign sent 2 days ago
+                            <i class="material-icons">access_time</i> За последние 7 дней
                         </div>
                     </div>
 
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header card-chart" data-background-color="red">
-                        <div class="ct-chart" id="completedTasksChart"></div>
-                    </div>
-                    <div class="card-content">
-                        <h4 class="title">Completed Tasks</h4>
-                        <p class="category">Last Campaign Performance</p>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons">access_time</i> campaign sent 2 days ago
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-lg-6 col-md-12">
                 <div class="card card-nav-tabs">
                     <div class="card-header" data-background-color="purple">
@@ -390,6 +393,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
