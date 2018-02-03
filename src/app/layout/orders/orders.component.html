@@ -25,7 +25,7 @@
                                 <!-- <i class="material-icons">swap_vert</i> -->
                             </th>
                             <th (click)="sortOrders('items.length')">
-                                <p class="thCount"><span>Количество </span> <span class="shift">элементов</span> </p>
+                                <p class="thCount"><span>Товары </span> <span class="shift"></span> </p>
                             </th>
                             <th (click)="sortOrders('orderIssuedTime')">
                                 <p>Время выдачи</p>
@@ -87,7 +87,7 @@
                                 <h3 class="text-left font-weight-bold">Список товаров</h3>
 
                                 <div class="media" *ngFor="let item of order.items">
-                                    <a class="pull-left" href="#">
+                                    <a class="pull-left">
                                         <img class="media-object image" width="100px" [src]="item.shopItem.picture.path" alt="...">
                                     </a>
                                     <div class="media-body">
