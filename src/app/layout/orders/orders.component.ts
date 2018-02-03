@@ -138,6 +138,12 @@ export class OrdersComponent implements OnInit {
                     order.orderReadyTime = null;
                 }
 
+                if(statusId === 2) {
+                    order.orderReadyTime = null;
+                    order.orderIssuedTime = null;
+                    order.orderAcceptTime = null;
+                }
+
                 if(statusId === 3)
                     order.orderReadyTime = new Date();
                 if(statusId === 4)

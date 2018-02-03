@@ -19,10 +19,9 @@
                 <table class="tableOrders table table-bordered table-sm m-0" id="myTable2">
                     <thead class="">
                         <tr>
-                            <th (click)="sortOrders('id')">№</th>
+                            <th (click)="sortOrders('id')">№<i class="material-icons">swap_vert</i></th>
                             <th (click)="sortOrders('customerId')">
                                 <p>Заказчик </p>
-                                <!-- <i class="material-icons">swap_vert</i> -->
                             </th>
                             <th (click)="sortOrders('items.length')">
                                 <p class="thCount"><span>Товары </span> <span class="shift"></span> </p>
@@ -62,20 +61,20 @@
                             <td>
                                 <!-- {{order.orderState}} -->
                                 <div class="dropdown">
-                                    <button class="btn btn dropdown-toggle btnStatus" type="button" data-toggle="dropdown"> {{statuses[order.orderState].statusRU}}
+                                    <button [disabled]="order.orderState === 4" class="btn btn dropdown-toggle btnStatus" type="button" data-toggle="dropdown"> {{statuses[order.orderState].statusRU}}
                                         <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li (click)="changeStatus(order.id, 1, order.orderReadyTime)">
+                                        <li [hidden]="order.orderState === 3 || order.orderState === 1" (click)="changeStatus(order.id, 1, order.orderReadyTime)">
                                             <a>Подтвердить</a>
                                         </li>
-                                        <li (click)="changeStatus(order.id, 2)">
+                                        <li [hidden]="order.orderState === 2" (click)="changeStatus(order.id, 2)">
                                             <a>Отклонить</a>
                                         </li>
-                                        <li (click)="changeStatus(order.id, 3)">
+                                        <li [hidden]="order.orderState === 2 || order.orderState === 3" (click)="changeStatus(order.id, 3)">
                                             <a>Готов</a>
                                         </li>
-                                        <li (click)="changeStatus(order.id, 4)">
+                                        <li [hidden]="order.orderState === 2" (click)="changeStatus(order.id, 4)">
                                             <a>Забрали</a>
                                         </li>
                                     </ul>
