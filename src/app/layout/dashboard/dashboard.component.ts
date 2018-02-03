@@ -86,6 +86,7 @@ export class DashboardComponent implements OnInit {
     this.statisticService
     .getHoursOrders()
     .then(hours => {
+        console.log("заказы за 24 " + this.hours)
         this.hours = hours;
         let arrHours = [
             this.hours[0].count,
@@ -132,6 +133,7 @@ export class DashboardComponent implements OnInit {
       this.statisticService
       .getWeekOrders()
       .then(orders => {
+        console.log("новые заказы за 7 дней " + this.orders);
           this.orders = orders;
           let arrOrders = [
             this.orders[0].count,
@@ -181,6 +183,7 @@ export class DashboardComponent implements OnInit {
       .getNewCustomers()
       .then(customers => {
           this.customers = customers;
+          console.log("новые пользователи " + this.customers);
           let arrCustomers = [
             this.customers[0].count,
             this.customers[1].count,
