@@ -34,7 +34,6 @@ export class OrdersComponent implements OnInit {
     };
 
     page = 1;
-    pageSize = 10;
 
     hubConnection: HubConnection;
     httpConnection: HttpConnection;
@@ -92,6 +91,10 @@ export class OrdersComponent implements OnInit {
         });
     }
 
+    ngOnDestroy() {
+        this.httpConnection.stop();
+    }
+
     sortOrders(property: string) {
         this.ordering = this.ordering ? false : true;
 
@@ -108,6 +111,7 @@ export class OrdersComponent implements OnInit {
             .getOrders(this.page, this.filterModel.pageSize, false, false)
             .then(orders => {
                 this.orders = orders;
+                this.ordering = true;
                 this.sortOrders("id");
                 this.loaderService.display(false);
             })
@@ -115,13 +119,6 @@ export class OrdersComponent implements OnInit {
                 this.loaderService.display(false);
                 console.log(err);
             });
-    }
-
-    getOrder() {
-        if (this.orders.length > 0) {
-            let lastId = this.orders[this.orders.length - 1].id;
-            console.log(lastId);
-        }
     }
 
     changeStatus(orderId: number, statusId: number, waitingTime: number) {
@@ -159,7 +156,7 @@ export class OrdersComponent implements OnInit {
     }
 
     getNextOrders() {
-        if (this.orders.length === 15) {
+        if (this.orders.length === this.filterModel.pageSize) {
             this.page += 1;
             this.loadOrders();
         }
