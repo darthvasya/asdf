@@ -16,11 +16,12 @@ export const ROUTES: RouteInfo[] = [
         icon: "dashboard",
         class: ""
     },
-    { path: "/items", title: "Товары", icon: "store", class: "" },
     { path: "/orders", title: "Заказы", icon: "bubble_chart", class: "" },
-    { path: "/contacts", title: "Контакты", icon: "person", class: "" },
+    { path: "/items", title: "Товары", icon: "store", class: "" },
+    { path: "/settings", title: "Настройки", icon: "settings", class: "" },
     { path: "/instruction", title: "Инструкция", icon: "list", class: "" },
-    { path: "/settings", title: "Настройки", icon: "settings", class: "" }
+    { path: "/contacts", title: "Контакты", icon: "person", class: "" },
+
 ];
 // { path: '/table-list', title: 'Table List',  icon:'content_paste', class: '' },
 // { path: '/typography', title: 'Typography',  icon:'library_books', class: '' },
