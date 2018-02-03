@@ -133,8 +133,11 @@ export class OrdersComponent implements OnInit {
                 let order = _.find(this.orders, ["id", orderId]);
                 order.orderState = statusId;
 
-                if (statusId === 1)
+                if (statusId === 1) {
                     order.orderAcceptTime = new Date();
+                    order.orderReadyTime = null;
+                }
+
                 if(statusId === 3)
                     order.orderReadyTime = new Date();
                 if(statusId === 4)
