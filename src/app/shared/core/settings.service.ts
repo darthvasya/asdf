@@ -10,7 +10,7 @@ import { HttpUtil } from "../utils/http.util";
 import { AuthService } from "./auth.service";
 
 @Injectable()
-export class OrdersService {
+export class SettingsService {
     private API_ROUTE: string = `${this.config.apiEndpoint}/settings`;
 
     constructor(
@@ -19,7 +19,7 @@ export class OrdersService {
         private authService: AuthService
     ) {}
 
-    getStatistic() {
+    getSettings() {
         let headers = HttpUtil.REQUEST_OPTIONS_WITH_CONTENT_TYPE_JSON;
         headers.headers.set(
             "Authorization",
@@ -36,6 +36,23 @@ export class OrdersService {
                 })
                 .subscribe(result => {
                     resolve(result);
+                });
+        });
+    }
+
+    updateSettings(settings) {
+        let headers = HttpUtil.REQUEST_OPTIONS_WITH_CONTENT_TYPE_JSON_WITHOUT_CONTENT_TYPE;
+        headers.headers.set("Authorization", "Bearer " + this.authService.token);
+
+        return new Promise((resolve, reject) => {
+            return this.http
+                .post(`${this.API_ROUTE}`, settings, headers)
+                .catch(err => {
+                    reject(err);
+                    return Observable.throw(err);
+                })
+                .subscribe(data => {
+                    resolve(data);
                 });
         });
     }

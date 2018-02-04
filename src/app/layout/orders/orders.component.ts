@@ -43,7 +43,7 @@ export class OrdersComponent implements OnInit {
     constructor(
         private ordersService: OrdersService,
         private notificationService: NotificationService,
-        private loaderService: LoaderService, //private signalrService: SignalRService
+        private loaderService: LoaderService,
         private helperService: HelperService,
         private authService: AuthService
     ) {

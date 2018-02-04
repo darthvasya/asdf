@@ -17,7 +17,7 @@
                                     <h4>Время начала работы:</h4>
                                 </div>
                                 <div class="col-lg-2">
-                                    <input type="time">
+                                    <input [(ngModel)]="settings.StartWorkingDayDateTime" type="time">
                                 </div>
                             </div>
 
@@ -27,7 +27,7 @@
                                     <h4>Время окончания работы:</h4>
                                 </div>
                                 <div class="col-lg-2 ">
-                                    <input type="time">
+                                    <input [(ngModel)]="settings.EndWorkingDayDateTime" type="time">
                                 </div>
                             </div>
 
@@ -36,7 +36,7 @@
                                     <h4>Контактный номер:</h4>
                                 </div>
                                 <div class="col-lg-2 ">
-                                    <input type="tel" name="tel" placeholder="+375 XX XXX XX XX" size="17">
+                                    <input type="tel" [(ngModel)]="settings.ManagerPhone" name="tel" placeholder="+375 XX XXX XX XX" size="17">
                                 </div>
                             </div>
                             <div class="block col-lg-12">
@@ -46,7 +46,7 @@
                                 <div class="col-lg-4">
                                 </div>
                                 <div class="col-lg-4">
-                                    <button class="btn btn-danger pull-right">Сохранить</button>
+                                    <button class="btn btn-danger pull-right" (click)="updateSettings()">Сохранить</button>
                                 </div>
                             </div>
                         </div>
