@@ -1,8 +1,8 @@
 export class SendContacts {
     constructor(
-        public email: string,
-        public subject: string,
-        public description: string,
+        public Email: string,
+        public Subject: string,
+        public Body: string,
     ) { }
 
     isValid() {
