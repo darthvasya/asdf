@@ -27,9 +27,6 @@ export class ContactsService {
         return new Promise((resolve, reject) => {
             return this.http
                 .post(`${this.API_ROUTE}`, item, headers)
-                .map(res => {
-                    return res.json();
-                })
                 .catch(err => {
                     reject(err);
                     return Observable.throw(err);
