@@ -5,8 +5,7 @@
             <h4>Добавление нового товара</h4>
             <div class="row">
                 <div class="col-md-2">
-                    <div ng2FileDrop [ng2FileDropSupportedFileTypes]="supportedFileTypes" (ng2FileDropFileAccepted)="dragFileAccepted($event)"
-                        class="profile-picture-section-drop-zone">
+                    <div ng2FileDrop [ng2FileDropSupportedFileTypes]="supportedFileTypes" (ng2FileDropFileAccepted)="dragFileAccepted($event)" class="profile-picture-section-drop-zone">
                         <div *ngIf="!imageShown" class=profile-picture-section-request-image-group>
                             <p class="profile-picture-section-request-image-instructions">Drop a picture here</p>
                         </div>
