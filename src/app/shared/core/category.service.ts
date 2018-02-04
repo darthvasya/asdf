@@ -15,7 +15,6 @@ import { AuthService } from "./auth.service";
 @Injectable()
 export class CategoryService {
     private API_ROUTE: string = `${this.config.apiEndpoint}/categories`;
-    private _user: any;
 
     constructor( @Inject(APP_CONFIG) private config: any, private http: Http, private authService: AuthService) {
     }
@@ -69,7 +68,6 @@ export class CategoryService {
                     return Observable.throw(err);
                 })
                 .subscribe((result) => {
-                    console.log(result);
                     resolve(result.ok);
                 });
         });

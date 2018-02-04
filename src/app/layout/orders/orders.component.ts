@@ -14,6 +14,7 @@ import { Observable } from "rxjs/Rx";
 import { from } from "rxjs/observable/from";
 
 import { HubConnection, TransportType, HttpConnection } from "@aspnet/signalr-client";
+import { AuthService } from "app/shared/core/auth.service";
 
 @Component({
     selector: "app-orders",
@@ -43,7 +44,8 @@ export class OrdersComponent implements OnInit {
         private ordersService: OrdersService,
         private notificationService: NotificationService,
         private loaderService: LoaderService, //private signalrService: SignalRService
-        private helperService: HelperService
+        private helperService: HelperService,
+        private authService: AuthService
     ) {
         this.fillStatuses();
         this.loadOrders();
@@ -59,7 +61,7 @@ export class OrdersComponent implements OnInit {
             .then(() => {
                 console.log("Connection started!");
                 // Тут вместо 1 надо отправить id магаза
-                this.hubConnection.invoke("registerConnection", 1);
+                this.hubConnection.invoke("registerConnection", this.authService.userData.shopId);
             })
             .catch(err =>
                 console.log("Error while establishing connection :((")
@@ -117,7 +119,6 @@ export class OrdersComponent implements OnInit {
             })
             .catch(err => {
                 this.loaderService.display(false);
-                console.log(err);
             });
     }
 
@@ -151,7 +152,6 @@ export class OrdersComponent implements OnInit {
             })
             .catch(err => {
                 this.loaderService.display(false);
-                console.log(err);
             });
     }
 

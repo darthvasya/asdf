@@ -13,9 +13,7 @@ export class ItemDescriptionComponent implements OnInit {
 
     @Output() onDeleted = new EventEmitter<number>();
 
-    public API_ROUTE: string = `${this.config.apiUrl}`;
-
-    constructor( @Inject(APP_CONFIG) private config: any) {
+    constructor() {
     }
 
     ngOnInit() {
