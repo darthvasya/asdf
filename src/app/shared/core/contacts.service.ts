@@ -13,7 +13,7 @@ import { AuthService } from "./auth.service";
 
 @Injectable()
 export class ContactsService {
-    private API_ROUTE: string = `${this.config.apiEndpoint}/shopitems`;
+    private API_ROUTE: string = `${this.config.apiEndpoint}/email`;
     private _user: any;
 
     constructor( @Inject(APP_CONFIG) private config: any, private http: Http, private authService: AuthService) {
@@ -21,6 +21,7 @@ export class ContactsService {
 
     addItem(item: SendContacts) {
         let headers = HttpUtil.REQUEST_OPTIONS_WITH_CONTENT_TYPE_JSON_WITHOUT_CONTENT_TYPE;
+
         headers.headers.set("Authorization", "Bearer " + this.authService.token);
 
         let formData: FormData = new FormData();

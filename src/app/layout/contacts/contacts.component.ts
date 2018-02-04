@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { FormsModule } from '@angular/forms';
 
 import { SendContacts } from "app/shared/models/SendContacts";
 
@@ -25,6 +26,7 @@ export class ContactsComponent implements OnInit {
         this.loaderService.display(true);
         this.contactService.addItem(this.model)
             .then((data) => {
+                console.log(this.model);
                 this.model = new SendContacts("", "", "");
                 this.loaderService.display(false);
                 this.notificationService.showNotification("bottom", "center", "Успешно доставлено!", "success");
