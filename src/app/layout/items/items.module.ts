@@ -46,7 +46,8 @@ import {
         AddItemComponent,
         CategoryAddComponent,
         CategoryEditComponent,
-        EditItemComponent
+        EditItemComponent,
+        SortPipe
     ],
     providers: [
         CategoriesService,
