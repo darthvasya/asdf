@@ -52,9 +52,7 @@ export class OrdersComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.httpConnection = new HttpConnection(
-            "https://suvorov.co/ordersHub"
-        );
+        this.httpConnection = new HttpConnection("https://dev-api.suvorov.co/ordersHub");
         this.hubConnection = new HubConnection(this.httpConnection);
         this.hubConnection
             .start()
