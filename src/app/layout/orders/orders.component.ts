@@ -67,7 +67,7 @@ export class OrdersComponent implements OnInit {
 
         this.hubConnection.on("newOrder", data => {
             // обработка заказа
-            if (this.orders.length >= 15) {
+            if (this.orders.length >= this.filterModel.pageSize) {
                 this.orders.splice(-1, 1);
             }
             this.orders.push(data);
