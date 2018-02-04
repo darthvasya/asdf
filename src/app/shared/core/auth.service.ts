@@ -19,7 +19,6 @@ export class AuthService {
     private _user: any;
 
     constructor( @Inject(APP_CONFIG) private config: any, private http: Http) {
-
     }
 
     get userData(): any {

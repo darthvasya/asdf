@@ -12,6 +12,7 @@ import { CategoriesService } from "./../../shared/core/categories.service";
 import { ItemService } from './../../shared/core/item.service';
 import { SizeService } from './../../shared/core/size.service';
 import { CategoryService } from './../../shared/core/category.service';
+import { AuthService } from "./../../shared/core/auth.service";
 
 import { environment } from '../../../environments/environment';
 
@@ -45,14 +46,14 @@ import {
         AddItemComponent,
         CategoryAddComponent,
         CategoryEditComponent,
-        EditItemComponent,
-        SortPipe
+        EditItemComponent
     ],
     providers: [
         CategoriesService,
         ItemService,
         SizeService,
-        CategoryService
+        CategoryService,
+        AuthService
     ]
 })
-export class ItemsModule { }
+export class ItemsModule {}

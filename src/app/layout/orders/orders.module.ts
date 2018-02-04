@@ -5,6 +5,7 @@ import { FormsModule } from "@angular/forms";
 import { OrdersService } from "./../../shared/core/orders.service";
 import { SignalRService } from "./../../shared/core/signalr.service";
 import { HelperService } from "./../../shared/core/helper.service";
+import { AuthService } from "./../../shared/core/auth.service";
 
 import { OrdersComponent } from "./orders.component";
 import { OrdersRoutingModule } from "app/layout/orders/orders-routing.module";
