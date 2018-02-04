@@ -32,7 +32,7 @@ export class LoginComponent implements AfterViewInit {
     }
 
   onLogging() {
-    if (true) {
+    if ((this.validateLogin()==true) && (this.validatePassword()==true)) {
       this.authService.login(this.loginData)
         .then(() => {
           this.router.navigate(['/dashboard']);
@@ -72,12 +72,14 @@ export class LoginComponent implements AfterViewInit {
         } else {
             this.validationError.email.status = false;
             this.validationError.email.message = 'Валидный';
+            return true;
         }
+        return false;
   }
 
   validatePassword() {
     const password = this.loginData.password;
-    if (!password || (password.length < 5 || password.length > 60)) {
+    if (!password || (password.length < 6 || password.length > 60)) {
         if (!password) {
             this.validationError.password.status = true;
             this.validationError.password.message = 'Введите пароль';
@@ -88,7 +90,9 @@ export class LoginComponent implements AfterViewInit {
           }
     } else {
         this.validationError.password.status = false;
+        return true;
       }
+      return false;
   }
 
   isDataValid() {
