@@ -33,8 +33,8 @@ export class SettingsComponent implements OnInit {
             .getSettings()
             .then(data => {
                 this.settings.ManagerPhone = data["managerPhone"];
-                this.settings.StartWorkingDayDateTime = new Date(data["startWorkingDayDateTime"]).getHours() + 3 + ":" + new Date(data["startWorkingDayDateTime"]).getMinutes();
-                this.settings.EndWorkingDayDateTime = new Date(data["endWorkingDayDateTime"]).getHours() + 3 + ":" + new Date(data["endWorkingDayDateTime"]).getMinutes();
+                this.settings.StartWorkingDayDateTime = this.formatDate(new Date(data["startWorkingDayDateTime"]));
+                this.settings.EndWorkingDayDateTime = this.formatDate(new Date(data["endWorkingDayDateTime"]));
 
                 this.loaderService.display(false);
             })
@@ -59,12 +59,24 @@ export class SettingsComponent implements OnInit {
             .updateSettings(this.settings)
             .then(data => {
                 this.loaderService.display(false);
-                this.notificationService.showNotification("bottom", "center", "Успешное обновленияъе настроек!", "success");
+                this.notificationService.showNotification("bottom", "center", "Успешное обновление настроек!", "success");
                 this.loadSettings();
             })
             .catch(err => {
                 this.notificationService.showNotification("bottom", "center", "Ошибка обновления настроек!", "danger");
                 this.loaderService.display(false);
             });
+    }
+
+    formatDate(date) {
+
+        var hh = date.getHours() + 3;
+        if(hh > 24) hh = hh - 24;
+        if (hh < 10) hh = "0" + hh;
+
+        var mm = date.getMinutes() ;
+        if (mm < 10) mm = '0' + mm;
+
+        return hh + ":" + mm ;
     }
 }
