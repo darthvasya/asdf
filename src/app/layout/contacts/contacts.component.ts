@@ -13,9 +13,7 @@ import { NotificationService } from '../../shared/core/notification.service';
 })
 export class ContactsComponent implements OnInit {
 
-    @Input() category: any;
-    @Output() onAddItemEvent = new EventEmitter<any>();
-    model: SendContacts = new SendContacts("", "", "");
+    model = new SendContacts("", "", "");
 
     constructor(private contactService: ContactsService, private loaderService: LoaderService, private notificationService: NotificationService) {}
 
@@ -30,7 +28,6 @@ export class ContactsComponent implements OnInit {
                 this.model = new SendContacts("", "", "");
                 this.loaderService.display(false);
                 this.notificationService.showNotification("bottom", "center", "Успешно доставлено!", "success");
-                this.onAddItemEvent.emit(data);
 
 
                 // console.log(this.category);
