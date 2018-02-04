@@ -48,7 +48,6 @@ export class AuthService {
                     return res.json();
                 })
                 .catch((err) => {
-                    console.log(err);
                     reject(err);
                     return Observable.throw(err);
                 })
@@ -60,11 +59,9 @@ export class AuthService {
     }
 
     register(registerationData: ShopRegistrationModel) {
-        console.log(registerationData);
         return new Promise((resolve, reject) => {
             return this.http.post(`${this.AUTH_ROUTE}/registershop`, registerationData, HttpUtil.REQUEST_OPTIONS_WITH_CONTENT_TYPE_JSON)
                 .map(res => {
-                    console.log(res.json());
                     return res.json();
                 })
                 .catch((err) => {

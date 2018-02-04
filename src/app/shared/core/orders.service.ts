@@ -14,7 +14,6 @@ import { AuthService } from "./auth.service";
 @Injectable()
 export class OrdersService {
     private API_ROUTE: string = `${this.config.apiEndpoint}/orders`;
-    private _user: any;
 
     constructor(
         @Inject(APP_CONFIG) private config: any,
@@ -35,7 +34,6 @@ export class OrdersService {
                     return Observable.throw(err);
                 })
                 .subscribe(result => {
-                    console.log(result);
                     resolve(result);
                 });
         });
@@ -76,7 +74,6 @@ export class OrdersService {
                     return Observable.throw(err);
                 })
                 .subscribe(result => {
-                    console.log(result);
                     resolve(result);
                 });
         });

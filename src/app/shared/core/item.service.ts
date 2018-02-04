@@ -15,7 +15,6 @@ import { AuthService } from "./auth.service";
 @Injectable()
 export class ItemService {
     private API_ROUTE: string = `${this.config.apiEndpoint}/shopitems`;
-    private _user: any;
 
     constructor( @Inject(APP_CONFIG) private config: any, private http: Http, private authService: AuthService) {
     }
