@@ -10,6 +10,7 @@ import { NotificationService } from './../../shared/core/notification.service';
 import { CategoryService } from './../../shared/core/category.service';
 
 import { SortPipe } from './../../shared/pipes/sort.pipe';
+import { AuthService } from 'app/shared/core/auth.service';
 
 @Component({
     selector: 'app-items',
@@ -20,9 +21,14 @@ export class ItemsComponent implements OnInit {
 
     items: any;
 
-    constructor(private notificationService: NotificationService, private categoryService: CategoryService, private categoriesService: CategoriesService, private loaderService: LoaderService) {
+    constructor(private notificationService: NotificationService,
+                private categoryService: CategoryService,
+                private categoriesService: CategoriesService,
+                private loaderService: LoaderService,
+                private authService: AuthService) {
         this.loadCategories();
     }
+
 
     // item adding
     onAddItemEvent(data) {
@@ -69,7 +75,6 @@ export class ItemsComponent implements OnInit {
                 _.remove(category, { id: categoryId });
             else
             {
-                console.log(item);
                 if(item.categories.length > 0)
                     this.deleteCategoryFromItems(categoryId, item.categories);
             }
@@ -88,7 +93,6 @@ export class ItemsComponent implements OnInit {
     // category adding
     onAddCategoryEvent(data) {
         if (data.categoryId === undefined) {
-            console.log(data);
             this.items.push(data);
         }
     }
@@ -99,11 +103,10 @@ export class ItemsComponent implements OnInit {
             categoryId = itemCategory;
         else
             categoryId = itemCategory.id;
-        console.log(itemCategory);
+
         this.loaderService.display(true);
         this.categoryService.deleteItem(categoryId)
         .then((data) => {
-            console.log(itemCategory);
             this.deleteCategoryFromItems(categoryId, this.items);
             this.loaderService.display(false);
             this.notificationService.showNotification("bottom", "center", "Категория успешно удалена!", "success");
@@ -117,15 +120,14 @@ export class ItemsComponent implements OnInit {
     // routinues
     loadCategories() {
         this.loaderService.display(true);
-        this.categoriesService.getCategories(1)
-            .then((items) => {
+        this.categoriesService
+            .getCategories(this.authService.userData.shopId)
+            .then(items => {
                 this.items = items;
                 this.loaderService.display(false);
-                console.log(items);
             })
-            .catch((err) => {
+            .catch(err => {
                 this.loaderService.display(false);
-                console.log(err);
             });
     }
 

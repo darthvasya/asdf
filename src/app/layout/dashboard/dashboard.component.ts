@@ -81,6 +81,7 @@ export class DashboardComponent implements OnInit {
   };
 
   ngOnInit() {
+      console.log();
     /* ----------==========     Количество заказов за сутки    ==========---------- */
     let dataCompletedTasksChart: any;
     this.statisticService

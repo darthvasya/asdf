@@ -28,13 +28,10 @@ export class CategoryEditComponent implements OnInit {
         } else {
             this.updateCategoryModel.CategoryId = this.category.categoryId;
         }
-        console.log(this.category);
-        console.log(this.updateCategoryModel);
+
         this.categoryService.editCategory(this.updateCategoryModel)
         .then((data) => {
-            console.log(this.category);
             this.category.categoryName = this.updateCategoryModel.CategoryName;
-            console.log(this.category);
             this.updateCategoryModel = new UpdateCategoryModel(-1, null);
             this.loaderService.display(false);
             this.notificationService.showNotification("bottom", "center", "Категория успешно изменена!", "success");

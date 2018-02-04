@@ -46,7 +46,6 @@ export class AddItemComponent implements OnInit {
                 if (this.category.shopItems === undefined)
                     this.category.shopItems = [];
 
-                console.log(this.category);
                 this.category.shopItems.push(data);
             })
             .catch((err) => {

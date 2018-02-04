@@ -25,13 +25,13 @@ export class CategoryAddComponent implements OnInit {
 
     addCategory() {
         this.addCategoryModel.ParentCategoryId = this.category.id;
-        console.log(this.addCategoryModel);
+
         this.categoryService.addCategory(this.addCategoryModel)
         .then((data) => {
             this.addCategoryModel = new AddCategoryModel("", null);
             this.loaderService.display(false);
             this.notificationService.showNotification("bottom", "center", "Товар успешно добавлен!", "success");
-            console.log(data);
+
             if(this.category === 0) {
                 this.onAddCategoryEvent.emit(data);
             }
