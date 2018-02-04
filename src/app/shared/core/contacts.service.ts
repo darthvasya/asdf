@@ -20,25 +20,21 @@ export class ContactsService {
     }
 
     addItem(item: SendContacts) {
-        let headers = HttpUtil.REQUEST_OPTIONS_WITH_CONTENT_TYPE_JSON_WITHOUT_CONTENT_TYPE;
+        let headers = HttpUtil.REQUEST_OPTIONS_WITH_CONTENT_TYPE_JSON;
 
         headers.headers.set("Authorization", "Bearer " + this.authService.token);
 
-        let formData: FormData = new FormData();
-        formData.append('email', item.email);
-        formData.append('name', item.subject);
-        formData.append('description', item.description);
-
         return new Promise((resolve, reject) => {
-            return this.http.post(`${this.API_ROUTE}`, formData, headers)
+            return this.http
+                .post(`${this.API_ROUTE}`, item, headers)
                 .map(res => {
                     return res.json();
                 })
-                .catch((err) => {
+                .catch(err => {
                     reject(err);
                     return Observable.throw(err);
                 })
-                .subscribe((data) => {
+                .subscribe(data => {
                     resolve(data);
                 });
         });
