@@ -14,7 +14,17 @@ import { Settings } from "./../../shared/models/Settings"
 })
 export class SettingsComponent implements OnInit {
     settings = new Settings(null, null, "");
-
+    validationError = {
+        email: {
+          status: false,
+          message: '',
+        },
+        password: {
+          status: false,
+          message: '',
+        },
+      };
+      errorMessage = '';
     constructor(
         private settingsService: SettingsService,
         private notificationService: NotificationService,
@@ -78,5 +88,32 @@ export class SettingsComponent implements OnInit {
         if (mm < 10) mm = '0' + mm;
 
         return hh + ":" + mm ;
+    }
+    validateTel() {
+    let tel = this.settings.ManagerPhone;
+
+    let regxp29 =  /^([2]{1})([9]{1})([0-9]{7})$/i;
+    let regxp33 =  /^([3]{1})([3]{1})([0-9]{7})$/i;
+    let regxp44 =  /^([4]{1})([4]{1})([0-9]{7})$/i;
+
+    if (!tel || (tel.length < 1 || tel.length > 9) || ((!regxp29.test(tel)&&(!regxp33.test(tel)&&(!regxp44.test(tel)))))) {
+        if (!tel) {
+            this.validationError.email.status = true;
+            this.validationError.email.message = 'Введите номер';
+        }
+        if (tel.length < 1 || tel.length > 9) {
+            this.validationError.email.status = true;
+            this.validationError.email.message = 'Номер должен быть не менее 1 и не более 9 символов';
+        }
+        if ((!regxp29.test(tel)&&(!regxp33.test(tel)&&(!regxp44.test(tel))))) {
+            this.validationError.email.status = true;
+            this.validationError.email.message = 'Необходимо начинать ввод с 29, 33 или 44';
+            }
+        } else {
+            this.validationError.email.status = false;
+            this.validationError.email.message = 'Валидный';
+            return true;
+        }
+        return false;
     }
 }
