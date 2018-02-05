@@ -1,10 +1,12 @@
-import { Component, ViewChild, OnInit } from "@angular/core";
+import { Component, ViewChild, OnInit,Injectable, Inject } from "@angular/core";
 
 import { LoaderService } from "./../../shared/core/loader.service";
 import { NotificationService } from "./../../shared/core/notification.service";
 import { OrdersService } from "./../../shared/core/orders.service";
 import { SignalRService } from "./../../shared/core/signalr.service";
 import { HelperService } from "./../../shared/core/helper.service";
+
+import { APP_CONFIG } from "../../shared/configs/app.config";
 
 import * as _ from "lodash";
 declare const $: any;
@@ -41,6 +43,7 @@ export class OrdersComponent implements OnInit {
     messages: string[] = [];
 
     constructor(
+        @Inject(APP_CONFIG) private config: any,
         private ordersService: OrdersService,
         private notificationService: NotificationService,
         private loaderService: LoaderService,
@@ -52,7 +55,7 @@ export class OrdersComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.httpConnection = new HttpConnection("https://dev-api.suvorov.co/ordersHub");
+        this.httpConnection = new HttpConnection(`${this.config.apiEndpoint}/ordersHub`);
         this.hubConnection = new HubConnection(this.httpConnection);
         this.hubConnection
             .start()
