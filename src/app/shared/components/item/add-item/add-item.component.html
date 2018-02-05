@@ -18,13 +18,13 @@
                 <div class="col-md-4">
                     <div class="form-group form-black label-floating is-empty">
                         <label class="control-label">Название</label>
-                        <input type="text" class="form-control" [(ngModel)]="model.name" name="name" autofocus>
+                        <input type="text" class="form-control" [(ngModel)]="model.name" name="name" required autofocus>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group form-black label-floating is-empty">
                         <label class="control-label">Описание</label>
-                        <input type="text" class="form-control" [(ngModel)]="model.description" name="description">
+                        <input type="text" class="form-control" [(ngModel)]="model.description" name="description" required>
                     </div>
                 </div>
                 <div class="col-md-2">
@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div>
-                <button type="submit" class="btn btn-success pull-right" (click)="addItem()">Добавить</button>
+                <button [disabled]="accessToAdd(model.name, model.description) === false" class="btn btn-success pull-right" (click)="addItem()">Добавить</button>
             </div>
             <div class="clearfix"></div>
             <!-- <app-add-item></app-add-item> -->
