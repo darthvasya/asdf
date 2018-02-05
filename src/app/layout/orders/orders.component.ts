@@ -55,7 +55,7 @@ export class OrdersComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.httpConnection = new HttpConnection(`${this.config.apiEndpoint}/ordersHub`);
+        this.httpConnection = new HttpConnection(`${this.config.endpoint}/ordersHub`);
         this.hubConnection = new HubConnection(this.httpConnection);
         this.hubConnection
             .start()

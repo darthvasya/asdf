@@ -30,7 +30,7 @@ export class CategoryAddComponent implements OnInit {
         .then((data) => {
             this.addCategoryModel = new AddCategoryModel("", null);
             this.loaderService.display(false);
-            this.notificationService.showNotification("bottom", "center", "Товар успешно добавлен!", "success");
+            this.notificationService.showNotification("bottom", "center", "Категория успешно добавлена!", "success");
 
             if(this.category === 0) {
                 this.onAddCategoryEvent.emit(data);
