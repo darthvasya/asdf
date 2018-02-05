@@ -6,7 +6,7 @@ export class UserRegistrationData {
         public surname: string,
         public phone: string
     ) { }
-    
+
     isValid() {
         return true;
     }
