@@ -340,3 +340,9 @@
     .phone {
         cursor: pointer;
     }
+
+    .tool {
+        position: absolute;
+        cursor: pointer;
+        color: #029900;
+    }
