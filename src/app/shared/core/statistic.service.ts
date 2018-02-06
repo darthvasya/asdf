@@ -72,4 +72,22 @@ export class StatisticService {
                 });
         });
     }
+
+    getAllUsersCount() {
+        let headers = HttpUtil.REQUEST_OPTIONS_WITH_CONTENT_TYPE_JSON;
+        headers.headers.set("Authorization", "Bearer " + this.authService.token);
+
+        return new Promise((resolve, reject) => {
+            this.http
+                .get(`${this.API_ROUTE}/customerscount`, headers)
+                .map(res => res.json())
+                .catch(err => {
+                    reject(err);
+                    return Observable.throw(err);
+                })
+                .subscribe(result => {
+                    resolve(result);
+                });
+        });
+    }
 }
