@@ -116,7 +116,6 @@ export class OrdersComponent implements OnInit {
             .getOrders(this.page, this.filterModel.pageSize, false, false)
             .then(orders => {
                 this.orders = orders;
-                console.log(orders);
                 this.ordering = true;
                 this.sortOrders("id");
                 this.loaderService.display(false);

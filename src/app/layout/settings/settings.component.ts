@@ -42,7 +42,6 @@ export class SettingsComponent implements OnInit {
         this.settingsService
             .getSettings()
             .then(data => {
-                console.log(data);
                 this.settings.ManagerPhone = data["managerPhone"];
                 this.settings.StartWorkingDayDateTime = this.formatDate(new Date(data["startWorkingDayDateTime"]));
                 this.settings.EndWorkingDayDateTime = this.formatDate(new Date(data["endWorkingDayDateTime"]));
