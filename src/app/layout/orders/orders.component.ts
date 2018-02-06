@@ -55,7 +55,7 @@ export class OrdersComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.httpConnection = new HttpConnection(`${this.config.apiEndpoint}/ordersHub`);
+        this.httpConnection = new HttpConnection(`${this.config.endpoint}/ordersHub`);
         this.hubConnection = new HubConnection(this.httpConnection);
         this.hubConnection
             .start()
@@ -70,9 +70,11 @@ export class OrdersComponent implements OnInit {
 
         this.hubConnection.on("newOrder", data => {
             // обработка заказа
+
             if (this.orders.length >= this.filterModel.pageSize) {
                 this.orders.splice(-1, 1);
             }
+            data.orderRegisterTime = Date.now();
             this.orders.push(data);
             this.ordering = true;
             this.sortOrders("id");
@@ -114,6 +116,7 @@ export class OrdersComponent implements OnInit {
             .getOrders(this.page, this.filterModel.pageSize, false, false)
             .then(orders => {
                 this.orders = orders;
+                console.log(orders);
                 this.ordering = true;
                 this.sortOrders("id");
                 this.loaderService.display(false);
