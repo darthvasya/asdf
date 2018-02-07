@@ -19,7 +19,8 @@
                 <table class="tableOrders table table-bordered table-sm m-0" id="myTable2">
                     <thead class="">
                         <tr>
-                            <th (click)="sortOrders('id')">№<i class="material-icons">swap_vert</i></th>
+                            <!-- <i class="material-icons">swap_vert</i> -->
+                            <th (click)="sortOrders('id')">№</th>
                             <th (click)="sortOrders('customerId')">
                                 <p>Заказчик </p>
                             </th>
@@ -54,6 +55,7 @@
                                 <div [hidden]="order.orderState === 0">{{order.orderReadyTime | date: 'HH:mm:ss'}}</div>
                                 <div [hidden]="order.orderState !== 0">
                                     <input type="number" [(ngModel)]="order.orderReadyTime" class="numerick" min="0" name="waitMinutes">
+                                    <i class="material-icons tool"  data-toggle="tooltip" data-placement="right" title="Примерное время ожидания заказа в минутах">&#xE88E;</i>
                                 </div>
                             </td>
                             <td>{{order.orderAcceptTime | date: 'HH:mm:ss'}}</td>
@@ -106,7 +108,7 @@
                                 <h3>
                                     <p class="text-left"><i class="material-icons ">&#xE547;</i> Покупатель:</p>
                                 </h3>
-                                <p class="customer text-left"><i class="material-icons">sentiment_satisfied</i>{{order.customer.firstName}}</p>
+                                <p class="customer text-left"><i class="material-icons">sentiment_satisfied</i>{{order.customer.firstName}} {{order.customer.lastName}}</p>
                                 <a class="phone text-left" [href]="'tel:' + order.customer.phoneNumber"><i class="material-icons"></i>+{{order.customer.phoneNumber}}</a>
                             </td>
                         </tr>
