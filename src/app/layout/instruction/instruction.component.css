@@ -1,3 +1,41 @@
-.cursor-pointer {
+p {
+    font-size: 18px;
+}
+
+.cursor-pointer,
+a {
     cursor: pointer;
+}
+
+img {
+    width: 100%;
+}
+
+.text-purple {
+    color: #9c28b1;
+}
+
+.text-blue {
+    color: #bbdcfc;
+}
+
+.text-red {
+    color: #feeeef;
+}
+
+.text-green {
+    color: #cdffd9;
+}
+
+.text-grey {
+    color: #b8b8b8;
+}
+
+h4:hover {
+    font-size: 22px;
+    /* подчеркивание */
+}
+
+.leftimg {
+    margin: 7px 7px 7px 0;
 }
