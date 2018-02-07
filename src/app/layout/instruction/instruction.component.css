@@ -19,6 +19,18 @@ img {
     color: #bbdcfc;
 }
 
+.text-red {
+    color: #feeeef;
+}
+
+.text-green {
+    color: #cdffd9;
+}
+
+.text-grey {
+    color: #b8b8b8;
+}
+
 h4:hover {
     font-size: 22px;
     /* подчеркивание */

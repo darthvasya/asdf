@@ -19,8 +19,8 @@
 
                 <div [attr.id]="'category' + item.id" class="collapse">
                     <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#" [attr.data-target]="'#addcategory' + item.id">Добавить новую подкатегорию</button>
-                    <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#" [attr.data-target]="'#editcategory' + item.id">Изменить подкатегорию</button>
-                    <button type="button" class="btn btn-danger" (click)="deleteCategory(item.id)">Удалить подкатегорию</button>
+                    <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#" [attr.data-target]="'#editcategory' + item.id">Изменить категорию</button>
+                    <button type="button" class="btn btn-danger" (click)="deleteCategory(item.id)">Удалить категорию</button>
 
                     <div [attr.id]="'addcategory' + item.id" class="collapse well">
                         <app-category-add [category]="item" (onAddCategoryEvent)="onAddCategoryEvent($event)"></app-category-add>
