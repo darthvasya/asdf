@@ -76,4 +76,11 @@ export class AddItemComponent implements OnInit {
 
         fileReader.readAsDataURL(this.model.picture);
     }
+
+    accessToAdd(name, description) {
+        if((this.currentImage == "") || (name == "") || (description == "")) {
+            return false;
+        }
+        return true;
+    }
 }
