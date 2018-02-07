@@ -85,9 +85,9 @@ export class SettingsComponent implements OnInit {
 
         return hh + ":" + mm ;
     }
+
     validateTel() {
     let tel = this.settings.ManagerPhone;
-
     let regxp29 =  /^([+]{1})([3]{1})([7]{1})([5]{1})([2]{1})([9]{1})/i;
     let regxp33 =  /^([+]{1})([3]{1})([7]{1})([5]{1})([3]{1})([3]{1})/i;
     let regxp44 =  /^([+]{1})([3]{1})([7]{1})([5]{1})([4]{1})([4]{1})/i;
@@ -101,14 +101,11 @@ export class SettingsComponent implements OnInit {
         }
         if (!regxp29.test(tel))
         {
-            console.log(2.1);
             if(!regxp33.test(tel))
             {
-                console.log(2.2);
                 if(!regxp44.test(tel)) {
                     this.validationError.tel.status = true;
                     this.validationError.tel.message = 'Необходимо начинать ввод с +37529, +37533 или +37544';
-                    console.log(2.3);
                     return false;
             }
         }
