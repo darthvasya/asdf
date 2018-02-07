@@ -16,6 +16,7 @@ export class DashboardComponent implements OnInit {
     weekCustomers: number;
     weekOrders: number;
     countOfUsers: any;
+    todayCountOrders: number;
     private hubConnection: HubConnection;
 
     constructor(private statisticService: StatisticService) {}
@@ -88,6 +89,7 @@ export class DashboardComponent implements OnInit {
         this.statisticService
             .getHoursOrders()
             .then(hours => {
+                console.log(hours);
                 this.hours = hours;
                 let arrHours = [
                     this.hours[0].count,
@@ -149,6 +151,7 @@ export class DashboardComponent implements OnInit {
             .getWeekOrders()
             .then(orders => {
                 this.orders = orders;
+                this.todayCountOrders = this.orders[6].count;
                 let arrOrders = [
                     this.orders[0].count,
                     this.orders[1].count,
