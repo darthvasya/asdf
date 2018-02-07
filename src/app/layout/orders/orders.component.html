@@ -94,7 +94,9 @@
                                     <div class="media-body">
                                         <h4 class="media-heading text-left">{{item.shopItem.name}}</h4>
                                         <p class="text-left font-weight-light">{{item.shopItem.description}}</p>
-                                        <p class="text-left">{{item.size.name}} ({{item.size.measureValue}}{{item.size.measure}} * {{item.count}} штук * {{item.size.price}} р ) = {{item.totalPrice}} р</p>
+                                        <p>{{item.size.name}}</p>
+                                        <p class="text-left">{{item.size.measureValue}} {{item.size.measure}} * {{item.count}} штук = {{item.size.measureValue*item.count}} {{item.size.measure}}</p>
+                                        <p class="text-left">{{item.size.price}} р * {{item.count}} штук = {{item.totalPrice}} р</p>
                                     </div>
                                 </div>
                                 <hr> Сумма заказа:
