@@ -13,15 +13,10 @@
                     <div *ngIf="errorMessage" class="alert alert-danger">
                         <div>{{errorMessage}}</div>
                     </div>
-                    <div *ngIf="validationError.email.status" class="alert alert-warning">
-                        <!-- <div>{{validationError.email.message}}</div> -->
+                    <div *ngIf="validationError.tel.status" class="alert alert-warning">
                         <div>
-                            <p>Телефон введен неверно</p>
+                            <p>{{validationError.tel.message}}</p>
                         </div>
-                    </div>
-                    <div *ngIf="validationError.password.status" class="alert alert-warning">
-                        <!-- <div>{{validationError.password.message}}</div> -->
-                        <div>{{validationError.password.message}}</div>
                     </div>
                     <div class="card-footer">
                         <div class="row">
@@ -33,8 +28,6 @@
                                     <input [(ngModel)]="settings.StartWorkingDayDateTime" type="time">
                                 </div>
                             </div>
-
-
                             <div class="block col-lg-12">
                                 <div class="col-lg-6">
                                     <h4>Время окончания работы:</h4>
@@ -49,7 +42,7 @@
                                     <h4>Контактный номер:</h4>
                                 </div>
                                 <div class="col-lg-2">
-                                    <input class="" type="tel" [(ngModel)]="settings.ManagerPhone" name="tel" (input)="validateTel()" placeholder="Последние 9 цифр" maxlength="9">
+                                    <input class="" type="tel" [(ngModel)]="settings.ManagerPhone" name="tel" (input)="validateTel()" placeholder="+375..." maxlength="13">
                                 </div>
                             </div>
                             <div class="block col-lg-12">

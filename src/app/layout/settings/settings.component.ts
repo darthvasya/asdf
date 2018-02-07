@@ -15,14 +15,10 @@ import { Settings } from "./../../shared/models/Settings"
 export class SettingsComponent implements OnInit {
     settings = new Settings(null, null, "");
     validationError = {
-        email: {
+        tel: {
           status: false,
           message: '',
-        },
-        password: {
-          status: false,
-          message: '',
-        },
+        }
       };
       errorMessage = '';
     constructor(
@@ -92,28 +88,44 @@ export class SettingsComponent implements OnInit {
     validateTel() {
     let tel = this.settings.ManagerPhone;
 
-    let regxp29 =  /^([2]{1})([9]{1})([0-9]{7})$/i;
-    let regxp33 =  /^([3]{1})([3]{1})([0-9]{7})$/i;
-    let regxp44 =  /^([4]{1})([4]{1})([0-9]{7})$/i;
+    let regxp29 =  /^([+]{1})([3]{1})([7]{1})([5]{1})([2]{1})([9]{1})/i;
+    let regxp33 =  /^([+]{1})([3]{1})([7]{1})([5]{1})([3]{1})([3]{1})/i;
+    let regxp44 =  /^([+]{1})([3]{1})([7]{1})([5]{1})([4]{1})([4]{1})/i;
 
-    if (!tel || (tel.length < 1 || tel.length > 9) || ((!regxp29.test(tel)&&(!regxp33.test(tel)&&(!regxp44.test(tel)))))) {
+    if (!tel || (tel.length < 1) || ((!regxp29.test(tel)&&(!regxp33.test(tel)&&(!regxp44.test(tel)))))) {
         if (!tel) {
-            this.validationError.email.status = true;
-            this.validationError.email.message = 'Введите номер';
+            this.validationError.tel.status = true;
+            this.validationError.tel.message = 'Введите номер';
+            console.log(1);
+            return false;
         }
-        if (tel.length < 1 || tel.length > 9) {
-            this.validationError.email.status = true;
-            this.validationError.email.message = 'Номер должен быть не менее 1 и не более 9 символов';
-        }
-        if ((!regxp29.test(tel)&&(!regxp33.test(tel)&&(!regxp44.test(tel))))) {
-            this.validationError.email.status = true;
-            this.validationError.email.message = 'Необходимо начинать ввод с 29, 33 или 44';
+        if (!regxp29.test(tel))
+        {
+            console.log(2.1);
+            if(!regxp33.test(tel))
+            {
+                console.log(2.2);
+                if(!regxp44.test(tel)) {
+                    this.validationError.tel.status = true;
+                    this.validationError.tel.message = 'Необходимо начинать ввод с +37529, +37533 или +37544';
+                    console.log(2.3);
+                    return false;
             }
+        }
+
+
+        }
+        else if (tel.length < 1 && tel.length < 13) {
+            this.validationError.tel.status = true;
+            this.validationError.tel.message = 'Номер должен состоять из 13 символов';
+            console.log(3);
+            return false;
+        }
+
         } else {
-            this.validationError.email.status = false;
-            this.validationError.email.message = 'Валидный';
+            this.validationError.tel.status = false;
+            this.validationError.tel.message = 'Валидный';
             return true;
         }
-        return false;
     }
 }
