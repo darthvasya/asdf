@@ -13,7 +13,7 @@ import { Settings } from "./../../shared/models/Settings"
     styleUrls: ["./settings.component.css"]
 })
 export class SettingsComponent implements OnInit {
-    settings = new Settings(null, null, "");
+    settings = new Settings(null, null, "", "");
     validationError = {
         tel: {
           status: false,
@@ -41,7 +41,7 @@ export class SettingsComponent implements OnInit {
                 this.settings.ManagerPhone = data["managerPhone"];
                 this.settings.StartWorkingDayDateTime = this.formatDate(new Date(data["startWorkingDayDateTime"]));
                 this.settings.EndWorkingDayDateTime = this.formatDate(new Date(data["endWorkingDayDateTime"]));
-
+                this.settings.ShopChat = data["shopChat"];
                 this.loaderService.display(false);
             })
             .catch(err => {
