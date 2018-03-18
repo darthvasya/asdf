@@ -23,12 +23,7 @@ export class CategoryEditComponent implements OnInit {
     }
 
     editCategory() {
-        if(this.category.categoryId === undefined || this.category.categoryId === null) {
-            this.updateCategoryModel.CategoryId = this.category.id;
-        } else {
-            this.updateCategoryModel.CategoryId = this.category.categoryId;
-        }
-
+        this.updateCategoryModel.CategoryId = this.category.id;
         this.categoryService.editCategory(this.updateCategoryModel)
         .then((data) => {
             this.category.categoryName = this.updateCategoryModel.CategoryName;
