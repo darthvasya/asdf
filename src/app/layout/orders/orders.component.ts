@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit,Injectable, Inject } from "@angular/core";
+import { Component, ViewChild, OnInit,Injectable, Inject, ElementRef, AfterViewInit } from "@angular/core";
 
 import { LoaderService } from "./../../shared/core/loader.service";
 import { NotificationService } from "./../../shared/core/notification.service";
@@ -7,6 +7,8 @@ import { SignalRService } from "./../../shared/core/signalr.service";
 import { HelperService } from "./../../shared/core/helper.service";
 
 import { APP_CONFIG } from "../../shared/configs/app.config";
+
+import { PushNotificationComponent } from "./../../shared/components/push/push";
 
 import * as _ from "lodash";
 declare const $: any;
@@ -27,6 +29,8 @@ export class OrdersComponent implements OnInit {
     orders: any;
     ordering: boolean = true;
     currentPredicate: any;
+
+    notification = new PushNotificationComponent();
 
     audio: any;
 
@@ -57,14 +61,27 @@ export class OrdersComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.httpConnection = new HttpConnection(`${this.config.endpoint}/ordersHub`);
+
+        this.notification.title = "Ubot - Менеджер";
+        this.notification.body = "Получен новый заказ!!!";
+        this.notification.icon = "./../assets/img/cat.jpg";
+        this.notification.onClick.subscribe(() => {
+            window.open("https://ubot-beta.herokuapp.com/orders");
+        });
+
+        this.httpConnection = new HttpConnection(
+            `${this.config.endpoint}/ordersHub`
+        );
         this.hubConnection = new HubConnection(this.httpConnection);
         this.hubConnection
             .start()
             .then(() => {
                 console.log("Connection started!");
                 // Тут вместо 1 надо отправить id магаза
-                this.hubConnection.invoke("registerConnection", this.authService.userData.shopId);
+                this.hubConnection.invoke(
+                    "registerConnection",
+                    this.authService.userData.shopId
+                );
             })
             .catch(err =>
                 console.log("Error while establishing connection :((")
@@ -92,6 +109,7 @@ export class OrdersComponent implements OnInit {
             this.audio.load();
             // auto-start
             this.audio.play();
+            this.notification.show();
         });
 
         this.hubConnection.on("Heartbeat", data => {
@@ -118,7 +136,8 @@ export class OrdersComponent implements OnInit {
     }
 
     loadOrders() {
-        this.filterModel.pageSize = (this.filterModel.pageSize >= 5) ? this.filterModel.pageSize : 5;
+        this.filterModel.pageSize =
+            this.filterModel.pageSize >= 5 ? this.filterModel.pageSize : 5;
         this.loaderService.display(true);
         this.ordersService
             .getOrders(this.page, this.filterModel.pageSize, false, false)
@@ -135,8 +154,7 @@ export class OrdersComponent implements OnInit {
 
     changeStatus(orderId: number, statusId: number, waitingTime: number) {
         this.loaderService.display(true);
-        if(statusId !== 1)
-            waitingTime = -1;
+        if (statusId !== 1) waitingTime = -1;
 
         this.ordersService
             .changeStatus(orderId, statusId, waitingTime)
@@ -150,16 +168,14 @@ export class OrdersComponent implements OnInit {
                     order.orderReadyTime = null;
                 }
 
-                if(statusId === 2) {
+                if (statusId === 2) {
                     order.orderReadyTime = null;
                     order.orderIssuedTime = null;
                     order.orderAcceptTime = null;
                 }
 
-                if(statusId === 3)
-                    order.orderReadyTime = new Date();
-                if(statusId === 4)
-                    order.orderIssuedTime = new Date();
+                if (statusId === 3) order.orderReadyTime = new Date();
+                if (statusId === 4) order.orderIssuedTime = new Date();
             })
             .catch(err => {
                 this.loaderService.display(false);
@@ -192,7 +208,6 @@ export class OrdersComponent implements OnInit {
     isDate(value) {
         if (isNaN(value.getTime()))
             return false; //date is invalid
-        else
-            return value instanceof Date;
+        else return value instanceof Date;
     }
 }
