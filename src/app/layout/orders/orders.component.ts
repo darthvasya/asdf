@@ -28,6 +28,8 @@ export class OrdersComponent implements OnInit {
     ordering: boolean = true;
     currentPredicate: any;
 
+    audio: any;
+
     statuses: any = [];
     filterModel: any = {
         all: true,
@@ -84,6 +86,12 @@ export class OrdersComponent implements OnInit {
                 "Получен новый заказ!",
                 "success"
             );
+
+            this.audio = new Audio();
+            this.audio.src = "./../assets/audio/ring.mp3";
+            this.audio.load();
+            // auto-start
+            this.audio.play();
         });
 
         this.hubConnection.on("Heartbeat", data => {
